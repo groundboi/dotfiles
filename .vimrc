@@ -10,7 +10,6 @@ set smartindent             " better autoindent (e.g. after parens...)
 set number                  " show line numbers
 set cursorline              " show cursor line
 set showmatch               " highlight matching parens/brackets
-set hlsearch                " highlight search matches
 set lazyredraw              " redraw screen only when needed
 set wildmenu                " autocomplete for commands
 set splitbelow              " default horizontal split is below
@@ -22,8 +21,10 @@ set background=dark         " use brighter colors
 " set showcmd               " show partial commands in last line
 set ruler                   " show file stats
 set encoding=utf-8
-" set ignorecase
-" set smartcase             " case-incensitive searching, unless there is a capital
+set hlsearch                " highlight search matches
+set ignorecase              " ignore case
+set incsearch               " show partial matches as typing
+set smartcase               " case-incensitive searching, unless there is a capital
 " set showmode              " show current mode
 
 
