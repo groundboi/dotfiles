@@ -25,7 +25,29 @@ set hlsearch                " highlight search matches
 set ignorecase              " ignore case
 set incsearch               " show partial matches as typing
 set smartcase               " case-incensitive searching, unless there is a capital
+set ttymouse=xterm2         " Useful for using mouse to change window size when in tmux
 " set showmode              " show current mode
+set undofile                " Persistent undo history
+set undodir=~/.vim/undodir  " Don't clog working dir with undo history file (undodir must exist)
+
+
+" Determines whether to use spaces or tabs on the current buffer.
+function TabsOrSpaces()
+     if getfsize(bufname("%")) > 256000
+         " File is very large, just use the default.
+         return
+     endif
+
+    let numTabs=len(filter(getbufline(bufname("%"),1, 250), 'v:val =~ "^\\t"'))
+    let numSpaces=len(filter(getbufline(bufname("%"),1, 250), 'v:val =~ "^ "'))
+
+    if numTabs > numSpaces
+        setlocal noexpandtab
+    endif
+endfunction
+
+" Call the function after opening a buffer
+autocmd BufReadPost * call TabsOrSpaces()
 
 
 " Useful plugins:
@@ -33,3 +55,4 @@ set smartcase               " case-incensitive searching, unless there is a capi
 "   NERD tree
 "   vim-gitgutter
 "   Tagbar
+"   undotree
