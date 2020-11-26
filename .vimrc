@@ -31,6 +31,17 @@ set undofile                " Persistent undo history
 set undodir=~/.vim/undodir  " Don't clog working dir with undo history file (undodir must exist)
 
 
+" The following makes insert mode completion easier. See :h ins-completion
+" Though note, ^n already works in insert mode out of the box...
+" Also see the CleverTab function in help documentation
+" Note: CRTL-Y will accept a completion, CRTL-E will cancel completion
+"
+" inoremap ^] ^X^]          " tag-based completion
+" inoremap ^F ^X^F          " filename-based completion
+" inoremap ^D ^X^D          " definition/macro-based completion
+" inoremap ^L ^X^L          " line-based completion
+
+
 " Determines whether to use spaces or tabs on the current buffer.
 function TabsOrSpaces()
      if getfsize(bufname("%")) > 256000
@@ -50,9 +61,9 @@ endfunction
 autocmd BufReadPost * call TabsOrSpaces()
 
 
-" Useful plugins:
+" Potentially useful plugins:
 "   fugitive
 "   NERD tree
 "   vim-gitgutter
 "   Tagbar
-"   undotree
+"   undotree?
