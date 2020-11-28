@@ -29,6 +29,7 @@ set ttymouse=xterm2             " Useful for using mouse to change window size w
 " set showmode                  " show current mode
 set undofile                    " Persistent undo history
 set undodir=~/.vim/undodir      " Don't clog working dir with undo history file (undodir must exist)
+set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 
 
 "
