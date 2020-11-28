@@ -55,6 +55,17 @@ inoremap <C-F> <C-X><C-F>
 inoremap <C-D> <C-X><C-D>
 inoremap <C-L> <C-X><C-L>
 
+"
+" The following maps S (redundent due to cc) as 'search' which will
+" grep for the current word under the cursor in the entire project
+" (ignoring binary files and tags), and populate the quickfix list
+" with results. Note vimgrep was too slow...
+"
+" Tip: In the quickfix list, you can remove non-interesting lines by
+" doing :set modifiable, remove lines, then :cgetbuf. The quickfix
+" list will then work as expected
+"
+nnoremap S :silent grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
 
 "
 " Determines whether to use spaces or tabs on the current buffer.
