@@ -2,3 +2,8 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[alias]
+	# This one may need some work...still not ideal
+	diffall = "! for name in $(git diff --name-only $1); do git difftool $1 $name; done"
+	# Note that git alias shell commands are always run from the top level directory of the repo
+	checkout-gen-tags = !sh -c 'git checkout $1 && ctags -R .' -

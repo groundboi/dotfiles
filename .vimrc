@@ -56,6 +56,14 @@ inoremap <C-D> <C-X><C-D>
 inoremap <C-L> <C-X><C-L>
 
 "
+" Map CTRL-h, j, k, l to navigate between splits
+"
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+"
 " The following maps S (redundent due to cc) as 'search' which will
 " grep for the current word under the cursor in the entire project
 " (ignoring binary files and tags), and populate the quickfix list
