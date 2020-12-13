@@ -30,14 +30,15 @@ set undofile                    " Persistent undo history
 set undodir=~/.vim/undodir      " Don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=10                " Display some context lines when scrolling
-" set formatoptions-=r          " Disable automatic comment insertion when adding newline from comment
-" set formatoptions-=o          " Disable automatic comment insertion when using o/O from comment
+
+" Note: To change formatting options for a specific filetype, create a file
+" such as ~/.vim/after/ftplugin/c.vim and add lines such as the following:
+"   setlocal formatoptions-=r   " Disable automatic comment insertion when adding newline from comment
+"   setlocal formatoptions-=o   " Disable automatic comment insertion when using o/O from comment
 
 
-"
 " The following provides NERDtree-like project browsing using the
 " built-in netrw. See :h netrw for more usage info. Call :Vex(plore)
-"
 let g:netrw_banner = 0          " Get rid of the default help banner at the top
 let g:netrw_liststyle = 3       " Use the tree-style listing (can cycle with i)
 let g:netrw_browse_split = 4    " When opening a file, use previous window
@@ -45,33 +46,26 @@ let g:netrw_altv = 1            " Split on left
 let g:netrw_winsize = 20        " Window size for left split
 
 
-"
 " The following makes insert mode completion easier. See :h ins-completion
-" Though note, ^n already works in insert mode out of the box...
-" Also see the CleverTab function in help documentation
+" Note CTRL-N already works in insert mode out of the box.
+" Also see the CleverTab function in help documentation.
 " Note: CRTL-Y will accept a completion, CRTL-E will cancel completion
 " The order of the below are: tag, filename, def/macro, and line completion
-"
 inoremap <C-]> <C-X><C-]>
 inoremap <C-F> <C-X><C-F>
 inoremap <C-D> <C-X><C-D>
 inoremap <C-L> <C-X><C-L>
 
-"
 " Map CTRL-h, j, k, l to navigate between splits
-"
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-"
 " Map tab, shift-tab to cycle buffers
-"
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
-"
 " The following maps S (redundent due to cc) as 'search' which will
 " grep for the current word under the cursor in the entire project
 " (ignoring binary files and tags), and populate the quickfix list
@@ -80,23 +74,18 @@ nnoremap <S-Tab> :bprevious<CR>
 " Tip: In the quickfix list, you can remove non-interesting lines by
 " doing :set modifiable, remove lines, then :cgetbuf. The quickfix
 " list will then work as expected
-"
 nnoremap S :silent grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
 
-"
 " Determines whether to use spaces or tabs on the current buffer.
 " Useful for projects where different files of the same filetype use
 " different tab conventions (ugh)
-"
 function TabsOrSpaces()
      if getfsize(bufname("%")) > 256000
          " File is very large, just use the default.
          return
      endif
-
     let numTabs=len(filter(getbufline(bufname("%"),1, 250), 'v:val =~ "^\\t"'))
     let numSpaces=len(filter(getbufline(bufname("%"),1, 250), 'v:val =~ "^ "'))
-
     if numTabs > numSpaces
         setlocal noexpandtab
     endif
@@ -106,10 +95,10 @@ endfunction
 autocmd BufReadPost * call TabsOrSpaces()
 
 
-" The following plugins may be useful, but always remember to look
+" The following plugins may be useful, but remember to look
 " for vim built-in functionality first...
 "       fugitive
 "       NERD tree
 "       vim-gitgutter
 "       Tagbar
-"       undotree?
+"       undotree
