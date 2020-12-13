@@ -12,6 +12,7 @@ set cursorline                  " show cursor line
 set showmatch                   " highlight matching parens/brackets
 set lazyredraw                  " redraw screen only when needed
 set wildmenu                    " autocomplete for commands
+" set wildmode=list             " Don't auto-fill the first match when tab completing buffer names
 set splitbelow                  " default horizontal split is below
 set splitright                  " default vertical split is right
 set hidden                      " allow hidden buffers
@@ -30,6 +31,9 @@ set ttymouse=xterm2             " Useful for using mouse to change window size w
 set undofile                    " Persistent undo history
 set undodir=~/.vim/undodir      " Don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
+set scrolloff=10                " Display some context lines when scrolling
+" set formatoptions-=r          " Disable automatic comment insertion when adding newline from comment
+" set formatoptions-=o          " Disable automatic comment insertion when using o/O from comment
 
 
 "
@@ -62,6 +66,12 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+"
+" Map tab, shift-tab to cycle buffers
+"
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 "
 " The following maps S (redundent due to cc) as 'search' which will
