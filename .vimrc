@@ -12,14 +12,13 @@ set cursorline                  " show cursor line
 set showmatch                   " highlight matching parens/brackets
 set lazyredraw                  " redraw screen only when needed
 set wildmenu                    " autocomplete for commands
-" set wildmode=list             " Don't auto-fill the first match when tab completing buffer names
+set wildmode=list:longest       " Don't auto-fill the first match when tab completing buffer names
 set splitbelow                  " default horizontal split is below
 set splitright                  " default vertical split is right
 set hidden                      " allow hidden buffers
 set mouse=a                     " enable mouse support
 match Error /\s\+$/             " error-highlight trailing whitespace
 set background=dark             " use brighter colors
-" set showcmd                   " show partial commands in last line
 set ruler                       " show file stats
 set encoding=utf-8
 set hlsearch                    " highlight search matches
@@ -27,7 +26,6 @@ set ignorecase                  " ignore case
 set incsearch                   " show partial matches as typing
 set smartcase                   " case-incensitive searching, unless there is a capital
 set ttymouse=xterm2             " Useful for using mouse to change window size when in tmux
-" set showmode                  " show current mode
 set undofile                    " Persistent undo history
 set undodir=~/.vim/undodir      " Don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
