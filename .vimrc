@@ -32,9 +32,11 @@ set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=10                " Display some context lines when scrolling
 
 " Note: To change formatting options for a specific filetype, create a file
-" such as ~/.vim/after/ftplugin/c.vim and add lines such as the following:
-"   setlocal formatoptions-=r   " Disable automatic comment insertion when adding newline from comment
-"   setlocal formatoptions-=o   " Disable automatic comment insertion when using o/O from comment
+" such as ~/.vim/after/ftplugin/python.vim and add lines such as the following:
+"   setlocal formatoptions=cqa  " Auto wrap on comments only
+"   setlocal formatoptions+=o   " Auto add comment leader on a o/O newline
+"   setlocal formatoptions+=r   " Auto add comment leader on a <CR> newline
+"   setlocal textwidth=80       " Textwidth for comment autowrapping
 
 
 " The following provides NERDtree-like project browsing using the
