@@ -82,6 +82,9 @@ if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     " Note ag will respect .gitignore, so make sure tags file is in there!
     nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
+    " Binds \ to ag shortcut
+    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap \ :Ag<SPACE>
 else
     nnoremap S :grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
 endif
