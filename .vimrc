@@ -32,10 +32,8 @@ set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=10                " Display some context lines when scrolling
 
 " Note: To change formatting options for a specific filetype, create a file
-" such as ~/.vim/after/ftplugin/python.vim and add lines such as the following:
-"   setlocal formatoptions=cqa  " Auto wrap on comments only
-"   setlocal formatoptions+=o   " Auto add comment leader on a o/O newline
-"   setlocal formatoptions+=r   " Auto add comment leader on a <CR> newline
+" ~/.vim/after/ftplugin/python.vim and add lines such as the following:
+"   setlocal formatoptions=cqa  " Auto wrap on comments only, don't autoinsert comment leaders with o/r
 "   setlocal textwidth=80       " Textwidth for comment autowrapping
 
 
@@ -68,6 +66,10 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
+" Cycle through quickfix list with left/right arrows
+nnoremap <silent> <RIGHT> :cnext<CR>
+nnoremap <silent> <LEFT> :cprev<CR>
+
 " The following maps S (redundent due to cc) as 'search' which will
 " grep for the current word under the cursor in the entire project
 " (ignoring binary files and tags), and populate the quickfix list
@@ -76,7 +78,13 @@ nnoremap <S-Tab> :bprevious<CR>
 " Tip: In the quickfix list, you can remove non-interesting lines by
 " doing :set modifiable, remove lines, then :cgetbuf. The quickfix
 " list will then work as expected
-nnoremap S :silent grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+    " Note ag will respect .gitignore, so make sure tags file is in there!
+    nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
+else
+    nnoremap S :grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
+endif
 
 " Determines whether to use spaces or tabs on the current buffer.
 " Useful for projects where different files of the same filetype use
