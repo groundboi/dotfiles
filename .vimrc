@@ -92,9 +92,9 @@ else
     vnoremap S y:grep! -RI --exclude=tags \"<C-R>"\"<CR>:cw<CR>
 endif
 
-" Determines whether to use spaces or tabs on the current buffer.
-" Useful for projects where different files of the same filetype use
-" different tab conventions (ugh)
+" Determines whether to use spaces or tabs on the current buffer.  Useful for
+" projects where different files of the same filetype use different tab
+" conventions (ugh)
 function TabsOrSpaces()
      if getfsize(bufname("%")) > 256000
          " File is very large, just use the default.
@@ -106,24 +106,26 @@ function TabsOrSpaces()
         setlocal noexpandtab
     endif
 endfunction
-
-" Call the function after opening a buffer
 autocmd BufReadPost * call TabsOrSpaces()
 
-" TODO: Might want to call this functon in a autocmd BufEnter, and save the
-" local buffer's git branch to a global, and use that. Otherwise, a system()
-" call is made on each keystroke to update the status line...
-"function StatuslineBranch()
-"    return system("git branch --show-current 2>/dev/null | tr -d '\n'")
-"endfunction
-"
+" Gets the current branch of the buffer, even if it's in an entirely different
+" git repo. Designed to avoid a system() call on each keystroke...
+function StatuslineBranch(...)
+    if a:0 == 1
+        let b:bname = system("git -C ".expand('%:p:h')." branch --show-current 2>/dev/null | tr -d '\n'")
+    endif
+    return get(b:, 'bname', '')
+endfunction
+autocmd BufEnter * call StatuslineBranch(1)
+
 " NOTE: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
 hi statusline ctermbg=black ctermfg=white
-" hi gitbranchhl ctermbg=white ctermfg=darkblue
+hi gitbranchhl ctermbg=white ctermfg=darkblue
 set laststatus=2
-"set statusline=\ %#gitbranchhl#
-"set statusline+=%{StatuslineBranch()}
-set statusline=\ %f\ %m\ %r
+set statusline=\ %#gitbranchhl#
+set statusline+=%{StatuslineBranch()}
+set statusline+=%#statusline#
+set statusline+=\ %f\ %m\ %r
 set statusline+=%=
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
