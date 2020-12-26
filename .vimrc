@@ -40,7 +40,6 @@ packadd! matchit                " Nicer use of %
 " TODO: Set formatting as desired for filetypes, as described above!
 map Q gq
 
-
 " The following provides NERDtree-like project browsing using the
 " built-in netrw. See :h netrw for more usage info. Call :Vex(plore)
 let g:netrw_banner = 0          " Get rid of the default help banner at the top
@@ -48,7 +47,6 @@ let g:netrw_liststyle = 3       " Use the tree-style listing (can cycle with i)
 let g:netrw_browse_split = 4    " When opening a file, use previous window
 let g:netrw_altv = 1            " Split on left
 let g:netrw_winsize = 20        " Window size for left split
-
 
 " The following makes insert mode completion easier. See :h ins-completion
 " Note CTRL-N already works in insert mode out of the box.
@@ -74,25 +72,24 @@ nnoremap <S-Tab> :bprevious<CR>
 nnoremap <silent> <RIGHT> :cnext<CR>
 nnoremap <silent> <LEFT> :cprev<CR>
 
-" The following maps S (redundent due to cc) as 'search' which will
-" grep for the current word under the cursor in the entire project
-" (ignoring binary files and tags), and populate the quickfix list
-" with results. Note vimgrep was too slow...
+" The following maps normal mode S (redundent due to cc) as 'search' which
+" will grep for the current word under the cursor in the entire project
+" (ignoring binary files and tags), and populate the quickfix list with
+" results. Similarly for a visual mode selection with S
 "
-" Tip: In the quickfix list, you can remove non-interesting lines by
-" doing :set modifiable, remove lines, then :cgetbuf. The quickfix
-" list will then work as expected
-" TODO: At some point, would be nice to add a visual mode map to do the same
-" thing for a selection
+" Tip: In the quickfix list, you can remove non-interesting lines by doing
+" :set modifiable, remove lines, then :cgetbuf. The quickfix list will then
+" work as expected
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
-    " Note ag will respect .gitignore, so make sure tags file is in there!
-    nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
-    " Binds \ to ag shortcut
+    nnoremap S :grep! --ignore=tags -s <C-R><C-W><CR>:cw<CR>
     command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
     nnoremap \ :Ag<SPACE>
+    vnoremap S y:Ag --ignore=tags \"<C-R>"\"<CR>:cw<CR>
 else
     nnoremap S :grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
+    nnoremap \ :grep!<SPACE>
+    vnoremap S y:grep! -RI --exclude=tags \"<C-R>"\"<CR>:cw<CR>
 endif
 
 " Determines whether to use spaces or tabs on the current buffer.
@@ -113,7 +110,7 @@ endfunction
 " Call the function after opening a buffer
 autocmd BufReadPost * call TabsOrSpaces()
 
-" TODO: Might want to call this functon in a aucmd BufEnter, and save the
+" TODO: Might want to call this functon in a autocmd BufEnter, and save the
 " local buffer's git branch to a global, and use that. Otherwise, a system()
 " call is made on each keystroke to update the status line...
 "function StatuslineBranch()
@@ -121,16 +118,13 @@ autocmd BufReadPost * call TabsOrSpaces()
 "endfunction
 "
 " NOTE: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
-"hi statusline ctermbg=black ctermfg=white
-"hi gitbranchhl ctermbg=white ctermfg=darkgreen
-"set laststatus=2
+hi statusline ctermbg=black ctermfg=white
+" hi gitbranchhl ctermbg=white ctermfg=darkblue
+set laststatus=2
 "set statusline=\ %#gitbranchhl#
 "set statusline+=%{StatuslineBranch()}
-"set statusline+=%#statusline#
-"set statusline+=\ %f\ %m\ %r
-"set statusline+=%=
-"set statusline+=\ %y
-"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"set statusline+=\ %l/%L\ 
-
-" TODO: Look into cscope integration? Or alternatives
+set statusline=\ %f\ %m\ %r
+set statusline+=%=
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ %l/%L\ %p%%\ 
