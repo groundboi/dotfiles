@@ -1,4 +1,5 @@
 set nocompatible                " not vi compatible
+set background=dark             " use brighter colors
 syntax enable                   " syntax highlighting
 filetype plugin indent on       " filetype-based syntax highlighting
 set tabstop=4                   " width that a <TAB> char displays as
@@ -18,8 +19,6 @@ set splitright                  " default vertical split is right
 set hidden                      " allow hidden buffers
 set mouse=a                     " enable mouse support
 match Error /\s\+$/             " error-highlight trailing whitespace
-set background=dark             " use brighter colors
-set ruler                       " show file stats
 set encoding=utf-8
 set hlsearch                    " highlight search matches
 set ignorecase                  " ignore case
@@ -30,11 +29,16 @@ set undofile                    " Persistent undo history
 set undodir=~/.vim/undodir      " Don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=10                " Display some context lines when scrolling
+packadd! matchit                " Nicer use of %
 
 " Note: To change formatting options for a specific filetype, create a file
 " ~/.vim/after/ftplugin/python.vim and add lines such as the following:
 "   setlocal formatoptions=cqa  " Auto wrap on comments only, don't autoinsert comment leaders with o/r
 "   setlocal textwidth=80       " Textwidth for comment autowrapping
+
+" Format text with the gq operator
+" TODO: Set formatting as desired for filetypes, as described above!
+map Q gq
 
 
 " The following provides NERDtree-like project browsing using the
@@ -78,6 +82,8 @@ nnoremap <silent> <LEFT> :cprev<CR>
 " Tip: In the quickfix list, you can remove non-interesting lines by
 " doing :set modifiable, remove lines, then :cgetbuf. The quickfix
 " list will then work as expected
+" TODO: At some point, would be nice to add a visual mode map to do the same
+" thing for a selection
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     " Note ag will respect .gitignore, so make sure tags file is in there!
@@ -107,11 +113,24 @@ endfunction
 " Call the function after opening a buffer
 autocmd BufReadPost * call TabsOrSpaces()
 
+" TODO: Might want to call this functon in a aucmd BufEnter, and save the
+" local buffer's git branch to a global, and use that. Otherwise, a system()
+" call is made on each keystroke to update the status line...
+"function StatuslineBranch()
+"    return system("git branch --show-current 2>/dev/null | tr -d '\n'")
+"endfunction
+"
+" NOTE: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
+"hi statusline ctermbg=black ctermfg=white
+"hi gitbranchhl ctermbg=white ctermfg=darkgreen
+"set laststatus=2
+"set statusline=\ %#gitbranchhl#
+"set statusline+=%{StatuslineBranch()}
+"set statusline+=%#statusline#
+"set statusline+=\ %f\ %m\ %r
+"set statusline+=%=
+"set statusline+=\ %y
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\ %l/%L\ 
 
-" The following plugins may be useful, but remember to look
-" for vim built-in functionality first...
-"       fugitive
-"       NERD tree
-"       vim-gitgutter
-"       Tagbar
-"       undotree
+" TODO: Look into cscope integration? Or alternatives
