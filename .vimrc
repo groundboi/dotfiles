@@ -28,7 +28,7 @@ set ttymouse=xterm2             " useful for using mouse to change window size w
 set undofile                    " persistent undo history
 set undodir=~/.vim/undodir      " don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
-set scrolloff=10                " display some context lines when scrolling
+set scrolloff=5                 " display some context lines when scrolling
 packadd! matchit                " nicer use of %
 
 " Note: To change formatting options for a specific filetype, create a file
