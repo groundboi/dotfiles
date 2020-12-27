@@ -13,7 +13,7 @@ set cursorline                  " show cursor line
 set showmatch                   " highlight matching parens/brackets
 set lazyredraw                  " redraw screen only when needed
 set wildmenu                    " autocomplete for commands
-set wildmode=list:longest       " Don't auto-fill the first match when tab completing buffer names
+set wildmode=list:longest       " don't auto-fill the first match when tab completing buffer names
 set splitbelow                  " default horizontal split is below
 set splitright                  " default vertical split is right
 set hidden                      " allow hidden buffers
@@ -24,24 +24,23 @@ set hlsearch                    " highlight search matches
 set ignorecase                  " ignore case
 set incsearch                   " show partial matches as typing
 set smartcase                   " case-incensitive searching, unless there is a capital
-set ttymouse=xterm2             " Useful for using mouse to change window size when in tmux
-set undofile                    " Persistent undo history
-set undodir=~/.vim/undodir      " Don't clog working dir with undo history file (undodir must exist)
+set ttymouse=xterm2             " useful for using mouse to change window size when in tmux
+set undofile                    " persistent undo history
+set undodir=~/.vim/undodir      " don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
-set scrolloff=10                " Display some context lines when scrolling
-packadd! matchit                " Nicer use of %
+set scrolloff=10                " display some context lines when scrolling
+packadd! matchit                " nicer use of %
 
 " Note: To change formatting options for a specific filetype, create a file
 " ~/.vim/after/ftplugin/python.vim and add lines such as the following:
 "   setlocal formatoptions=cqa  " Auto wrap on comments only, don't autoinsert comment leaders with o/r
 "   setlocal textwidth=80       " Textwidth for comment autowrapping
 
-" Format text with the gq operator
-" TODO: Set formatting as desired for filetypes, as described above!
+" Easier format text with the gq operator
 map Q gq
 
-" The following provides NERDtree-like project browsing using the
-" built-in netrw. See :h netrw for more usage info. Call :Vex(plore)
+" The following provides NERDtree-like project browsing using the built-in
+" netrw. See :h netrw for more usage info. Call :Vex(plore)
 let g:netrw_banner = 0          " Get rid of the default help banner at the top
 let g:netrw_liststyle = 3       " Use the tree-style listing (can cycle with i)
 let g:netrw_browse_split = 4    " When opening a file, use previous window
@@ -49,10 +48,10 @@ let g:netrw_altv = 1            " Split on left
 let g:netrw_winsize = 20        " Window size for left split
 
 " The following makes insert mode completion easier. See :h ins-completion
-" Note CTRL-N already works in insert mode out of the box.
-" Also see the CleverTab function in help documentation.
-" Note: CRTL-Y will accept a completion, CRTL-E will cancel completion
-" The order of the below are: tag, filename, def/macro, and line completion
+" Note CTRL-N already works in insert mode out of the box. Also see the
+" CleverTab function in help documentation. Note: CRTL-Y will accept a
+" completion, CRTL-E will cancel completion. The order of the below are: tag,
+" filename, def/macro, and line completion
 inoremap <C-]> <C-X><C-]>
 inoremap <C-F> <C-X><C-F>
 inoremap <C-D> <C-X><C-D>
@@ -97,7 +96,6 @@ endif
 " conventions (ugh)
 function TabsOrSpaces()
      if getfsize(bufname("%")) > 256000
-         " File is very large, just use the default.
          return
      endif
     let numTabs=len(filter(getbufline(bufname("%"),1, 250), 'v:val =~ "^\\t"'))
@@ -118,7 +116,7 @@ function StatuslineBranch(...)
 endfunction
 autocmd BufEnter * call StatuslineBranch(1)
 
-" NOTE: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
+" Note: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
 hi statusline ctermbg=black ctermfg=white
 hi gitbranchhl ctermbg=white ctermfg=darkblue
 set laststatus=2
