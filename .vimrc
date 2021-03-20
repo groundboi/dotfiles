@@ -106,22 +106,51 @@ function TabsOrSpaces()
 endfunction
 autocmd BufReadPost * call TabsOrSpaces()
 
+" The following allows you to CTRL-P on a filename and view a git diff split view of
+" it, with source commit of REVIEW_BASE environment variable. This is useful for
+" code review. For example, you can use `git diff --name-only COMMIT | column | expand > diff.txt`
+" to generate the filename diff file, then REVIEW_BASE=COMMIT vim diff.txt, and CTRL-P
+" the filenames as desired.
+" TODO - this currently relies on fugitive's Gdiffsplit. Try to use vimdiff/git
+function DiffMe()
+    " Get filename, cur line number
+    let fname = expand("<cWORD>")
+    let curline = line('.')
+    
+    " Close all windows but current (i.e. only diff file window is open)
+    execute "only"
+    
+    " Jump back to stored line
+    execute curline
+    
+    " Save a few lines for the filename file
+    let splitheight = winheight(0)-8
+
+    " Open fname in split
+    execute "above ".splitheight."split " . fname
+    
+    " Use fugitive's Gdiffsplit against the env variable
+    let rbase = $REVIEW_BASE
+    execute "Gdiffsplit " . rbase
+endfunction
+nnoremap <C-P> :call DiffMe()<CR><C-W>l
+
 " Gets the current branch of the buffer, even if it's in an entirely different
 " git repo. Designed to avoid a system() call on each keystroke...
-function StatuslineBranch(...)
-    if a:0 == 1
-        let b:bname = system("git -C ".expand('%:p:h')." branch --show-current 2>/dev/null | tr -d '\n'")
-    endif
-    return get(b:, 'bname', '')
-endfunction
-autocmd BufEnter * call StatuslineBranch(1)
+"function StatuslineBranch(...)
+"    if a:0 == 1
+"        let b:bname = system("git -C ".expand('%:p:h')." branch --show-current 2>/dev/null | tr -d '\n'")
+"    endif
+"    return get(b:, 'bname', '')
+"endfunction
+"autocmd BufEnter * call StatuslineBranch(1)
 
 " Note: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
 hi statusline ctermbg=black ctermfg=white
 hi gitbranchhl ctermbg=white ctermfg=darkblue
 set laststatus=2
 set statusline=\ %#gitbranchhl#
-set statusline+=%{StatuslineBranch()}
+"set statusline+=%{StatuslineBranch()}
 set statusline+=%#statusline#
 set statusline+=\ %f\ %m\ %r
 set statusline+=%=
