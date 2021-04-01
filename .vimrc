@@ -111,27 +111,31 @@ autocmd BufReadPost * call TabsOrSpaces()
 " code review. For example, you can use `git diff --name-only COMMIT | column | expand > diff.txt`
 " to generate the filename diff file, then REVIEW_BASE=COMMIT vim diff.txt, and CTRL-P
 " the filenames as desired.
-" TODO - this currently relies on fugitive's Gdiffsplit. Try to use vimdiff/git
 function DiffMe()
-    " Get filename, cur line number
+    " Get filename, cur line number, base commit
     let fname = expand("<cWORD>")
+    " TODO - verify fname exists, bail if not
     let curline = line('.')
-    
-    " Close all windows but current (i.e. only diff file window is open)
-    execute "only"
-    
+    let rbase = $REVIEW_BASE
+
+    " Close all buffers but current (i.e. only diff file window is open)
+    execute "%bd! | e#"
+
     " Jump back to stored line
     execute curline
-    
+
     " Save a few lines for the filename file
     let splitheight = winheight(0)-8
 
-    " Open fname in split
+    " Open fname in split, get it ready for diff
     execute "above ".splitheight."split " . fname
-    
-    " Use fugitive's Gdiffsplit against the env variable
-    let rbase = $REVIEW_BASE
-    execute "Gdiffsplit " . rbase
+    execute "diffthis"
+
+    " Open new vertical split buffer with old version
+    execute "leftabove vnew | 0r ! git show ".rbase.":".fname
+    " Delete added newline at the end, get it ready for diff
+    execute "normal Gddgg"
+    execute "diffthis"
 endfunction
 nnoremap <C-P> :call DiffMe()<CR><C-W>l
 
