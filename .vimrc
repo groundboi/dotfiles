@@ -1,13 +1,12 @@
 set nocompatible                " not vi compatible
 set background=dark             " use brighter colors
 syntax enable                   " syntax highlighting
-filetype plugin indent on       " filetype-based syntax highlighting
+filetype plugin indent on       " filetype-based indentation
 set tabstop=4                   " width that a <TAB> char displays as
 set softtabstop=4               " backspace after pressing <TAB> will remove up to this many spaces
 set shiftwidth=4                " number of spaces to use for autoindent
 set expandtab                   " convert <TAB> keypress to spaces
 set autoindent                  " copy indent of current line when starting new line
-set smartindent                 " better autoindent (e.g. after parens...)
 set number                      " show line numbers
 set cursorline                  " show cursor line
 set showmatch                   " highlight matching parens/brackets
