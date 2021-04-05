@@ -130,9 +130,12 @@ function DiffMe()
     " Open fname in split, get it ready for diff
     execute "above ".splitheight."split " . fname
     execute "diffthis"
+    " Save off filetype for setting in in-memory git revision
+    let ft = &filetype
 
-    " Open new vertical split buffer with old version
+    " Open new vertical split buffer with old version, set filetype
     execute "leftabove vnew | 0r ! git show ".rbase.":".fname
+    execute "set filetype=".ft
     " Delete added newline at the end, get it ready for diff
     execute "normal Gddgg"
     execute "diffthis"
