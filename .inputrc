@@ -1,0 +1,13 @@
+# Config for GNU Readline
+
+# By default a "word" is only alphanumeric characters.  By changing the alt+f
+# binding from forward-word to shell-forward-word, we essentially use
+# whitespace as the delimiter
+"\ef":shell-forward-word
+
+# Likewise for backward-word
+"\eb":shell-backward-word
+
+# Likewise for deleting a word with alt+d. We could do the same with backward
+# kill, but I rarely use backward kill
+"\ed":shell-kill-word
