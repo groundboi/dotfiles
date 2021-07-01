@@ -62,6 +62,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * Much nicer inspection into HTTP requests and responses, and easier usage than tools like curl
   * `http google.com --print=HB` will show the request headers and body. Likewise, using `hb` will show the response headers and body
 * Heredoc example [here](bash_examples/heredoc.sh)
+* Bash conditional examples [here](bash_examples/conditionals.sh)
 
 ### Tools making their way through Debian `testing`
 
