@@ -61,6 +61,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * `http` (package name is `httpie`)
   * Much nicer inspection into HTTP requests and responses, and easier usage than tools like curl
   * `http google.com --print=HB` will show the request headers and body. Likewise, using `hb` will show the response headers and body
+* Heredoc example [here](bash_examples/heredoc.sh)
 
 ### Tools making their way through Debian `testing`
 
@@ -71,6 +72,5 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs
 * better xclip usage, and perhaps an alias like `clip` to pipe things into
 * alias for notify-send to do things like `my long running process && aliasname`
-* Heredocs in bash
 * rsync
 * parallel
