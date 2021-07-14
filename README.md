@@ -49,12 +49,13 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * Using `tldr <command>` gives you several examples of command usage
   * Also can visit https://tldr.sh
   * Note the `tldr` client may need to initially connect to a github repo to download the db. `tldr --update` can be used to update the db.
-### `fzf` (*note* - autocompletion via `**` does not appear to be in version on Debian stable at the moment)
+### `fzf`
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
   * `ctrl-j` and `ctrl-k` move cursor up and down
   * Quick `cd` by doing `cd **<TAB>` if autocomplete enabled. Or, if just keybindings enabled, simply do `alt-c`.
   * If keybindings enabled, `ctrl-t` is a shortcut for pasting selected dir/files on command line (I find this quicker than autocomplete with `**`)
   * Autocomplete works with `ssh **<TAB>`
+    * *Note* - autocompletion via `**` does not appear to be in version on Debian stable at the moment...
   * `kill <TAB>` to search pids to send signal to
   * `ctrl-r` is much nicer with key bindings enabled
   * Can pipe *into* fzf to search, say, history like `history | fzf`
