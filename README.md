@@ -75,3 +75,4 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * alias for notify-send to do things like `my long running process && aliasname`
 * rsync
 * parallel
+* tcpdump
