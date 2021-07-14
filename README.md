@@ -27,6 +27,8 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * `df -h --total -T` - print info space taken up by mounted file systems
 * `du -sh * | sort -h` - print total disk usage of current directory files and subdirs, sorted
 * `du -h -d1 | sort -h` - print total disk usage of depth-1 directories, sorted
+* Heredoc example [here](bash_examples/heredoc.sh)
+* Bash conditional examples [here](bash_examples/conditionals.sh)
 
 ### Git tips
 
@@ -74,8 +76,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * `-X` is a nice hex display, `-n` doesn't convert addresses to names
   * Use single quotes for complex queries that may use parentheses. Can also use things like `'tcp[13] & 16 != 0'` to filter by specific values in tcp headers.
   * Can use `-l` for line-readable output, useful for piping to grep if `-A` is also used
-* Heredoc example [here](bash_examples/heredoc.sh)
-* Bash conditional examples [here](bash_examples/conditionals.sh)
 
 ### Tools making their way through Debian `testing`
 
