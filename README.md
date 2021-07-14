@@ -66,6 +66,14 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * `http` (package name is `httpie`)
   * Much nicer inspection into HTTP requests and responses, and easier usage than tools like curl
   * `http google.com --print=HB` will show the request headers and body. Likewise, using `hb` will show the response headers and body
+* `tcpdump`
+  * `-D` lists available network interfaces, and then use `-i` to capture on one
+  * Can do `tcpdump src 192.168.10.5 and dst some.hostname.com and dst port 5421` as a filter example (can also use 'not' keyword). Also can use `less 1024`, `greater 1024`, `<= 1024`, etc. to filter by packet size
+  * Use `-w file.pcap` to write out to a pcap file, and `-r file.pcap` to read that back in for display
+  * Can also do `tcpdump host www.example.com` for all traffic to or from that host (can use IP as well)
+  * `-X` is a nice hex display, `-n` doesn't convert addresses to names
+  * Use single quotes for complex queries that may use parentheses. Can also use things like `'tcp[13] & 16 != 0'` to filter by specific values in tcp headers.
+  * Can use `-l` for line-readable output, useful for piping to grep if `-A` is also used
 * Heredoc example [here](bash_examples/heredoc.sh)
 * Bash conditional examples [here](bash_examples/conditionals.sh)
 
@@ -80,4 +88,3 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * alias for notify-send to do things like `my long running process && aliasname`
 * rsync
 * parallel
-* tcpdump
