@@ -36,6 +36,11 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 * `vim`
 * `tmux`
+  * `tmux new -s MySessionName` will create a named session
+  * `tmux ls` for listing sessions
+  * `<prefix>-d` will detatch from session
+  * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
+  * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
 * `ag` - like `grep` but much faster, and excellent for codebases (package name is `silversearcher-ag`)
 * `tldr` - using `tldr <command>` gives you several examples of command usage
   * Also can visit https://tldr.sh
