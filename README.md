@@ -2,7 +2,7 @@ This is a repo of my dotfiles, which are kept fairly minimal. In the spirit of b
 
 Below, I'll also have various notes of tips and tricks for more efficiently working in the (bash) shell.
 
-### bash/command tips
+## bash/command tips
 
 * `$!` - previous command's exit code
 * `$$` - current PID
@@ -30,24 +30,26 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Heredoc example [here](bash_examples/heredoc.sh)
 * Bash conditional examples [here](bash_examples/conditionals.sh)
 
-### Git tips
+## Git tips
 
 * Install git hooks in specific repos to auto `ctags -R .` on new commits, pulls, checkouts, etc. (note this can be time consuming for large repos)
 
-### Tools in Debian `stable` I typically install and use
+## Other tools I typically use
 
-* `vim`
-* `tmux`
+### `vim`
+### `tmux`
   * `tmux new -s MySessionName` will create a named session
   * `tmux ls` for listing sessions
   * `<prefix>-d` will detatch from session
   * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
   * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
-* `ag` - like `grep` but much faster, and excellent for codebases (package name is `silversearcher-ag`)
-* `tldr` - using `tldr <command>` gives you several examples of command usage
+### `ag` (package name is `silversearcher-ag`)
+  * Like `grep` but much faster, and excellent for codebases
+### `tldr`
+  * Using `tldr <command>` gives you several examples of command usage
   * Also can visit https://tldr.sh
-  * Note the `tldr` client may need to initially connect to a github repo to download the db
-* `fzf` (*note* - autocompletion via `**` does not appear to be in version on Debian stable at the moment)
+  * Note the `tldr` client may need to initially connect to a github repo to download the db. `tldr --update` can be used to update the db.
+### `fzf` (*note* - autocompletion via `**` does not appear to be in version on Debian stable at the moment)
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
   * `ctrl-j` and `ctrl-k` move cursor up and down
   * Quick `cd` by doing `cd **<TAB>` if autocomplete enabled. Or, if just keybindings enabled, simply do `alt-c`.
@@ -62,13 +64,13 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * Use `^` and `$` for beginning/end, such as `readme .md$`
   * There is a way to add a preview-window keybinding as well
   * There is also a way to use, say `ag` instead of `find` under the hood
-* `locate` and `updatedb`
+### `locate` and `updatedb`
   * First `sudo updatedb` to build an index of your file system, then `locate my*pattern` to *very* quickly find them!
   * Much faster than `find`, `fzf`, etc. but requires periodic updating of the db
-* `http` (package name is `httpie`)
+### `http` (package name is `httpie`)
   * Much nicer inspection into HTTP requests and responses, and easier usage than tools like curl
   * `http google.com --print=HB` will show the request headers and body. Likewise, using `hb` will show the response headers and body
-* `tcpdump`
+### `tcpdump`
   * `-D` lists available network interfaces, and then use `-i` to capture on one
   * Can do `tcpdump src 192.168.10.5 and dst some.hostname.com and dst port 5421` as a filter example (can also use 'not' keyword). Also can use `less 1024`, `greater 1024`, `<= 1024`, etc. to filter by packet size
   * Use `-w file.pcap` to write out to a pcap file, and `-r file.pcap` to read that back in for display
@@ -77,11 +79,11 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * Use single quotes for complex queries that may use parentheses. Can also use things like `'tcp[13] & 16 != 0'` to filter by specific values in tcp headers.
   * Can use `-l` for line-readable output, useful for piping to grep if `-A` is also used
 
-### Tools making their way through Debian `testing`
+## Tools making their way through Debian `testing`
 
 * `bat` - a better `cat` (available in Ubuntu repos)
 
-### TODO: tools/things yet to look into:
+## TODO: tools/things yet to look into:
 
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs
 * better xclip usage, and perhaps an alias like `clip` to pipe things into
