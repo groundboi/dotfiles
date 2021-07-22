@@ -4,7 +4,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## bash/command tips
 
-* `$!` - previous command's exit code
+* `$?` - previous command's exit code
 * `$$` - current PID
 * `$0` - 0th arg of the current process (i.e. name of shell being used, or name of calling script, ...)
 * `!!` - repeat previous command (useful if you forgot to `sudo`)
