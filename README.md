@@ -33,6 +33,9 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## Git tips
 
 * Install git hooks in specific repos to auto `ctags -R .` on new commits, pulls, checkouts, etc. (note this can be time consuming for large repos)
+* `git rebase BRANCH` - rebase your current branch on top of BRANCH
+* `git rebase -i HEAD~num` - view previous num commits interactively for squashing, changing commit messages, etc.
+* `git reset --hard origin/BRANCH` - forcibly make the state of your current BRANCH match the remote BRANCH (say if you've made terrible changes you want to discard)
 
 ## Other tools I typically use
 
