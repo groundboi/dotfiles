@@ -42,13 +42,20 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ### `vim`
   * When installing `ctags`, be sure to install `ctags-universal` (apt defaults to exuberant, which is no longer maintained)
   * To open the tag under the cursor in a new split, use `CTRL-W ]` (can also search with `:stag funcname` with tab completion)
-  * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose`.
+    * Can also use `CTRL-W f` to do the same thing for filenames, such as include files
+  * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose` or `CTRL-W z`.
   * `:psearch funcname` is useful for opening previews of a function from an included header file
   * `[[` goes to beginning of current function, `][` goes to end. `[{` and `]}` do similar for code blocks.
     * `]]` goes to beginning of next function, `[]` goes to end of previous function
     * `[(` and `])` navigate similarly to the code blocks but for parentheses (can be on one line)
-  * When cursor is on a word that might be from an #included file, use `[I` to open its def.
+  * When cursor is on a word that might be from an #included file, use `[I` to open its def. `[i` does something similar
   * `gD` will go to definition in current local file only. `gd` will do the same but within the current function.
+  * `K` will bring up manpage on current word under cursor.
+  * When quickfix window is open (say after using my binding `S` to search word), `CTRL-W <enter>` will open match in new split.
+    * Can move splits with `CTRL-W L` (or H, J, K)
+    * `:cclose` will close quickfix window
+  * When using netrw (say via `:Vex`), my bindings have <enter> open in a new window
+  * **TODO**: Filtering text to external commands, writing, reading, etc.
 ### `tmux`
   * `tmux new -s MySessionName` will create a named session
   * `tmux ls` for listing sessions
