@@ -40,6 +40,14 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## Other tools I typically use
 
 ### `vim`
+  * To open the tag under the cursor in a new split, use `CTRL-W ]` (can also search with `:stag funcname` with tab completion)
+  * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose`.
+  * `:psearch funcname` is useful for opening previews of a function from an included header file
+  * `[[` goes to beginning of current function, `][` goes to end. `[{` and `]}` do similar for code blocks.
+    * `]]` goes to beginning of next function, `[]` goes to end of previous function
+    * `[(` and `])` navigate similarly to the code blocks but for parentheses (can be on one line)
+  * When cursor is on a word that might be from an #included file, use `[I` to open its def.
+  * `gD` will go to definition in current local file only. `gd` will do the same but within the current function.
 ### `tmux`
   * `tmux new -s MySessionName` will create a named session
   * `tmux ls` for listing sessions
