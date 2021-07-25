@@ -105,8 +105,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## TODO: tools/things yet to look into:
 
-* Examples of loops (for i...print $i...), conditionals, `seq`, xargs
+* Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * better xclip usage, and perhaps an alias like `clip` to pipe things into
 * alias for notify-send to do things like `my long running process && aliasname`
-* rsync
-* parallel
