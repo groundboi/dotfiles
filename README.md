@@ -40,6 +40,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## Other tools I typically use
 
 ### `vim`
+  * When installing `ctags`, be sure to install `ctags-universal` (apt defaults to exuberant, which is no longer maintained)
   * To open the tag under the cursor in a new split, use `CTRL-W ]` (can also search with `:stag funcname` with tab completion)
   * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose`.
   * `:psearch funcname` is useful for opening previews of a function from an included header file
