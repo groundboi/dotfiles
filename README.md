@@ -105,6 +105,13 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## TODO: tools/things yet to look into:
 
+* Look into GNU Global, universal-ctags, cscope, etc. more. In particular, sounds like I should build Global/gtags --with-universal-ctags to get extra language support, and then use that as a backend to cscope via the built gtags-cscope (and set the cscopeprg in vim)
+  * Maybe also combine this with vim's omnicomplete? Or just omnicomplete alone with universal ctags?
+  * https://www.reddit.com/r/vim/comments/7s8y06/exuberant_ctags_universal_ctags_cscope_help/
+  * https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
+  * https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+  * https://github.com/universal-ctags/ctags
+  * Check out what this plugin is doing: https://github.com/jsfaint/gen_tags.vim
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * better xclip usage, and perhaps an alias like `clip` to pipe things into
 * alias for notify-send to do things like `my long running process && aliasname`
