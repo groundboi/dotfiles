@@ -113,6 +113,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
   * https://github.com/universal-ctags/ctags
   * Check out what this plugin is doing: https://github.com/jsfaint/gen_tags.vim
+  * man gtags and gtags-cscope
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * better xclip usage, and perhaps an alias like `clip` to pipe things into
 * alias for notify-send to do things like `my long running process && aliasname`
