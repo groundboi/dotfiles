@@ -105,6 +105,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## TODO: tools/things yet to look into:
 
+* Watch https://www.youtube.com/watch?v=XA2WjJbmmoM and https://www.youtube.com/watch?v=wlR5gYd6um0
 * Look into GNU Global, universal-ctags, cscope, etc. more. In particular, sounds like I should build Global/gtags --with-universal-ctags to get extra language support, and then use that as a backend to cscope via the built gtags-cscope (and set the cscopeprg in vim)
   * Maybe also combine this with vim's omnicomplete? Or just omnicomplete alone with universal ctags?
   * Read :h cscope, especially the suggestions
