@@ -8,7 +8,7 @@ set shiftwidth=4                " number of spaces to use for autoindent
 set expandtab                   " convert <TAB> keypress to spaces
 set autoindent                  " copy indent of current line when starting new line
 set number                      " show line numbers
-set cursorline                  " show cursor line
+set relativenumber              " use relative line numbers for easier jumps
 set showmatch                   " highlight matching parens/brackets
 set lazyredraw                  " redraw screen only when needed
 set wildmenu                    " autocomplete for commands
