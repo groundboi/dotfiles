@@ -80,6 +80,10 @@ nnoremap <silent> <LEFT> :cprev<CR>
 " work as expected
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use ag in fzf for listing files, as it's faster and respects .gitignore
+    " let $FZF_DEFAULT_COMMAND = 'ag --literal --files-with-matches --nocolor --hidden -g ""'
+
     nnoremap S :grep! --ignore=tags -s <C-R><C-W><CR>:cw<CR>
     command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
     nnoremap \ :Ag<SPACE>
@@ -140,6 +144,9 @@ function DiffMe()
     execute "diffthis"
 endfunction
 nnoremap <C-P> :call DiffMe()<CR><C-W>l
+
+" Map ctrl+p to fuzzy find?
+" nnoremap <C-P> :Files<CR>
 
 " Gets the current branch of the buffer, even if it's in an entirely different
 " git repo. Designed to avoid a system() call on each keystroke...
