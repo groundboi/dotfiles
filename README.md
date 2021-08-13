@@ -120,4 +120,3 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * Linters such as ale + clangd, etc.
 * better xclip usage, and perhaps an alias like `clip` to pipe things into
-* alias for notify-send to do things like `my long running process && aliasname`
