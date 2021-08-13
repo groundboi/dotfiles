@@ -106,16 +106,15 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## TODO: tools/things yet to look into:
 
 * Watch https://www.youtube.com/watch?v=XA2WjJbmmoM and https://www.youtube.com/watch?v=wlR5gYd6um0
-* Look into GNU Global, universal-ctags, cscope, etc. more. In particular, sounds like I should build Global/gtags --with-universal-ctags to get extra language support, and then use that as a backend to cscope via the built gtags-cscope (and set the cscopeprg in vim)
-    1. Download deb-src of global, configure with universal ctags, then make and make install.
-    2. Set GTAGSCONF=/usr/local/share/gtags/gtags.conf and GTAGSLABEL=new-ctags env vars
-    3. Source the newly created gtags.vim and gtags-cscope.vim from your build into your .vimrc. Also set cscopeprg=gtags-cscope and set cscopetag cscopeverbose
-      * Can also do something like `nnoremap <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>`, or map :Gtags commands too
+* Using GNU Global + universal-ctags (for extra lang support) + cscope
+    1. Download deb-src of global, configure `--with-universal-ctags`, then make and make install.
+    2. Set `GTAGSCONF=/usr/local/share/gtags/gtags.conf` and `GTAGSLABEL=new-ctags` env vars
+    3. Source the newly created gtags.vim and gtags-cscope.vim from your build into your .vimrc. Also `set cscopeprg=gtags-cscope` and `set cscopetag cscopeverbose`
+        * Can also do something like `nnoremap <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>`, or map :Gtags commands too
     4. Run `gtags` in your project root
-    5. Open vim and `cs add GTAGS` (maybe have this in vimrc somehow?)
-  * Read :h cscope, especially the suggestions
-  * https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
-  * https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+    5. Open vim and `cs add GTAGS` (maybe have this in vimrc somehow automatically?)
+  * Read :h cscope, especially the suggestions for mappings
+  * If you want to read about how to actually use :Gtags instead of just the cscope interface...https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
   * man gtags and gtags-cscope
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * Linters such as ale + clangd, etc.
