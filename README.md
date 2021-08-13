@@ -113,6 +113,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
         * Can also do something like `nnoremap <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>`, or map :Gtags commands too
     4. Run `gtags` in your project root
     5. Open vim and `cs add GTAGS` (maybe have this in vimrc somehow automatically?)
+    6. You can update from within vim using `:GtagsUpdate` and `:cs reset`
   * Read :h cscope, especially the suggestions for mappings
   * If you want to read about how to actually use :Gtags instead of just the cscope interface...https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
   * man gtags and gtags-cscope
