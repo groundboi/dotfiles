@@ -28,6 +28,7 @@ set undofile                    " persistent undo history
 set undodir=~/.vim/undodir      " don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=5                 " display some context lines when scrolling
+set termguicolors               " more colors (only available when configured +termguicolors)
 packadd! matchit                " nicer use of %
 
 " Note: To change formatting options for a specific filetype, create a file
