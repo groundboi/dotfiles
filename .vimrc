@@ -29,6 +29,8 @@ set undodir=~/.vim/undodir      " don't clog working dir with undo history file 
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=5                 " display some context lines when scrolling
 set termguicolors               " more colors (only available when configured +termguicolors)
+let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"  " see :h xterm-true-color
+let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"  " see :h xterm-true-color
 packadd! matchit                " nicer use of %
 
 " Note: To change formatting options for a specific filetype, create a file
