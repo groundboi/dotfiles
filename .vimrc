@@ -46,6 +46,9 @@ let g:netrw_browse_split = 4    " When opening a file, use previous window
 let g:netrw_altv = 1            " Split on left
 let g:netrw_winsize = 20        " Window size for left split
 
+" The following is easier to switch from insert mode to normal mode
+inoremap kj <Esc>
+
 " The following makes insert mode completion easier. See :h ins-completion
 " Note CTRL-N already works in insert mode out of the box. Also see the
 " CleverTab function in help documentation. Note: CRTL-Y will accept a
