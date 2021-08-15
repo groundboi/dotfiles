@@ -9,6 +9,7 @@ set expandtab                   " convert <TAB> keypress to spaces
 set autoindent                  " copy indent of current line when starting new line
 set number                      " show line numbers
 set relativenumber              " use relative line numbers for easier jumps
+set cursorline                  " highlight current line
 set showmatch                   " highlight matching parens/brackets
 set lazyredraw                  " redraw screen only when needed
 set wildmenu                    " autocomplete for commands
@@ -30,8 +31,10 @@ set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=5                 " display some context lines when scrolling
 if has('termguicolors')
     set termguicolors           " more colors (only available when configured +termguicolors)
-    let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"  " see :h xterm-true-color
-    let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"  " see :h xterm-true-color
+    if exists('$TMUX')
+        let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"  " see :h xterm-true-color
+        let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"  " see :h xterm-true-color
+    endif
 endif
 packadd! matchit                " nicer use of %
 
@@ -168,6 +171,7 @@ nnoremap <C-P> :call DiffMe()<CR><C-W>l
 
 " Note: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
 hi statusline ctermbg=black ctermfg=white
+hi CursorLine term=bold cterm=bold guibg=Grey20
 hi gitbranchhl ctermbg=white ctermfg=darkblue
 set laststatus=2
 set statusline=\ %#gitbranchhl#
