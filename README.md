@@ -46,6 +46,10 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose` or `CTRL-W z`.
   * If an ambiguous tag with multiple options, use `g C-]` to see them all
   * `:psearch funcname` is useful for opening previews of a function from an included header file
+  * `*` search forward word under cursor, `#` same but backwards
+  * `Ctrl-o` and `Ctrl-i` cycle through `:jumps`, and likewise `g;` and `g,` through `:changes`
+  * `Ctrl-y` and `Ctrl-e` scroll without moving cursor
+  * `]m` goes to next method (useful for python)
   * `[[` goes to beginning of current function, `][` goes to end. `[{` and `]}` do similar for code blocks.
     * `]]` goes to beginning of next function, `[]` goes to end of previous function
     * `[(` and `])` navigate similarly to the code blocks but for parentheses (can be on one line)
@@ -55,8 +59,10 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * When quickfix window is open (say after using my binding `S` to search word), `CTRL-W <enter>` will open match in new split.
     * Can move splits with `CTRL-W L` (or H, J, K)
     * `:cclose` will close quickfix window
+  * `Ctrl-W s` (and likewise for v) will split the window. Can do `:sf FILE` to split and find file, as well as put `:vert` in front of any splitting command to make it vertical split.
   * When using netrw (say via `:Vex`), my bindings have <enter> open in a new window
   * **TODO**: Filtering text to external commands, writing, reading, etc.
+
 ### `tmux`
   * `tmux new -s MySessionName` will create a named session
   * `tmux ls` for listing sessions
@@ -106,8 +112,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## TODO: tools/things yet to look into:
 
-* Watch https://www.youtube.com/watch?v=E-ZbrtoSuzw
-* Fzf vim integration (see `apt show fzf`)
+* Fzf vim integration (see `apt show fzf`), as well as `:find`
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * Using GNU Global + universal-ctags (for extra lang support) + cscope
     1. Download deb-src of global, configure `--with-universal-ctags`, then make and make install.
