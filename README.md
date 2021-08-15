@@ -107,6 +107,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## TODO: tools/things yet to look into:
 
 * Watch https://www.youtube.com/watch?v=E-ZbrtoSuzw
+* Fzf vim integration (see `apt show fzf`)
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * Using GNU Global + universal-ctags (for extra lang support) + cscope
     1. Download deb-src of global, configure `--with-universal-ctags`, then make and make install.
