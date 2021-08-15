@@ -44,6 +44,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * To open the tag under the cursor in a new split, use `CTRL-W ]` (can also search with `:stag funcname` with tab completion)
     * Can also use `CTRL-W f` to do the same thing for filenames, such as include files
   * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose` or `CTRL-W z`.
+  * If an ambiguous tag with multiple options, use `g C-]` to see them all
   * `:psearch funcname` is useful for opening previews of a function from an included header file
   * `[[` goes to beginning of current function, `][` goes to end. `[{` and `]}` do similar for code blocks.
     * `]]` goes to beginning of next function, `[]` goes to end of previous function
