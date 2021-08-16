@@ -121,13 +121,8 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * Using GNU Global + universal-ctags (for extra lang support) + cscope
-    1. Download deb-src of global, configure `--with-universal-ctags`, then make and make install.
-    2. Set `GTAGSCONF=/usr/local/share/gtags/gtags.conf` and `GTAGSLABEL=new-ctags` env vars
-    3. Source the newly created gtags.vim and gtags-cscope.vim from your build into your .vimrc. Also `set cscopeprg=gtags-cscope` and `set cscopetag cscopeverbose`
-        * Can also do something like `nnoremap <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>`, or map :Gtags commands too
-    4. Run `gtags` in your project root
-    5. Open vim and `cs add GTAGS` (maybe have this in vimrc somehow automatically?)
-    6. You can update from within vim using `:GtagsUpdate` and `:cs reset`
+  * Must build `global` package from src, and configure `--with-universal-ctags`, then make and make install. Several relevant env variables and vim settings are set up in this repo to make this integration work. Just run `gtags` in project root now. You can update from within vim using `:GtagsUpdate` and `:cs reset`
+  * Set up some mapping like `nnoremap <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>`, or map :Gtags commands if they are more reliable
   * Read :h cscope, especially the suggestions for mappings
   * If you want to read about how to actually use :Gtags instead of just the cscope interface...https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
   * man gtags and gtags-cscope
