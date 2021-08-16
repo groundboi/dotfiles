@@ -127,5 +127,4 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * If you want to read about how to actually use :Gtags instead of just the cscope interface...https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
   * man gtags and gtags-cscope
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
-* Linters such as ale + clangd, etc.
 * better xclip usage, and perhaps an alias like `clip` to pipe things into
