@@ -116,3 +116,8 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Use ag instead of find within FZF. Add --hidden if desired
+if command -v ag &>/dev/null; then
+    export FZF_DEFAULT_COMMAND='ag -g ""'
+fi

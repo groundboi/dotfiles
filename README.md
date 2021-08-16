@@ -61,6 +61,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
     * `:cclose` will close quickfix window
   * `Ctrl-W s` (and likewise for v) will split the window. Can do `:sf FILE` to split and find file, as well as put `:vert` in front of any splitting command to make it vertical split.
   * When using netrw (say via `:Vex`), my bindings have <enter> open in a new window
+  * SPACE is mapped to fzf - use `C-x` and `C-v` to open in splits
   * **TODO**: Filtering text to external commands, writing, reading, etc.
 
 ### `tmux`
@@ -69,12 +70,15 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * `<prefix>-d` will detatch from session
   * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
   * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
+
 ### `ag` (package name is `silversearcher-ag`)
   * Like `grep` but much faster, and excellent for codebases
+
 ### `tldr`
   * Using `tldr <command>` gives you several examples of command usage
   * Also can visit https://tldr.sh
   * Note the `tldr` client may need to initially connect to a github repo to download the db. `tldr --update` can be used to update the db.
+
 ### `fzf`
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
   * `ctrl-j` and `ctrl-k` move cursor up and down
@@ -91,12 +95,15 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * Use `^` and `$` for beginning/end, such as `readme .md$`
   * There is a way to add a preview-window keybinding as well
   * There is also a way to use, say `ag` instead of `find` under the hood
+
 ### `locate` and `updatedb`
   * First `sudo updatedb` to build an index of your file system, then `locate my*pattern` to *very* quickly find them!
   * Much faster than `find`, `fzf`, etc. but requires periodic updating of the db
+
 ### `http` (package name is `httpie`)
   * Much nicer inspection into HTTP requests and responses, and easier usage than tools like curl
   * `http google.com --print=HB` will show the request headers and body. Likewise, using `hb` will show the response headers and body
+
 ### `tcpdump`
   * `-D` lists available network interfaces, and then use `-i` to capture on one
   * Can do `tcpdump src 192.168.10.5 and dst some.hostname.com and dst port 5421` as a filter example (can also use 'not' keyword). Also can use `less 1024`, `greater 1024`, `<= 1024`, etc. to filter by packet size
@@ -112,7 +119,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## TODO: tools/things yet to look into:
 
-* Fzf vim integration (see `apt show fzf`), as well as `:find`
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * Using GNU Global + universal-ctags (for extra lang support) + cscope
     1. Download deb-src of global, configure `--with-universal-ctags`, then make and make install.
