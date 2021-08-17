@@ -4,6 +4,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## bash/command tips
 
+* If editing a long command and readline is still using the default emacs bindings, `C-xC-e` will bring you into `$EDITOR` for editing the command!
 * `$?` - previous command's exit code
 * `$$` - current PID
 * `$0` - 0th arg of the current process (i.e. name of shell being used, or name of calling script, ...)
