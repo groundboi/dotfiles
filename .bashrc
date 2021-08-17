@@ -117,6 +117,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+EDITOR=vim
+
 # Use ag instead of find within FZF. Add --hidden if desired
 if command -v ag &>/dev/null; then
     export FZF_DEFAULT_COMMAND='ag -g ""'
