@@ -95,7 +95,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * Exclude matches with `!mystring`
   * Use `^` and `$` for beginning/end, such as `readme .md$`
   * There is a way to add a preview-window keybinding as well
-  * There is also a way to use, say `ag` instead of `find` under the hood
 
 ### `locate` and `updatedb`
   * First `sudo updatedb` to build an index of your file system, then `locate my*pattern` to *very* quickly find them!
