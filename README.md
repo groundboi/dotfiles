@@ -120,6 +120,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## TODO: tools/things yet to look into:
 
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
+* Make tutorial
 * Using GNU Global + universal-ctags (for extra lang support) + cscope
   * Must build `global` package from src, and configure `--with-universal-ctags`, then make and make install. Several relevant env variables and vim settings are set up in this repo to make this integration work. Just run `gtags` in project root now. You can update from within vim using `:GtagsUpdate` and `:cs reset`
   * Set up some mapping like `nnoremap <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>`, or map :Gtags commands if they are more reliable
