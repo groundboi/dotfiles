@@ -7,10 +7,15 @@
 	# Note, the best way to generate tags on checkout is with a git hook. Do the following in your repo:
 	#    echo "ctags -R ." > .git/hooks/post-checkout
 	#    chmod +x .git/hooks/post-checkout
-	
+
 	# This one may need some work...still not ideal
 	# diffall = "! for name in $(git diff --name-only $1); do git difftool $1 $name; done"
 	# Note that git alias shell commands are always run from the top level directory of the repo
 	# checkout-gen-tags = !sh -c 'git checkout $1 && ctags -R .' -
+
+	base = !git merge-base --fork-point master
+	files = !git diff --name-only $(git base)
+	stat = !git diff --stat $(git base)
+	review = !git files > diff.txt && REVIEW_BASE=$(git base) vim diff.txt
 [core]
 	editor = "vim"
