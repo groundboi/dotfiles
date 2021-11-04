@@ -13,6 +13,7 @@
 	# Note that git alias shell commands are always run from the top level directory of the repo
 	# checkout-gen-tags = !sh -c 'git checkout $1 && ctags -R .' -
 
+	# May actually just want `git merge-base HEAD master`
 	base = !git merge-base --fork-point master
 	files = !git diff --name-only $(git base)
 	stat = !git diff --stat $(git base)
