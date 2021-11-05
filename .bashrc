@@ -127,6 +127,11 @@ if command -v ag &>/dev/null; then
     export FZF_DEFAULT_COMMAND='ag -g ""'
 fi
 
+if command -v fzf &>/dev/null; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+    source /usr/share/bash-completion/completions/fzf
+fi
+
 # Make sure gtags was compiled --with-universal-ctags...
 if command -v gtags &>/dev/null; then
     export GTAGSCONF=/usr/local/share/gtags/gtags.conf
