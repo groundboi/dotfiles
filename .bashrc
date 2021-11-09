@@ -122,9 +122,9 @@ fi
 
 export EDITOR=vim
 
-# Use ag instead of find within FZF. Add --hidden if desired
-if command -v ag &>/dev/null; then
-    export FZF_DEFAULT_COMMAND='ag -g ""'
+# Use rg instead of find within FZF. Add --hidden if desired
+if command -v rg &>/dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --glob "!.git/*"'
 fi
 
 if command -v fzf &>/dev/null; then
