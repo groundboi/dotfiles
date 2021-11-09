@@ -72,7 +72,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
   * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
 
-### `ag` (package name is `silversearcher-ag`)
+### `rg` (package name is `ripgrep`)
   * Like `grep` but much faster, and excellent for codebases
 
 ### `tldr`
