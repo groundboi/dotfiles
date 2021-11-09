@@ -106,12 +106,12 @@ nnoremap <silent> <LEFT> :cprev<CR>
 " Tip: In the quickfix list, you can remove non-interesting lines by doing
 " :set modifiable, remove lines, then :cgetbuf. The quickfix list will then
 " work as expected
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
+if executable('rg')
+    set grepprg=rg\ --vimgrep
     nnoremap S :grep! --ignore=tags -s <C-R><C-W><CR>:cw<CR>
-    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap \ :Ag<SPACE>
-    vnoremap S y:Ag --ignore=tags \"<C-R>"\"<CR>:cw<CR>
+    command -nargs=+ -complete=file -bar Rg silent! grep! <args>|cwindow|redraw!
+    nnoremap \ :Rg<SPACE>
+    vnoremap S y:Rg \"<C-R>"\"<CR>:cw<CR>
 else
     nnoremap S :grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
     nnoremap \ :grep!<SPACE>
