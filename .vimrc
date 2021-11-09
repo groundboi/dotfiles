@@ -108,10 +108,10 @@ nnoremap <silent> <LEFT> :cprev<CR>
 " work as expected
 if executable('rg')
     set grepprg=rg\ --vimgrep
-    nnoremap S :grep! --ignore=tags -s <C-R><C-W><CR>:cw<CR>
+    nnoremap S :grep! -w -s <C-R><C-W><CR>:cw<CR>
     command -nargs=+ -complete=file -bar Rg silent! grep! <args>|cwindow|redraw!
     nnoremap \ :Rg<SPACE>
-    vnoremap S y:Rg \"<C-R>"\"<CR>:cw<CR>
+    vnoremap S y:Rg -w \"<C-R>"\"<CR>:cw<CR>
 else
     nnoremap S :grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
     nnoremap \ :grep!<SPACE>
