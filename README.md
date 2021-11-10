@@ -133,3 +133,4 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Make tutorial
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * Docker
+* git worktree
