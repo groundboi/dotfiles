@@ -122,6 +122,11 @@ fi
 
 export EDITOR=vim
 
+# In bash 4+, this environment variable controls the maximum number
+# of dirs in a path displayed in a prompt before prefixing with
+# '.../'
+export PROMPT_DIRTRIM=6
+
 # Use rg instead of find within FZF. Add --hidden if desired
 if command -v rg &>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files --glob "!.git/*"'
