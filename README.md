@@ -112,6 +112,16 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * `-X` is a nice hex display, `-n` doesn't convert addresses to names
   * Use single quotes for complex queries that may use parentheses. Can also use things like `'tcp[13] & 16 != 0'` to filter by specific values in tcp headers.
   * Can use `-l` for line-readable output, useful for piping to grep if `-A` is also used
+   
+### GNU `global` (with `universal-ctags` and `cscope` integrations)
+   * To get started, you'll likely have to build `global` package from src, and configure `--with-universal-ctags`, then make and make install.
+     * Once this is complete, the `.bashrc` and `.vimrc` in this repo have several environment variables and settings that will make the integration work (as in, can be used just like `ctags`, but it's more powerful
+   * Run `gtags` in your project root and you're ready. You can also update from within vim using `:GtagsUpdate` and `:cs reset`
+   * **NOTE:** Unfortunately, `global` support for cross-references (and hence `gtags-cscope`/`cscope` integration) is limited to the core 5 languages `gtags` supports without the universal-ctags additions (i.e., really just C). In order to get that cross-reference support for C, you'll have to `unset` the `GTAGSLABEL` environment variable set in the `.bashrc` before making your tags files.
+   * References
+     * `:h cscope` (includes suggested mappings)
+     * https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
+     * `man gtags` and `man gtags-cscope`
 
 ## Tools making their way through Debian `testing`
 
@@ -121,11 +131,5 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * Make tutorial
-* Using GNU Global + universal-ctags (for extra lang support) + cscope
-  * Must build `global` package from src, and configure `--with-universal-ctags`, then make and make install. Several relevant env variables and vim settings are set up in this repo to make this integration work. Just run `gtags` in project root now. You can update from within vim using `:GtagsUpdate` and `:cs reset`
-  * Set up some mapping like `nnoremap <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>`, or map :Gtags commands if they are more reliable
-  * Read :h cscope, especially the suggestions for mappings
-  * If you want to read about how to actually use :Gtags instead of just the cscope interface...https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
-  * man gtags and gtags-cscope
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * Docker
