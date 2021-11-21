@@ -130,6 +130,8 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## TODO: tools/things yet to look into:
 
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
+* coc.vim, ale, vim-lsp...?
+* `inoremap {<CR> {<CR>}<Esc>ko`?
 * Make tutorial
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * Docker
