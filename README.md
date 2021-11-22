@@ -136,3 +136,4 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * Docker
 * git worktree
+* https://github.com/jlevy/the-art-of-command-line
