@@ -18,5 +18,6 @@
 	files = !git diff --name-only $(git base)
 	stat = !git diff --stat $(git base)
 	review = !git files > diff.txt && REVIEW_BASE=$(git base) vim diff.txt
+	graph = !git log --oneline --graph --decorate --all
 [core]
 	editor = "vim"
