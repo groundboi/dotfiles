@@ -137,3 +137,4 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Docker
 * git worktree
 * https://github.com/jlevy/the-art-of-command-line
+* https://will-keleher.com/posts/5-Useful-Bash-Patterns.html
