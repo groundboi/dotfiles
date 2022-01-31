@@ -129,6 +129,8 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## TODO: tools/things yet to look into:
 
+* Cross compilation (see https://askubuntu.com/questions/250696/how-to-cross-compile-for-arm)
+* QEMU emulation, both in qemu-user and qemu-system
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * coc.vim, ale, vim-lsp...?
 * `inoremap {<CR> {<CR>}<Esc>ko`?
