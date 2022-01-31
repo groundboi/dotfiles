@@ -38,6 +38,8 @@ if has('termguicolors')
 endif
 packadd! matchit                " nicer use of %
 
+let mapleader=' '               " set space to leader key
+
 " Use gtags if available. Note that gtags should be compiled from source
 " --with-universal-ctags. When this is true and GTAGSCONF and GTAGSLABEL are
 "  set appropriately in .bashrc, the below makes tag usage much more powerful
@@ -64,12 +66,20 @@ endif
 map Q gq
 
 " The following provides NERDtree-like project browsing using the built-in
-" netrw. See :h netrw for more usage info. Call :Vex(plore)
-let g:netrw_banner = 0          " Get rid of the default help banner at the top
-let g:netrw_liststyle = 3       " Use the tree-style listing (can cycle with i)
-let g:netrw_browse_split = 4    " When opening a file, use previous window
-let g:netrw_altv = 1            " Split on left
-let g:netrw_winsize = 20        " Window size for left split
+" netrw. See :h netrw for more usage info.
+let g:netrw_banner = 0                  " Get rid of the default help banner at the top
+let g:netrw_liststyle = 3               " Use the tree-style listing (can cycle with i)
+let g:netrw_browse_split = 4            " When opening a file, use previous window
+let g:netrw_altv = 1                    " Split on left
+let g:netrw_winsize = 20                " Window size for left split
+let g:netrw_fastbrowse = 0              " Never re-use directory listing
+autocmd FileType netrw setl bufhidden=wipe
+
+" Quick open netrw in cwd
+nnoremap <leader>n :Lexplore<CR>
+
+" Quick open netrw in dir of current file
+nnoremap <leader>m :Lexplore %:p:h<CR>
 
 " The following is easier to switch from insert mode to normal mode
 inoremap kj <Esc>
@@ -118,9 +128,10 @@ else
     vnoremap S y:grep! -RI --exclude=tags \"<C-R>"\"<CR>:cw<CR>
 endif
 
+" Use fzf to quickly find new files to open
 if executable('fzf')
     source /usr/share/doc/fzf/examples/fzf.vim
-    nnoremap <SPACE> :FZF<CR>
+    nnoremap <leader><SPACE> :FZF<CR>
 endif
 
 " Determines whether to use spaces or tabs on the current buffer.  Useful for
