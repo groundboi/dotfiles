@@ -133,7 +133,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
     * `-P` will select random host ports for everything the container opens, and then do `docker port NAME` to see the exposed container ports.
   * To remove all stale containers, you can do `docker rm $(docker ps -a -q)`
   * When you have a Dockerfile, you can build the image with `docker build -t image_name:optional_tag .`
-    * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt install some_package`.
+    * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
 
 ## Tools making their way through Debian `testing`
