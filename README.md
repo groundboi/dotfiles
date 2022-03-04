@@ -123,6 +123,19 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
      * https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
      * `man gtags` and `man gtags-cscope`
 
+### `Docker`
+  * Install via the `docker-ce` or `docker.io` package. You will also need to add yourself to the docker group, and then start the docker service.
+  * `docker images` and `docker ps` show images and running containers, respectively. Use `docker ps -a` to see all containers that have been run.
+    * `docker stop CONTAINER_ID` and `docker rm CONTAINER_ID` will stop and rm containers.
+    * `docker rmi IMAGE_ID` will remove images
+  * Can use `docker run -it IMAGE_NAME` to drop into a shell, which enables tty and interactive (i.e. stdin)
+    * Alternatively, and more likely, run something like `docker run -d -p 8080:8080 --name my_container_name IMAGE_NAME` to run a container. It will be in detatched mode so you have your shell back, will connect ports 8080 of host to container, and give it a name.
+    * `-P` will select random host ports for everything the container opens, and then do `docker port NAME` to see the exposed container ports.
+  * To remove all stale containers, you can do `docker rm $(docker ps -a -q)`
+  * When you have a Dockerfile, you can build the image with `docker build -t image_name:optional_tag .`
+    * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt install some_package`.
+    * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
+
 ## Tools making their way through Debian `testing`
 
 * `bat` - a better `cat` (available in Ubuntu repos)
@@ -137,7 +150,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * `inoremap {<CR> {<CR>}<Esc>ko`?
 * Make tutorial
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
-* Docker
 * git worktree
 * https://github.com/jlevy/the-art-of-command-line
 * https://will-keleher.com/posts/5-Useful-Bash-Patterns.html
