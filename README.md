@@ -143,6 +143,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ## TODO: tools/things yet to look into:
 
 * Use C++ more: https://berthub.eu/articles/posts/c++-1/
+   * https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832
 * QEMU emulation, both in qemu-user and qemu-system
 * Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * coc.vim, ale, vim-lsp...? Ale seems best...
