@@ -158,3 +158,4 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * https://github.com/mhinz/vim-galore
 * https://github.com/ibhagwan/vim-cheatsheet
 * http://vimcasts.org/episodes/page/8/
+* https://vimmer.io/
