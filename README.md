@@ -127,6 +127,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * To build GDB 11.X for remote cross-arch debugging, extract the GDB source and then alongside the src dir, create `gdb-multitarget-host` and (say) `gdbserver-armv7l` directories. Make sure you have the cross compiler toolchain (i.e. `apt install binutils-arm-linux-gnueabi`). Then run the following two builds:
     * In `gdb-multitarget-host` do: `../gdb-src/configure --srcdir=../gdb-src --enable-targets=all && make`
     * In `gdbserver-armv7l` do: `../gdb-src/configure --srcdir=../gdb-src --host=arm-linux-gnueabi && make all-gdbserver`
+  * To actually do the remote debugging, on the target machine do `gdbserver localhost:1234 myprog`. On the host machine, do `gdb myprog` (yes the same binary), and then `target remote remotehost:1234`.
    
 ### `Docker`
   * Install via the `docker-ce` or `docker.io` package. You will also need to add yourself to the docker group, and then start the docker service.
