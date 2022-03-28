@@ -123,6 +123,11 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
      * https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
      * `man gtags` and `man gtags-cscope`
 
+### `gdb`
+  * To build GDB 11.X for remote cross-arch debugging, extract the GDB source and then alongside the src dir, create `gdb-multitarget-host` and (say) `gdbserver-armv7l` directories. Make sure you have the cross compiler toolchain (i.e. `apt install binutils-arm-linux-gnueabi`). Then run the following two builds:
+    * In `gdb-multitarget-host` do: `../gdb-src/configure --srcdir=../gdb-src --enable-targets=all && make`
+    * In `gdbserver-armv7l` do: `../gdb-src/configure --srcdir=../gdb-src --host=arm-linux-gnueabi && make all-gdbserver`
+   
 ### `Docker`
   * Install via the `docker-ce` or `docker.io` package. You will also need to add yourself to the docker group, and then start the docker service.
   * `docker images` and `docker ps` show images and running containers, respectively. Use `docker ps -a` to see all containers that have been run.
