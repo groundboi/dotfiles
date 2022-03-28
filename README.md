@@ -128,7 +128,9 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
     * In `gdb-multitarget-host` do: `../gdb-src/configure --srcdir=../gdb-src --enable-targets=all && make`
     * In `gdbserver-armv7l` do: `../gdb-src/configure --srcdir=../gdb-src --host=arm-linux-gnueabi && make all-gdbserver`
   * To actually do the remote debugging, on the target machine do `gdbserver localhost:1234 myprog`. On the host machine, do `gdb myprog` (yes the same binary), and then `target remote remotehost:1234`. Note if using gef, can just start gdb then `gef-remote remotehost:1234`.
-   
+  * GEF is awesome! Use it with the `tmux-setup` command
+  * Commands of interest are: fin, watch, break, next, step, continue, print, bt, info, display, set, up/down, checkpoint/restart, where
+
 ### `Docker`
   * Install via the `docker-ce` or `docker.io` package. You will also need to add yourself to the docker group, and then start the docker service.
   * `docker images` and `docker ps` show images and running containers, respectively. Use `docker ps -a` to see all containers that have been run.
