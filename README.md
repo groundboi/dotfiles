@@ -144,10 +144,9 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * When you have a Dockerfile, you can build the image with `docker build -t image_name:optional_tag .`
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
-
-## Tools making their way through Debian `testing`
-
-* `bat` - a better `cat` (available in Ubuntu repos)
+   
+### `bat`
+  * `cat` but better. Syntax highlighting, paging, search, etc. Likely will need to alias it as there is another Debian repo with the name bat
 
 ## TODO: tools/things yet to look into:
 
