@@ -64,6 +64,10 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * `Ctrl-W s` (and likewise for v) will split the window. Can do `:sf FILE` to split and find file, as well as put `:vert` in front of any splitting command to make it vertical split.
   * When using netrw (say via `:Vex`), my bindings have <enter> open in a new window
   * SPACE is mapped to fzf - use `C-x` and `C-v` to open in splits
+  * Although I typically prefer using GDB with GEF, you can use :Termdebug in vim to see source and debugger side by side
+    * First need to `packadd termdebug` then `:Termdebug`. Can do a lot of native GDB commands from the source window, like `:Break`, etc.
+    * Useful to do a `let g:termdebug_wide=1`
+    * Works for remote/cross compilation debugging too! And with GEF
   * **TODO**: Filtering text to external commands, writing, reading, etc.
 
 ### `tmux`
@@ -153,7 +157,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Use C++ more: https://berthub.eu/articles/posts/c++-1/
    * https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832
 * QEMU emulation, both in qemu-user and qemu-system
-* Terminal debugging with GDB in Vim 8. See `:h terminal-debug`
 * coc.vim, ale, vim-lsp...? Ale seems best...
 * `inoremap {<CR> {<CR>}<Esc>ko`?
 * Make tutorial: https://makefiletutorial.com/#getting-started
