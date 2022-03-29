@@ -68,7 +68,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
     * First need to `packadd termdebug` then `:Termdebug`. Can do a lot of native GDB commands from the source window, like `:Break`, etc.
     * Useful to do a `let g:termdebug_wide=1`
     * Works for remote/cross compilation debugging too! And with GEF
-  * **TODO**: Filtering text to external commands, writing, reading, etc.
 
 ### `tmux`
   * `tmux new -s MySessionName` will create a named session
@@ -117,7 +116,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * `-X` is a nice hex display, `-n` doesn't convert addresses to names
   * Use single quotes for complex queries that may use parentheses. Can also use things like `'tcp[13] & 16 != 0'` to filter by specific values in tcp headers.
   * Can use `-l` for line-readable output, useful for piping to grep if `-A` is also used
-   
+
 ### GNU `global` (with `universal-ctags` and `cscope` integrations)
    * To get started, you'll likely have to build `global` package from src, and configure `--with-universal-ctags`, then make and make install.
      * Once this is complete, the `.bashrc` and `.vimrc` in this repo have several environment variables and settings that will make the integration work (as in, can be used just like `ctags`, but it's more powerful
@@ -148,7 +147,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
   * When you have a Dockerfile, you can build the image with `docker build -t image_name:optional_tag .`
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
-   
+
 ### `bat`
   * `cat` but better. Syntax highlighting, paging, search, etc. Likely will need to alias it as there is another Debian repo with the name bat
 
@@ -157,15 +156,16 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * Use C++ more: https://berthub.eu/articles/posts/c++-1/
    * https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832
 * QEMU emulation, both in qemu-user and qemu-system
-* coc.vim, ale, vim-lsp...? Ale seems best...
-* `inoremap {<CR> {<CR>}<Esc>ko`?
 * Make tutorial: https://makefiletutorial.com/#getting-started
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * https://github.com/jlevy/the-art-of-command-line
 * https://will-keleher.com/posts/5-Useful-Bash-Patterns.html
-   
-## TODO: more vim resources
-   
+
+## TODO: more vim stuff
+
+* Vim filtering text to external commands, writing, reading, etc.
+* `inoremap {<CR> {<CR>}<Esc>ko`?
+* coc.vim, ale, vim-lsp...? Ale seems best...
 * https://github.com/mhinz/vim-galore
 * https://github.com/ibhagwan/vim-cheatsheet
 * http://vimcasts.org/episodes/page/8/
