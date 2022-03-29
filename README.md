@@ -37,6 +37,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * `git rebase BRANCH` - rebase your current branch on top of BRANCH
 * `git rebase -i HEAD~num` - view previous num commits interactively for squashing, changing commit messages, etc.
 * `git reset --hard origin/BRANCH` - forcibly make the state of your current BRANCH match the remote BRANCH (say if you've made terrible changes you want to discard)
+* `git worktree add ../another-dir BRANCH` - makes another working tree for the same git repo (i.e. it is not checked out again). Also see `git worktree list` and `git worktree remove`. Can be a nice alternative to stashing your current progress on a branch if you don't feel like committing yet and need to context switch (say for a PR).
 
 ## Other tools I typically use
 
@@ -158,7 +159,6 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 * `inoremap {<CR> {<CR>}<Esc>ko`?
 * Make tutorial: https://makefiletutorial.com/#getting-started
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
-* git worktree
 * https://github.com/jlevy/the-art-of-command-line
 * https://will-keleher.com/posts/5-Useful-Bash-Patterns.html
    
