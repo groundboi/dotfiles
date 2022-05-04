@@ -151,6 +151,12 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ### `bat`
   * `cat` but better. Syntax highlighting, paging, search, etc. Likely will need to alias it as there is another Debian repo with the name bat
 
+### `vidir`
+  * Edit filenames of an entire directory in vim
+   
+### `fd`
+  * Much better find
+   
 ## TODO: tools/things yet to look into:
 
 * Use C++ more: https://berthub.eu/articles/posts/c++-1/
