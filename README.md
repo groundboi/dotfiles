@@ -120,7 +120,7 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 ### GNU `global` (with `universal-ctags` and `cscope` integrations)
    * To get started, you'll likely have to build `global` package from src, and configure `--with-universal-ctags`, then make and make install.
      * Once this is complete, the `.bashrc` and `.vimrc` in this repo have several environment variables and settings that will make the integration work (as in, can be used just like `ctags`, but it's more powerful
-   * Run `gtags` in your project root and you're ready. You can also update from within vim using `:GtagsUpdate` and `:cs reset`
+   * Run `gtags` in your project root and you're ready. You can also update from within vim using `:GtagsUpdate` and `:cs reset`. `:GtagsCursor` is very useful
    * *NOTE: Unfortunately, `global` support for cross-references (and hence `gtags-cscope`/`cscope` integration) is limited to the core 5 languages `gtags` supports without the universal-ctags additions (i.e., really just C). In order to get that cross-reference support for C, you'll have to `unset` the `GTAGSLABEL` environment variable set in the `.bashrc` before making your tags files.*
    * References
      * `:h cscope` (includes suggested mappings)
