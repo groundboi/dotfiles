@@ -120,7 +120,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Some vim settings
 export EDITOR=vim
+set -o vi
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
 
 # In bash 4+, this environment variable controls the maximum number
 # of dirs in a path displayed in a prompt before prefixing with
