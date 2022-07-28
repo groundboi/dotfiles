@@ -1,16 +1,21 @@
 # Config for GNU Readline
 
+set show-mode-in-prompt on
+set vi-cmd-mode-string \1\e[1 q\e]12;orange\a\2
+set vi-ins-mode-string \1\e[1 q\e]12;white\a\2
+set keyseq-timeout 50
+
 # By default a "word" is only alphanumeric characters.  By changing the alt+f
 # binding from forward-word to shell-forward-word, we essentially use
 # whitespace as the delimiter
-"\ef":shell-forward-word
+#"\ef":shell-forward-word
 
 # Likewise for backward-word
-"\eb":shell-backward-word
+#"\eb":shell-backward-word
 
 # Likewise for deleting a word with alt+d. We could do the same with backward
 # kill, but I rarely use backward kill
-"\ed":shell-kill-word
+#"\ed":shell-kill-word
 
 #Tab: complete
 #set editing-mode vi
