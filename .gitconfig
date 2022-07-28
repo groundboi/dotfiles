@@ -14,10 +14,12 @@
 	# checkout-gen-tags = !sh -c 'git checkout $1 && ctags -R .' -
 
 	# May actually just want `git merge-base HEAD master`
-	base = !git merge-base --fork-point master
-	files = !git diff --name-only $(git base)
+	base = !git merge-base HEAD main
+	changed-files = !git diff --name-only $(git base) | column
+	changed-files-tree = !git diff --name-only $(git base) | tree --fromfile .
 	stat = !git diff --stat $(git base)
-	review = !git files > diff.txt && REVIEW_BASE=$(git base) vim diff.txt
+	review = !git changed-files | column > .review_$(git branch --show-current | tr '/' '_').txt && REVIEW_BASE=$(git base) vim .review_$(git branch --show-current | tr '/' '_').txt
+	resume-review = !REVIEW_BASE=$(git base) vim .review_$(git branch --show-current | tr '/' '_').txt
 	graph = !git log --oneline --graph --decorate --all
 [core]
 	editor = "vim"
