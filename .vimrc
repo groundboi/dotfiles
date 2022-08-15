@@ -30,8 +30,8 @@ set undofile                    " persistent undo history
 set undodir=~/.vim/undodir      " don't clog working dir with undo history file (undodir must exist)
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=5                 " display some context lines when scrolling
-set timeout=1000                " remove esc delays
-set ttimeout=50                 " remove esc delays
+set timeoutlen=1000                " remove esc delays
+set ttimeoutlen=50                 " remove esc delays
 set backspace=indent,eol,start  " more powerful backspacing
 if has('termguicolors')
     set termguicolors           " more colors (only available when configured +termguicolors)
