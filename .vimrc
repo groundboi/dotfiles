@@ -251,3 +251,4 @@ set statusline+=\ %l/%L\ %p%%\
 colorscheme evening         " included in vim 9
 highlight clear EndOfBuffer " no gross two-tone background at end of buffer
 highlight clear NonText     " no gross two-tone background at end of buffer
+highlight Comment cterm=italic
