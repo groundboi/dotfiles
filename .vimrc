@@ -48,18 +48,18 @@ let mapleader=' '               " set space to leader key
 " --with-universal-ctags. When this is true and GTAGSCONF and GTAGSLABEL are
 "  set appropriately in .bashrc, the below makes tag usage much more powerful
 "  than ctags.
-if executable('gtags')
-    source /usr/local/share/gtags/gtags.vim
-endif
-if executable('gtags-cscope')
-    source /usr/local/share/gtags/gtags-cscope.vim
-    set cscopeprg=gtags-cscope
-    set cscopeverbose
-    set cscopetag
-    if filereadable("GTAGS")
-        silent! execute "cs add GTAGS"
-    endif
-endif
+"if executable('gtags')
+"    source /usr/local/share/gtags/gtags.vim
+"endif
+"if executable('gtags-cscope')
+"    source /usr/local/share/gtags/gtags-cscope.vim
+"    set cscopeprg=gtags-cscope
+"    set cscopeverbose
+"    set cscopetag
+"    if filereadable("GTAGS")
+"        silent! execute "cs add GTAGS"
+"    endif
+"endif
 
 " Note: To change formatting options for a specific filetype, create a file
 " ~/.vim/after/ftplugin/python.vim and add lines such as the following:
