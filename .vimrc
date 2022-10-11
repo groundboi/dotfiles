@@ -87,7 +87,7 @@ nnoremap <leader>n :Lexplore<CR>
 nnoremap <leader>m :Lexplore %:p:h<CR>
 
 " Quick go to definition or references with Gtags
-nnoremap <leader>g :GtagsCursor<CR>
+"nnoremap <leader>g :GtagsCursor<CR>
 
 " Quick toggle spell check
 nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
