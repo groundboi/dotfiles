@@ -44,23 +44,6 @@ packadd! matchit                " nicer use of %
 
 let mapleader=' '               " set space to leader key
 
-" Use gtags if available. Note that gtags should be compiled from source
-" --with-universal-ctags. When this is true and GTAGSCONF and GTAGSLABEL are
-"  set appropriately in .bashrc, the below makes tag usage much more powerful
-"  than ctags.
-"if executable('gtags')
-"    source /usr/local/share/gtags/gtags.vim
-"endif
-"if executable('gtags-cscope')
-"    source /usr/local/share/gtags/gtags-cscope.vim
-"    set cscopeprg=gtags-cscope
-"    set cscopeverbose
-"    set cscopetag
-"    if filereadable("GTAGS")
-"        silent! execute "cs add GTAGS"
-"    endif
-"endif
-
 " Note: To change formatting options for a specific filetype, create a file
 " ~/.vim/after/ftplugin/python.vim and add lines such as the following:
 "   setlocal formatoptions=cqa  " Auto wrap on comments only, don't autoinsert comment leaders with o/r
@@ -94,6 +77,11 @@ nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quick show buffers
 nnoremap <leader>b :ls<CR>
+
+" Highlight word under cursor (not search), and clear
+" TODO - make search and match highlighting better, less yellow and more subtle
+nnoremap <leader>h :exec 'match Search /\V\<'.expand('<cword>').'\>/'<CR>
+nnoremap <leader>c :exec 'match none'<CR>:exec 'noh'<CR>
 
 " The following makes insert mode completion easier. See :h ins-completion
 " Note CTRL-N already works in insert mode out of the box. Also see the
@@ -166,7 +154,7 @@ autocmd BufReadPost * call TabsOrSpaces()
 function DiffMe()
     " Get filename, cur line number, base commit
     let fname = expand("<cWORD>")
-    
+
     # This lets us toggle the view of the changed file window
     if !filereadable(fname)
         let winid = bufwinid(".review")
@@ -181,10 +169,10 @@ function DiffMe()
             " Buffer IS loaded into window, close it
             execute "bd .review"
         endif
-        
+
         return
     endif
-    
+
     let curline = line('.')
     let rbase = $REVIEW_BASE
 
@@ -215,20 +203,9 @@ function DiffMe()
 endfunction
 nnoremap <C-P> :call DiffMe()<CR><C-W>l
 
-" Gets the current branch of the buffer, even if it's in an entirely different
-" git repo. Designed to avoid a system() call on each keystroke...
-"function StatuslineBranch(...)
-"    if a:0 == 1
-"        let b:bname = system("git -C ".expand('%:p:h')." branch --show-current 2>/dev/null | tr -d '\n'")
-"    endif
-"    return get(b:, 'bname', '')
-"endfunction
-"autocmd BufEnter * call StatuslineBranch(1)
-
 " Note: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
 hi statusline ctermbg=black ctermfg=white
 hi CursorLine term=bold cterm=bold guibg=Grey20
-hi gitbranchhl ctermbg=white ctermfg=darkblue
 
 " Setting diff colors beacuse they're terrible by default
 " Currently using the exact GitLab color scheme
@@ -239,8 +216,6 @@ hi DiffChange   cterm=bold ctermbg=17 guibg=#1f3623
 hi DiffText     cterm=bold ctermbg=17 guibg=#235e26
 
 set laststatus=2
-set statusline=\ %#gitbranchhl#
-"set statusline+=%{StatuslineBranch()}
 set statusline+=%#statusline#
 set statusline+=\ %f\ %m\ %r
 set statusline+=%=
