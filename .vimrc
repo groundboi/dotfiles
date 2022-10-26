@@ -40,37 +40,16 @@ if has('termguicolors')
         let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"  " see :h xterm-true-color
     endif
 endif
+
 packadd! matchit                " nicer use of %
 
 let mapleader=' '               " set space to leader key
-
-" Note: To change formatting options for a specific filetype, create a file
-" ~/.vim/after/ftplugin/python.vim and add lines such as the following:
-"   setlocal formatoptions=cqa  " Auto wrap on comments only, don't autoinsert comment leaders with o/r
-"   setlocal textwidth=80       " Textwidth for comment autowrapping
-
-" Easier format text with the gq operator
-map Q gq
-
-" The following provides NERDtree-like project browsing using the built-in
-" netrw. See :h netrw for more usage info.
-let g:netrw_banner = 0                  " Get rid of the default help banner at the top
-let g:netrw_liststyle = 3               " Use the tree-style listing (can cycle with i)
-let g:netrw_browse_split = 4            " When opening a file, use previous window
-let g:netrw_altv = 1                    " Split on left
-let g:netrw_winsize = 20                " Window size for left split
-let g:netrw_fastbrowse = 0              " Never re-use directory listing
-let g:netrw_special_syntax = 1          " Special highlighting in netrw based on filetype
-autocmd FileType netrw setl bufhidden=wipe
 
 " Quick open netrw in cwd
 nnoremap <leader>n :Lexplore<CR>
 
 " Quick open netrw in dir of current file
 nnoremap <leader>m :Lexplore %:p:h<CR>
-
-" Quick go to definition or references with Gtags
-"nnoremap <leader>g :GtagsCursor<CR>
 
 " Quick toggle spell check
 nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
@@ -79,15 +58,18 @@ nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>b :ls<CR>
 
 " Highlight word under cursor (not search), and clear
-" TODO - make search and match highlighting better, less yellow and more subtle
 nnoremap <leader>h :exec 'match Search /\V\<'.expand('<cword>').'\>/'<CR>
 nnoremap <leader>c :exec 'match none'<CR>:exec 'noh'<CR>
 
-" The following makes insert mode completion easier. See :h ins-completion
-" Note CTRL-N already works in insert mode out of the box. Also see the
-" CleverTab function in help documentation. Note: CRTL-Y will accept a
-" completion, CRTL-E will cancel completion. The order of the below are: tag,
-" filename, def/macro, and line completion
+" Popup the function args or tag definition under cursor
+nnoremap <leader>] :call TagPopup()<CR>
+
+" Easier format text with the gq operator
+map Q gq
+
+" Easier insert mode completion. See :h ins-completion. CTRL-N already works
+" out of the box. CRTL-Y accepts a completion, CRTL-E cancels a completion.
+" The order of the below are: tag, filename, def/macro, and line completion
 inoremap <C-]> <C-X><C-]>
 inoremap <C-F> <C-X><C-F>
 inoremap <C-D> <C-X><C-D>
@@ -107,14 +89,12 @@ nnoremap <S-Tab> :bprevious<CR>
 nnoremap <silent> <RIGHT> :cnext<CR>
 nnoremap <silent> <LEFT> :cprev<CR>
 
-" The following maps normal mode S (redundent due to cc) as 'search' which
-" will grep for the current word under the cursor in the entire project
-" (ignoring binary files and tags), and populate the quickfix list with
-" results. Similarly for a visual mode selection with S
-"
-" Tip: In the quickfix list, you can remove non-interesting lines by doing
-" :set modifiable, remove lines, then :cgetbuf. The quickfix list will then
-" work as expected
+" Maps normal mode S as 'search' which will grep for the current word under
+" the cursor in the entire project (ignoring binary files and tags), and
+" populate the quickfix list with results. Similarly for a visual mode
+" selection with S.
+" Tip: In the quickfix list, you can remove lines by doing :set modifiable,
+" remove lines, then :cgetbuf. The quickfix list will then work as expected
 if executable('rg')
     set grepprg=rg\ --vimgrep
     nnoremap S :grep! -w -s <C-R><C-W><CR>:cw<CR>
@@ -127,6 +107,16 @@ else
     vnoremap S y:grep! -RI --exclude=tags \"<C-R>"\"<CR>:cw<CR>
 endif
 
+" The following provides nicer project browsing using the built-in netrw. See :h netrw
+let g:netrw_banner = 0                  " Get rid of the default help banner at the top
+let g:netrw_liststyle = 3               " Use the tree-style listing (can cycle with i)
+let g:netrw_browse_split = 4            " When opening a file, use previous window
+let g:netrw_altv = 1                    " Split on left
+let g:netrw_winsize = 20                " Window size for left split
+let g:netrw_fastbrowse = 0              " Never re-use directory listing
+let g:netrw_special_syntax = 1          " Special highlighting in netrw based on filetype
+autocmd FileType netrw setl bufhidden=wipe
+
 " Use fzf to quickly find new files to open
 if executable('fzf')
     source /usr/share/doc/fzf/examples/fzf.vim
@@ -134,8 +124,7 @@ if executable('fzf')
 endif
 
 " Determines whether to use spaces or tabs on the current buffer.  Useful for
-" projects where different files of the same filetype use different tab
-" conventions (ugh)
+" projects where different files of the same filetype use different tab conventions
 function TabsOrSpaces()
      if getfsize(bufname("%")) > 256000
          return
@@ -164,7 +153,7 @@ function DiffMe()
             let branch_name = trim(system("git branch --show-current | tr '/' '_'"))
             let review_name = ".review_".branch_name.".txt"
             echo review_name
-            execite "bot ".splitheight."split ".review_name
+            execute "bot ".splitheight."split ".review_name
         else
             " Buffer IS loaded into window, close it
             execute "bd .review"
@@ -203,13 +192,36 @@ function DiffMe()
 endfunction
 nnoremap <C-P> :call DiffMe()<CR><C-W>l
 
-" Note: See :h highlight-groups, and checkout :runtime syntax/colortest.vim
+" Creates a popup with tag definition where the cursor is
+func TagPopup()
+    silent write
+    " jump to tag under cursor
+    silent execute "normal \<c-]>"
+    " if there is '(' on the same line, it may be a function
+    if search('(', "n") == winsaveview()["lnum"]
+        " yank the function's name and parameters
+        silent execute "normal v/)\<cr>y\<c-t>"
+    else
+        silent execute "normal vg_\<cr>y\<c-t>"
+    endif
+    " remove any previously present popup
+    call popup_clear()
+    " make the popup spawn above/below the cursor
+    " TODO - what other options should I use?
+    let winid = popup_atcursor(getreg('0')->split("\n"), #{padding: [0,1,1,1]})
+    call win_execute(winid, 'set filetype='.&ft)
+    call win_execute(winid, 'syntax enable')
+endfunc
+
+colorscheme evening         " included in vim 9
+hi clear EndOfBuffer        " no gross two-tone background at end of buffer
+hi clear NonText            " no gross two-tone background at end of buffer
+hi Comment cterm=italic
 hi statusline ctermbg=black ctermfg=white
 hi CursorLine term=bold cterm=bold guibg=Grey20
 
 " Setting diff colors beacuse they're terrible by default
 " Currently using the exact GitLab color scheme
-" TODO - Use darker background for diffs. Do I even need ctermbg?
 hi DiffAdd      cterm=bold ctermbg=17 guibg=#1f3623
 hi DiffDelete   cterm=bold ctermbg=17 guibg=#4a2324
 hi DiffChange   cterm=bold ctermbg=17 guibg=#1f3623
@@ -222,8 +234,3 @@ set statusline+=%=
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\ %l/%L\ %p%%\ 
-
-colorscheme evening         " included in vim 9
-highlight clear EndOfBuffer " no gross two-tone background at end of buffer
-highlight clear NonText     " no gross two-tone background at end of buffer
-highlight Comment cterm=italic
