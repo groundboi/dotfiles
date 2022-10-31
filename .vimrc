@@ -97,7 +97,7 @@ nnoremap <silent> <LEFT> :cprev<CR>
 " remove lines, then :cgetbuf. The quickfix list will then work as expected
 if executable('rg')
     set grepprg=rg\ --vimgrep
-    nnoremap S :grep! -w -s <C-R><C-W><CR>:cw<CR>
+    nnoremap S :Rg -w -s <C-R><C-W><CR>:cw<CR>
     command -nargs=+ -complete=file -bar Rg silent! grep! <args>|cwindow|redraw!
     nnoremap \ :Rg<SPACE>
     vnoremap S y:Rg -w \"<C-R>"\"<CR>:cw<CR>
