@@ -15,6 +15,7 @@ set lazyredraw                  " redraw screen only when needed
 set wildmenu                    " autocomplete for commands
 set wildmode=longest:full       " don't auto-fill the first match when tab completing buffer names
 set wildoptions=pum             " use pop up menu for completion (vim 9)
+set completeopt=menu,preview,longest
 set splitbelow                  " default horizontal split is below
 set splitright                  " default vertical split is right
 set hidden                      " allow hidden buffers
