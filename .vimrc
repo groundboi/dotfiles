@@ -214,12 +214,17 @@ func TagPopup()
     call win_execute(winid, 'syntax enable')
 endfunc
 
-colorscheme evening         " included in vim 9
+colorscheme solarized       " evening is also good (included in vim 9)
 hi clear EndOfBuffer        " no gross two-tone background at end of buffer
 hi clear NonText            " no gross two-tone background at end of buffer
 hi Comment cterm=italic
 hi statusline ctermbg=black ctermfg=white
 hi CursorLine term=bold cterm=bold guibg=Grey20
+
+hi Pmenu guifg=#ffffff guibg=#4d4d4d gui=NONE cterm=NONE
+hi PmenuSbar guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi PmenuSel guifg=#000000 guibg=#ffffff gui=NONE cterm=NONE
+hi PmenuThumb guifg=NONE guibg=#ffffff gui=NONE cterm=NONE
 
 " Setting diff colors beacuse they're terrible by default
 " Currently using the exact GitLab color scheme
