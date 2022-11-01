@@ -223,7 +223,7 @@ hi CursorLine term=bold cterm=bold guibg=Grey20
 
 hi Pmenu guifg=#ffffff guibg=#4d4d4d gui=NONE cterm=NONE
 hi PmenuSbar guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi PmenuSel guifg=#000000 guibg=#ffffff gui=NONE cterm=NONE
+hi PmenuSel guifg=#000000 guibg=#bebebe gui=NONE cterm=NONE
 hi PmenuThumb guifg=NONE guibg=#ffffff gui=NONE cterm=NONE
 
 " Setting diff colors beacuse they're terrible by default
