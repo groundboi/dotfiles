@@ -46,6 +46,13 @@ vim.fn.sign_define("DiagnosticSignWarn", {text="", numhl="DiagnosticWarn"})
 vim.fn.sign_define("DiagnosticSignInfo", {text="", numhl="DiagnosticInfo"})
 vim.fn.sign_define("DiagnosticSignHint", {text="", numhl="DiagnosticHint"})
 
+local func_copy = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or "rounded"
+    return func_copy(contents, syntax, opts, ...)
+end
+
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
