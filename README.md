@@ -4,12 +4,11 @@ Below, I'll also have various notes of tips and tricks for more efficiently work
 
 ## bash/command tips
 
-* If editing a long command and readline is still using the default emacs bindings, `C-xC-e` will bring you into `$EDITOR` for editing the command!
+* If editing a long command, `C-xC-e` will bring you into `$EDITOR` for editing the command!
 * `$?` - previous command's exit code
 * `$$` - current PID
 * `$0` - 0th arg of the current process (i.e. name of shell being used, or name of calling script, ...)
 * `!!` - repeat previous command (useful if you forgot to `sudo`)
-* `less -R` - keeps color
 * GNU Readline (aka emacs style) shortcuts
   * `Alt-b` - move cursor back one word
   * `Alt-f` - move cursor forward one word
