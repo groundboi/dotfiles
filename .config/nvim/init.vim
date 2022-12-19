@@ -18,20 +18,6 @@ require'nvim-treesitter.configs'.setup {
     highlight = { enable = true }
 }
 
--- Kotlin specific config
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.kotlin = {
-    install_info = {
-        url = "/home/hagrid/software/tree-sitter-kotlin/tree-sitter-kotlin-main",
-        files = {"src/parser.c", "src/scanner.c"},
-        generate_requires_npm = false,
-        requires_generate_from_grammar = false,
-    },
-    filetype = "kt"
-}
-local ft_to_parser = require "nvim-treesitter.parsers".filetype_to_parsername
-ft_to_parser.kt = "kotlin"
-
 ----------------------------------------------------------
 -- LSP stuff
 ----------------------------------------------------------
