@@ -10,7 +10,7 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -120,11 +120,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Some vim settings
 export EDITOR=vim
-set -o vi
-bind -m vi-command 'Control-l: clear-screen'
-bind -m vi-insert 'Control-l: clear-screen'
+alias nv='nvim'
 
 # In bash 4+, this environment variable controls the maximum number
 # of dirs in a path displayed in a prompt before prefixing with
@@ -139,10 +136,4 @@ fi
 if command -v fzf &>/dev/null; then
     source /usr/share/doc/fzf/examples/key-bindings.bash
     source /usr/share/bash-completion/completions/fzf
-fi
-
-# Make sure gtags was compiled --with-universal-ctags...
-if command -v gtags &>/dev/null; then
-    export GTAGSCONF=/usr/local/share/gtags/gtags.conf
-    export GTAGSLABEL=new-ctags
 fi
