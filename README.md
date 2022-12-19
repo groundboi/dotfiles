@@ -1,6 +1,6 @@
 This is a repo of my dotfiles, which are kept fairly minimal. In the spirit of being able to quickly and efficiently work on different systems without getting too reliant on custom configs and tools, the only dependencies and tools used or referenced in this repo (mostly) are ones that can be obtained from the current `stable` Debian repo. Additionally, `vim` and `tmux` are kept minimal with no plugins, and not too many crazy key bindings.
 
-Below, I'll also have various notes of tips and tricks for more efficiently working in the (bash) shell.
+Below are some various notes and tips for more efficiently working in bash and other tools.
 
 ## bash/command tips
 
