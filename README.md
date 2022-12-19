@@ -30,7 +30,7 @@ Below are some various notes and tips for more efficiently working in bash and o
 * Heredoc example [here](bash_examples/heredoc.sh)
 * Bash conditional examples [here](bash_examples/conditionals.sh)
 
-## Git tips
+## `git` tips
 
 * Install git hooks in specific repos to auto `ctags -R .` on new commits, pulls, checkouts, etc. (note this can be time consuming for large repos)
 * `git rebase BRANCH` - rebase your current branch on top of BRANCH
@@ -38,9 +38,7 @@ Below are some various notes and tips for more efficiently working in bash and o
 * `git reset --hard origin/BRANCH` - forcibly make the state of your current BRANCH match the remote BRANCH (say if you've made terrible changes you want to discard)
 * `git worktree add ../another-dir BRANCH` - makes another working tree for the same git repo (i.e. it is not checked out again). Also see `git worktree list` and `git worktree remove`. Can be a nice alternative to stashing your current progress on a branch if you don't feel like committing yet and need to context switch (say for a PR).
 
-## Other tools I typically use
-
-### `vim`
+## `vim` tips
   * When installing `ctags`, be sure to install `ctags-universal` (apt defaults to exuberant, which is no longer maintained)
   * To open the tag under the cursor in a new split, use `CTRL-W ]` (can also search with `:stag funcname` with tab completion)
     * Can also use `CTRL-W f` to do the same thing for filenames, such as include files
@@ -68,20 +66,16 @@ Below are some various notes and tips for more efficiently working in bash and o
     * Useful to do a `let g:termdebug_wide=1`
     * Works for remote/cross compilation debugging too! And with GEF
 
-### `tmux`
+## `tmux` tips
   * `tmux new -s MySessionName` will create a named session
   * `tmux ls` for listing sessions
   * `<prefix>-d` will detatch from session
   * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
   * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
 
-### `rg` (package name is `ripgrep`)
-  * Like `grep` but much faster, and excellent for codebases
+## Other tools I typically use
 
-### `tldr`
-  * Using `tldr <command>` gives you several examples of command usage
-  * Also can visit https://tldr.sh
-  * Note the `tldr` client may need to initially connect to a github repo to download the db. `tldr --update` can be used to update the db.
+Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `universal-ctags`
 
 ### `fzf`
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
@@ -116,16 +110,6 @@ Below are some various notes and tips for more efficiently working in bash and o
   * Use single quotes for complex queries that may use parentheses. Can also use things like `'tcp[13] & 16 != 0'` to filter by specific values in tcp headers.
   * Can use `-l` for line-readable output, useful for piping to grep if `-A` is also used
 
-### GNU `global` (with `universal-ctags` and `cscope` integrations)
-   * To get started, you'll likely have to build `global` package from src, and configure `--with-universal-ctags`, then make and make install.
-     * Once this is complete, the `.bashrc` and `.vimrc` in this repo have several environment variables and settings that will make the integration work (as in, can be used just like `ctags`, but it's more powerful
-   * Run `gtags` in your project root and you're ready. You can also update from within vim using `:GtagsUpdate` and `:cs reset`. `:GtagsCursor` is very useful
-   * *NOTE: Unfortunately, `global` support for cross-references (and hence `gtags-cscope`/`cscope` integration) is limited to the core 5 languages `gtags` supports without the universal-ctags additions (i.e., really just C). In order to get that cross-reference support for C, you'll have to `unset` the `GTAGSLABEL` environment variable set in the `.bashrc` before making your tags files.*
-   * References
-     * `:h cscope` (includes suggested mappings)
-     * https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
-     * `man gtags` and `man gtags-cscope`
-
 ### `gdb`
   * To build GDB 11.X for remote cross-arch debugging, extract the GDB source and then alongside the src dir, create `gdb-multitarget-host` and (say) `gdbserver-armv7l` directories. Make sure you have the cross compiler toolchain (i.e. `apt install binutils-arm-linux-gnueabi`). Then run the following two builds:
     * In `gdb-multitarget-host` do: `../gdb-src/configure --srcdir=../gdb-src --enable-targets=all && make`
@@ -147,14 +131,8 @@ Below are some various notes and tips for more efficiently working in bash and o
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
 
-### `bat`
-  * `cat` but better. Syntax highlighting, paging, search, etc. Likely will need to alias it as there is another Debian repo with the name bat
-
 ### `vidir`
   * Edit filenames of an entire directory in vim
-   
-### `fd`
-  * Much better find
    
 ## TODO: tools/things yet to look into:
 
