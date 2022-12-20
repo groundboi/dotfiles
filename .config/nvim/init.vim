@@ -81,5 +81,5 @@ EOF
 " vimscript when combined with treesitter. Though for embedded heredoc lua,
 " vim regex hl freaks out...so, we syntax enable on ONLY vimrc.
 autocmd BufReadPost * if (expand('%') == '.vimrc')
-           \ | :syntax enable
+           \ | :setl syntax=ON
            \ | endif
