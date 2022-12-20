@@ -36,17 +36,12 @@ Below are some various notes and tips for more efficiently working in bash and o
   * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose` or `CTRL-W z`.
   * `:psearch funcname` is useful for opening previews of a function from an included header file
   * `Ctrl-o` and `Ctrl-i` cycle through `:jumps`, and likewise `g;` and `g,` through `:changes`
-  * `Ctrl-y` and `Ctrl-e` scroll without moving cursor
   * `]m` goes to next method (useful for python)
   * `[[` goes to beginning of current function, `][` goes to end. `[{` and `]}` do similar for code blocks.
     * `]]` goes to beginning of next function, `[]` goes to end of previous function
     * `[(` and `])` navigate similarly to the code blocks but for parentheses (can be on one line)
   * When cursor is on a word that might be from an #included file, use `[I` to open its def. `[i` does something similar
-  * `gD` will go to definition in current local file only. `gd` will do the same but within the current function.
-  * `K` will bring up manpage on current word under cursor.
   * When quickfix window is open (say after using my binding `S` to search word), `CTRL-W <enter>` will open match in new split.
-    * Can move splits with `CTRL-W L` (or H, J, K)
-    * `:cclose` will close quickfix window
   * `Ctrl-W s` (and likewise for v) will split the window. Can do `:sf FILE` to split and find file, as well as put `:vert` in front of any splitting command to make it vertical split.
   * When using fzf - use `C-x` and `C-v` to open in splits
 
@@ -57,7 +52,7 @@ Below are some various notes and tips for more efficiently working in bash and o
 
 ## Other tools I typically use
 
-Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `universal-ctags`, `http` (package name `httpie`), `moreutils` (which contains `vidir`).
+Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `universal-ctags`, `http` (package name `httpie`), `moreutils` (which contains `vidir`), `updatedb` and `locate`.
 
 ### `fzf`
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
@@ -71,10 +66,6 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
   * Can take action on fzf match like ``wc --lines `fzf` `` (or, easier with autocomplete as `wc --lines **<TAB>`
   * Use `^` and `$` for beginning/end, such as `readme .md$`
   * There is a way to add a preview-window keybinding as well
-
-### `locate` and `updatedb`
-  * First `sudo updatedb` to build an index of your file system, then `locate my*pattern` to *very* quickly find them!
-  * Much faster than `find`, `fzf`, etc. but requires periodic updating of the db
 
 ### `tcpdump`
   * `-D` lists available network interfaces, and then use `-i` to capture on one
