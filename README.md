@@ -9,7 +9,7 @@ Below are some various notes and tips for more efficiently working in bash and o
 * `$$` - current PID
 * `$0` - 0th arg of the current process (i.e. name of shell being used, or name of calling script, ...)
 * `!!` - repeat previous command (useful if you forgot to `sudo`)
-* GNU Readline (aka emacs style) shortcuts
+* GNU Readline shortcuts
   * `Alt-b` - move cursor back one word
   * `Alt-f` - move cursor forward one word
   * `Ctrl-a` - move cursor to beginning of line
@@ -19,11 +19,7 @@ Below are some various notes and tips for more efficiently working in bash and o
   * `Alt-d` - delete to the next word
   * `Ctrl-r` - reverse command history search
   * `Ctrl-l` - clear screen
-* `find`
-  * `find . -name "blah*.txt"` - search for matching filename in current dir
-  * `find . -iname "blah*"` - same as before, but case insensitive
-  * `find . -type f -iname "blah*"` - similar to before, but only matching *regular files* (similar flags for dirs, sockets, symlinks, etc.)
-  * `find . -type f -iname "blah*" -exec wc --lines {} \;` - execute a command on each match
+* `find . -type f -iname "blah*" -exec wc --lines {} \;` - execute a command on each match
 * `df -h --total -T` - print info space taken up by mounted file systems
 * `du -sh * | sort -h` - print total disk usage of current directory files and subdirs, sorted
 * `du -h -d1 | sort -h` - print total disk usage of depth-1 directories, sorted
@@ -32,20 +28,13 @@ Below are some various notes and tips for more efficiently working in bash and o
 
 ## `git` tips
 
-* Install git hooks in specific repos to auto `ctags -R .` on new commits, pulls, checkouts, etc. (note this can be time consuming for large repos)
-* `git rebase BRANCH` - rebase your current branch on top of BRANCH
-* `git rebase -i HEAD~num` - view previous num commits interactively for squashing, changing commit messages, etc.
-* `git reset --hard origin/BRANCH` - forcibly make the state of your current BRANCH match the remote BRANCH (say if you've made terrible changes you want to discard)
 * `git worktree add ../another-dir BRANCH` - makes another working tree for the same git repo (i.e. it is not checked out again). Also see `git worktree list` and `git worktree remove`. Can be a nice alternative to stashing your current progress on a branch if you don't feel like committing yet and need to context switch (say for a PR).
 
 ## `vim` tips
-  * When installing `ctags`, be sure to install `ctags-universal` (apt defaults to exuberant, which is no longer maintained)
   * To open the tag under the cursor in a new split, use `CTRL-W ]` (can also search with `:stag funcname` with tab completion)
     * Can also use `CTRL-W f` to do the same thing for filenames, such as include files
   * To open the tag under the cursor in a preview window, use `CTRL-W }` (can also use `:ptag funcname`). Close with `:pclose` or `CTRL-W z`.
-  * If an ambiguous tag with multiple options, use `g C-]` to see them all
   * `:psearch funcname` is useful for opening previews of a function from an included header file
-  * `*` search forward word under cursor, `#` same but backwards
   * `Ctrl-o` and `Ctrl-i` cycle through `:jumps`, and likewise `g;` and `g,` through `:changes`
   * `Ctrl-y` and `Ctrl-e` scroll without moving cursor
   * `]m` goes to next method (useful for python)
@@ -59,23 +48,16 @@ Below are some various notes and tips for more efficiently working in bash and o
     * Can move splits with `CTRL-W L` (or H, J, K)
     * `:cclose` will close quickfix window
   * `Ctrl-W s` (and likewise for v) will split the window. Can do `:sf FILE` to split and find file, as well as put `:vert` in front of any splitting command to make it vertical split.
-  * When using netrw (say via `:Vex`), my bindings have <enter> open in a new window
-  * SPACE is mapped to fzf - use `C-x` and `C-v` to open in splits
-  * Although I typically prefer using GDB with GEF, you can use :Termdebug in vim to see source and debugger side by side
-    * First need to `packadd termdebug` then `:Termdebug`. Can do a lot of native GDB commands from the source window, like `:Break`, etc.
-    * Useful to do a `let g:termdebug_wide=1`
-    * Works for remote/cross compilation debugging too! And with GEF
+  * When using fzf - use `C-x` and `C-v` to open in splits
 
 ## `tmux` tips
   * `tmux new -s MySessionName` will create a named session
-  * `tmux ls` for listing sessions
-  * `<prefix>-d` will detatch from session
   * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
   * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
 
 ## Other tools I typically use
 
-Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `universal-ctags`
+Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `universal-ctags`, `http` (package name `httpie`), `moreutils` (which contains `vidir`).
 
 ### `fzf`
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
@@ -83,23 +65,16 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
   * Quick `cd` by doing `cd **<TAB>` if autocomplete enabled. Or, if just keybindings enabled, simply do `alt-c`.
   * If keybindings enabled, `ctrl-t` is a shortcut for pasting selected dir/files on command line (I find this quicker than autocomplete with `**`)
   * Autocomplete works with `ssh **<TAB>`
-    * *Note* - autocompletion via `**` does not appear to be in version on Debian stable at the moment...
   * `kill <TAB>` to search pids to send signal to
   * `ctrl-r` is much nicer with key bindings enabled
   * Can pipe *into* fzf to search, say, history like `history | fzf`
   * Can take action on fzf match like ``wc --lines `fzf` `` (or, easier with autocomplete as `wc --lines **<TAB>`
-  * For exact matches, either do `fzf -e` or prefix your search with `'`
-  * Exclude matches with `!mystring`
   * Use `^` and `$` for beginning/end, such as `readme .md$`
   * There is a way to add a preview-window keybinding as well
 
 ### `locate` and `updatedb`
   * First `sudo updatedb` to build an index of your file system, then `locate my*pattern` to *very* quickly find them!
   * Much faster than `find`, `fzf`, etc. but requires periodic updating of the db
-
-### `http` (package name is `httpie`)
-  * Much nicer inspection into HTTP requests and responses, and easier usage than tools like curl
-  * `http google.com --print=HB` will show the request headers and body. Likewise, using `hb` will show the response headers and body
 
 ### `tcpdump`
   * `-D` lists available network interfaces, and then use `-i` to capture on one
@@ -130,9 +105,6 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
   * When you have a Dockerfile, you can build the image with `docker build -t image_name:optional_tag .`
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
-
-### `vidir`
-  * Edit filenames of an entire directory in vim
    
 ## TODO: tools/things yet to look into:
 
@@ -146,8 +118,6 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 ## TODO: more vim stuff
 
 * Vim filtering text to external commands, writing, reading, etc.
-* `inoremap {<CR> {<CR>}<Esc>ko`?
-* coc.vim, ale, vim-lsp...? Ale seems best...
 * https://github.com/mhinz/vim-galore
 * https://github.com/ibhagwan/vim-cheatsheet
 * http://vimcasts.org/episodes/page/8/
