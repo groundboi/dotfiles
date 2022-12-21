@@ -133,6 +133,8 @@ if command -v rg &>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_DEFAULT_OPTS='--preview "bat --color=always {}"'
+    export FZF_ALT_C_OPTS='--preview-window=hidden'
+    export FZF_CTRL_R_OPTS='--preview-window=hidden'
 fi
 
 if command -v fzf &>/dev/null; then
