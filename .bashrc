@@ -120,7 +120,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export EDITOR=vim
+export EDITOR=nvim
 alias nv='nvim'
 
 # In bash 4+, this environment variable controls the maximum number
@@ -130,7 +130,9 @@ export PROMPT_DIRTRIM=6
 
 # Use rg instead of find within FZF. Add --hidden if desired
 if command -v rg &>/dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files --glob "!.git/*"'
+    export FZF_DEFAULT_COMMAND='rg --files'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_DEFAULT_OPTS='--preview "bat --color=always {}"'
 fi
 
 if command -v fzf &>/dev/null; then
