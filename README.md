@@ -23,8 +23,8 @@ Below are some various notes and tips for more efficiently working in bash and o
 * `df -h --total -T` - print info space taken up by mounted file systems
 * `du -sh * | sort -h` - print total disk usage of current directory files and subdirs, sorted
 * `du -h -d1 | sort -h` - print total disk usage of depth-1 directories, sorted
-* Heredoc example [here](bash_examples/heredoc.sh)
-* Bash conditional examples [here](bash_examples/conditionals.sh)
+* Heredoc example [here](examples/heredoc.sh)
+* Bash conditional examples [here](examples/conditionals.sh)
 
 ## `git` tips
 
