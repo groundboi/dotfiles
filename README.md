@@ -1,4 +1,4 @@
-This is a repo of my dotfiles, which are kept fairly minimal. In the spirit of being able to quickly and efficiently work on different systems without getting too reliant on custom configs and tools, the only dependencies and tools used or referenced in this repo (mostly) are ones that can be obtained from the current `stable` Debian repo. Additionally, `vim` and `tmux` are kept minimal with no plugins, and not too many crazy key bindings.
+The spirit of these dotfiles is being able to quickly and efficiently work on different systems without getting too reliant on custom configs, tools, and plugins. Most dependencies and tools used or referenced in this repo are ones that can be obtained from the current `stable` Debian repo. Additionally, `vim` and `tmux` are kept minimal with no plugins, and not too many crazy key bindings. `nvim` relies just on treesitter and lspconfig, which appear to be "official" plugins that will hopefully be part of neovim core eventually.
 
 Below are some various notes and tips for more efficiently working in bash and other tools.
 
