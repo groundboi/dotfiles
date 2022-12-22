@@ -96,7 +96,11 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
   * When you have a Dockerfile, you can build the image with `docker build -t image_name:optional_tag .`
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
-   
+
+## TODO: More nvim config:
+
+* Improve treesitter settings. Use `incremental_selection`, maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
+
 ## TODO: tools/things yet to look into:
 
 * Use C++ more: https://berthub.eu/articles/posts/c++-1/
