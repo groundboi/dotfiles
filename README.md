@@ -106,7 +106,6 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 * Use C++ more: https://berthub.eu/articles/posts/c++-1/
    * https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832
 * QEMU emulation, both in qemu-user and qemu-system
-* Make tutorial: https://makefiletutorial.com/#getting-started
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * https://github.com/jlevy/the-art-of-command-line
 
