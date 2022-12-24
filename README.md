@@ -107,7 +107,6 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
    * https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832
 * QEMU emulation, both in qemu-user and qemu-system
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
-* https://github.com/jlevy/the-art-of-command-line
 
 ## TODO: more vim stuff
 
