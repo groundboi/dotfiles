@@ -99,6 +99,7 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 
 ## TODO:
 
+* Consider a different colorscheme, like gruvbox or onedark. Colorscheme for tmux/shell?
 * Improve treesitter settings. Use `incremental_selection`, maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
 * Vim filtering text to external commands, writing, reading, etc.
 * QEMU emulation, both in qemu-user and qemu-system
