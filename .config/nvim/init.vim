@@ -9,13 +9,27 @@ lua << EOF
 ----------------------------------------------------------
 -- Treesitter config for syntax highlighting, indent, etc.
 ----------------------------------------------------------
+-- Keybindings (normal mode)
+--
+-- <CR>             Increase in scope the visual selection
+-- <BS>             Decrease in scope the visual selection
+
 require'nvim-treesitter.configs'.setup {
     ensure_installed = { "c", "lua", "vim", "kotlin" },
     sync_install = false,
     auto_install = false,
     -- Maybe set below to true? Says experimental feature...
     indent = { enable = false },
-    highlight = { enable = true }
+    highlight = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<CR>",
+            node_incremental = "<CR>",
+            scope_incremebtal = "<S-CR>",
+            node_decremental = "<BS>"
+        }
+    }
 }
 
 ----------------------------------------------------------
