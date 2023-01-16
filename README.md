@@ -99,8 +99,7 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 
 ## TODO:
 
-* Use `onedark` colorscheme
-* Improve treesitter settings. Use `incremental_selection`, maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
+* Improve treesitter settings. Maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
 * Vim filtering text to external commands, writing, reading, etc.
 * QEMU emulation, both in qemu-user and qemu-system
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync

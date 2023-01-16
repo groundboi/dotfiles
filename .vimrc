@@ -193,8 +193,8 @@ function! DiffMe()
 endfunction
 nnoremap <C-P> :call DiffMe()<CR><C-W>l
 
-" evening is also good, and included in vim
-colorscheme solarized
+" evening is also good, and included in vim. Also solarized
+colorscheme onedark
 hi Pmenu        guifg=#ffffff guibg=#4d4d4d gui=NONE cterm=NONE
 hi PmenuSbar    guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi PmenuSel     guifg=#000000 guibg=#bebebe gui=NONE cterm=NONE
