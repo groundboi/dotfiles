@@ -97,6 +97,11 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
 
+## Potential nvim plugins to use
+
+* gitsigns: Not only provides git signs in gutter (make sure to set numberwidth or whatever to 3), but also ways to add git branch to status line, and do a git blame on a line. This is really all I need for nvim/git integration, so I don't have a use for fugitive.
+* octo.nvim: Waiting on gitlab support!
+
 ## TODO:
 
 * Improve treesitter settings. Maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
