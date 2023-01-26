@@ -87,6 +87,18 @@ end
 require('lspconfig')['clangd'].setup{
     on_attach = on_attach,
 }
+
+-- Use the nightfox theme
+require('nightfox').setup({
+    options = {
+        styles = {
+            comments = "italic",
+            keywords = "bold",
+            functions = "bold",
+        }
+    }
+})
+vim.cmd("colorscheme nightfox")
 EOF
 
 " Because we have additional_vim_regex_highlighting as false (default), 'syntax'
