@@ -100,6 +100,7 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 ## Potential nvim plugins to use
 
 * `gitsigns`: Not only provides git signs in gutter (make sure to set numberwidth or whatever to 3), but also ways to add git branch to status line, and do a git blame on a line. This is really all I need for nvim/git integration, so I don't have a use for fugitive.
+* `diffview.nvim`?
 * `nvim-autopairs`?
 * `nvim-tree`? Though I really don't use this much...and I also still have netrw bindings that should be good enough?
 * `vim-illuminate`? Might be able to do this myself with a built-in, but it supports treesitter/lsp which is nice
