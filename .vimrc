@@ -134,6 +134,10 @@ let g:netrw_fastbrowse = 0              " Never re-use directory listing
 let g:netrw_special_syntax = 1          " Special highlighting in netrw based on filetype
 autocmd FileType netrw setl bufhidden=wipe
 
+" Only showing one cursorline for active window
+autocmd WinLeave * setl nocursorline
+autocmd WinEnter * setl cursorline
+
 " The following allows you to CTRL-P on a filename and view a git diff split view of
 " it, with source commit of REVIEW_BASE environment variable. This is useful for
 " code review. For example, you can use `git diff --name-only COMMIT | column | expand > diff.txt`
