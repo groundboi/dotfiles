@@ -99,6 +99,26 @@ require('nightfox').setup({
     }
 })
 vim.cmd("colorscheme nightfox")
+
+-- PLUGINS IM MESSING WITH --
+-- First, nvim-tree
+--require("nvim-web-devicons").setup()
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
+--require("nvim-tree").setup()
+--vim.keymap.set('n', '<leader>n', ':NvimTreeToggle<CR>')
+--vim.keymap.set('n', '<leader>m', ':NvimTreeFindFileToggle<CR>')
+--
+----nvim-illuminate and autopairs
+--require('illuminate').configure()
+--require('nvim-autopairs').setup({fast_wrap = {}})
+--
+----Gitsigns (Needs neovim 0.9.0 feature statuscolumn)
+--require('gitsigns').setup()
+--vim.keymap.set('n', '<leader>w', ':Gitsigns toggle_current_line_blame<CR>')
+--vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s"
+--vim.opt.signcolumn = "yes:1"
+--vim.opt.numberwidth = 2
 EOF
 
 " Because we have additional_vim_regex_highlighting as false (default), 'syntax'
