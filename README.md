@@ -104,7 +104,7 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 * `nvim-autopairs`?
 * `nvim-tree`? Though I really don't use this much...and I also still have netrw bindings that should be good enough?
 * `vim-illuminate`? Might be able to do this myself with a built-in, but it supports treesitter/lsp which is nice
-* `nvim-dap`?
+* `nvim-dap`? Or just `termdebug`
 * `octo.nvim`: Waiting on gitlab support!
 
 ## TODO:
