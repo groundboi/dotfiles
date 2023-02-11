@@ -98,7 +98,7 @@ nnoremap <leader>S :%s/\<<C-r><C-w>\>/
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 if executable('fzf')
-    source ~/software/fzf/fzf-0.34.0/plugin/fzf.vim
+    source /home/user/software/fzf/fzf-0.35.1/plugin/fzf.vim
     nnoremap <leader><SPACE> :FZF<CR>
 endif
 if executable('rg')
@@ -213,7 +213,8 @@ hi DiffDelete   cterm=bold ctermbg=17 guibg=#4a2324
 hi DiffChange   cterm=bold ctermbg=17 guibg=#1f3623
 hi DiffText     cterm=bold ctermbg=17 guibg=#235e26
 
-set statusline=\ %f\ %m\ %r
+set statusline=%#MatchParen#%{get(b:,'gitsigns_head','')}%*
+set statusline+=\ %f\ %m\ %r
 set statusline+=%=
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
