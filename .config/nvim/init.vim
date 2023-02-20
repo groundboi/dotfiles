@@ -115,7 +115,11 @@ vim.cmd("colorscheme nightfox")
 --
 ----Gitsigns (Needs neovim 0.9.0 feature statuscolumn)
 --require('gitsigns').setup()
---vim.keymap.set('n', '<leader>w', ':Gitsigns toggle_current_line_blame<CR>')
+--vim.keymap.set('n', '<leader>gb', ':Gitsigns blame_line<CR>')
+-- Note, would be even nicer to use `git merge-base --fork-point main` instead of `main`
+--vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis main<CR>')
+--vim.keymap.set('n', ']c', ':Gitsigns next_hunk<CR>')
+--vim.keymap.set('n', '[c', ':Gitsigns prev_hunk<CR>')
 --vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s"
 --vim.opt.signcolumn = "yes:1"
 --vim.opt.numberwidth = 2
