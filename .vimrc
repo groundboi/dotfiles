@@ -47,7 +47,7 @@ packadd! matchit                " nicer use of %
 
 let mapleader=' '               " set space to leader key
 
-"
+" =======================
 " Normal mode keymappings
 " =======================
 " Esc / CAPS        Clear highlighting. Close quickfix, location list, help windows
@@ -64,6 +64,7 @@ let mapleader=' '               " set space to leader key
 " <leader>d         Delete into null register, so don't overwrite yanked text
 " <leader>S         Search/replace word under cursor for current buffer
 "
+" =======================
 " Insert mode keymappings
 " =======================
 " CTRL-]            Tag completion
@@ -74,6 +75,7 @@ let mapleader=' '               " set space to leader key
 " CTRL-n            Keywords completion (keywords in current file)
 " CTRL-y / CTRL-e   Accept / Cancel completion
 "
+" =======================
 " Visual mode keymappings
 " =======================
 " S                 Grep current selection project-wide, populate quickfix list with results

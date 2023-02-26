@@ -7,13 +7,33 @@ au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, o
 
 lua << EOF
 ----------------------------------------------------------
--- Treesitter config for syntax highlighting, indent, etc.
+-- nvim-specific keybindings (norm mode unless stated otherwise)
 ----------------------------------------------------------
--- Keybindings (normal mode)
 --
 -- <CR>             Increase in scope the visual selection
 -- <BS>             Decrease in scope the visual selection
+-- <leader>e        Display popup diagnostic
+-- [d               Jump to next diagnostic
+-- ]d               Jump to prev diagnostic
+-- <leader>q        Show all diagnostics in location list
+-- CTRL-o           (ins mode) LSP-powered omni completion
+-- gD               Jump to declaration (many servers dont implement)
+-- gd               Jump to definition of symbol/type
+-- K                Display popup of info on symbol under cursor
+-- <leader>rn       Rename symbol
+-- <leader>ca       Take suggested "code action" on diagnostic
+-- <leader>f        Format buffer according to LSP
+-- <leader>n        Toggle showing file tree
+-- <leader>m        Toggle showing file tree for current file
+-- <leader>gb       Show git blame for line
+-- <leader>gd       Git diff current buffer with copy in main
+-- ]c               Jump to next git change ("hunk")
+-- [c               Jump to prev git change ("hunk")
 
+
+----------------------------------------------------------
+-- Treesitter config for syntax highlighting, indent, etc.
+----------------------------------------------------------
 require'nvim-treesitter.configs'.setup {
     ensure_installed = { "c", "lua", "vim", "kotlin" },
     sync_install = false,
@@ -34,22 +54,8 @@ require'nvim-treesitter.configs'.setup {
 
 ----------------------------------------------------------
 -- LSP stuff
+-- Note: Additional keybindings can use type_definition, implementation, signature_help
 ----------------------------------------------------------
--- Keybindings
--- Note: Can additionally set keymaps for type_definition, implementation, signature_help
---
--- <leader>e        Display popup diagnostic
--- [d               Jump to next diagnostic
--- ]d               Jump to prev diagnostic
--- <leader>q        Show all diagnostics in location list
--- CTRL-o           (ins mode) LSP-powered omni completion
--- gD               Jump to declaration (many servers dont implement)
--- gd               Jump to definition of symbol/type
--- K                Display popup of info on symbol under cursor
--- <leader>rn       Rename symbol
--- <leader>ca       Take suggested "code action" on diagnostic
--- <leader>f        Format buffer according to LSP
-
 -- Nicer border for LSP popup windows
 local func_copy = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -88,7 +94,9 @@ require('lspconfig')['clangd'].setup{
     on_attach = on_attach,
 }
 
--- Use the nightfox theme
+----------------------------------------------------------
+-- Theme
+----------------------------------------------------------
 require('nightfox').setup({
     options = {
         styles = {
@@ -100,29 +108,31 @@ require('nightfox').setup({
 })
 vim.cmd("colorscheme nightfox")
 
--- PLUGINS IM MESSING WITH --
--- First, nvim-tree
---require("nvim-web-devicons").setup()
---vim.g.loaded_netrw = 1
---vim.g.loaded_netrwPlugin = 1
---require("nvim-tree").setup()
---vim.keymap.set('n', '<leader>n', ':NvimTreeToggle<CR>')
---vim.keymap.set('n', '<leader>m', ':NvimTreeFindFileToggle<CR>')
---
-----nvim-illuminate and autopairs
---require('illuminate').configure()
---require('nvim-autopairs').setup({fast_wrap = {}})
---
-----Gitsigns (Needs neovim 0.9.0 feature statuscolumn)
---require('gitsigns').setup()
---vim.keymap.set('n', '<leader>gb', ':Gitsigns blame_line<CR>')
+----------------------------------------------------------
+-- Plugins
+----------------------------------------------------------
+-- nvim-tree and its deps. Note, need a patched nerdfont installed
+require("nvim-web-devicons").setup()
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+require("nvim-tree").setup()
+vim.keymap.set('n', '<leader>n', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader>m', ':NvimTreeFindFileToggle<CR>')
+
+-- nvim-illuminate and autopairs
+require('illuminate').configure()
+require('nvim-autopairs').setup({fast_wrap = {}})
+
+-- gitsigns (needs nvim 0.9.0+ for statuscolumn feature)
+require('gitsigns').setup()
+vim.keymap.set('n', '<leader>gb', ':Gitsigns blame_line<CR>')
 -- Note, would be even nicer to use `git merge-base --fork-point main` instead of `main`
---vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis main<CR>')
---vim.keymap.set('n', ']c', ':Gitsigns next_hunk<CR>')
---vim.keymap.set('n', '[c', ':Gitsigns prev_hunk<CR>')
---vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s"
---vim.opt.signcolumn = "yes:1"
---vim.opt.numberwidth = 2
+vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis main<CR>')
+vim.keymap.set('n', ']c', ':Gitsigns next_hunk<CR>')
+vim.keymap.set('n', '[c', ':Gitsigns prev_hunk<CR>')
+vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s"
+vim.opt.signcolumn = "yes:1"
+vim.opt.numberwidth = 2
 EOF
 
 " Because we have additional_vim_regex_highlighting as false (default), 'syntax'
