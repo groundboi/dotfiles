@@ -112,6 +112,7 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 * Improve treesitter settings. Maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
 * Vim filtering text to external commands, writing, reading, etc.
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
+* Check out `run-one`, looks neat
 
 ## More vim resources
 
