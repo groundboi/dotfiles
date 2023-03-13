@@ -113,6 +113,8 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 * Vim filtering text to external commands, writing, reading, etc.
 * Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
 * Check out `run-one`, looks neat
+* Try out `fzf-lua`: https://github.com/ibhagwan/fzf-lua (read wiki page too)
+* Figure out new MR review workflow. See https://www.reddit.com/r/neovim/comments/11ls23z/what_is_your_nvim_workflow_for_reviewing_prs/
 
 ## More vim resources
 
