@@ -51,29 +51,55 @@ let mapleader=' '               " set space to leader key
 " Normal mode keymappings
 " =======================
 " Esc / CAPS        Clear highlighting. Close quickfix, location list, help windows
-" <leader>n         Open netrw in cwd
-" <leader>m         Open netrw in dir of current file
-" <leader>s         Toggle spell check
-" <leader>b         List buffers
 " CTRL-direction    Navigate between splits (with hjkl)
-" Tab / Shift-Tab   Cycle forward / back through quickfix list
-" <leader><SPACE>   Open fzf search for files (if installed)
-" S                 Grep current word on cursor project-wide, populate quickfix list with results
-" \                 Open project-wide search prompt, populate quickfix list with results
-" <leader>y         Yank but for system clipboard
+" <CR>              Increase in scope the visual selection (treesitter)
+" <BS>              Decrease in scope the visual selection (treesitter)
+" <leader>y         Yank but for system clipboard 
 " <leader>d         Delete into null register, so don't overwrite yanked text
-" <leader>S         Search/replace word under cursor for current buffer
+" <leader>b         List buffers
+" <leader><SPACE>   Open fzf search for files (if installed)
 "
-" =======================
-" Insert mode keymappings
-" =======================
+" <leader>n         Toggle file tree
+" <leader>m         Toggle file tree dir of current file
+" <leader>c         Toggle spell check
+"
+" S                 Grep current word on cursor project-wide, populate quickfix list
+" \                 Open project-wide search prompt, populate quickfix list
+" <leader>i         Show all LSP diagnostics (issues) in quickfix list
+" gr                Populate quickfix list w/ references to symbol
+" Tab / Shift-Tab   Cycle forward / back through quickfix list
+"
+" <leader>r         Rename symbol (via LSP)
+" <leader>s         Search/replace word under cursor for current buffer
+"
+" [d                Jump to next LSP diagnostic
+" ]d                Jump to prev LPS diagnostic
+" ]c                Jump to next git change ("hunk")
+" [c                Jump to prev git change ("hunk")
+" gd                Jump to definition of symbol/type
+"
+" K                 Display LSP "hover info"
+" <leader>l         Display LSP diagnostic
+" <leader>h         Display LSP signature help
+" <leader>gb        Display git blame for line
+"
+" <leader>gd        Git diff current buffer with copy in main
+"
+" <leader>a         Take suggested "code action" on diagnostic
+" <leader>f         Format buffer according to LSP
+"
+"
+" ======================================
+" Insert mode keymappings for completion
+" ======================================
+" Tab / CTRL-o      Omni completion (LSP-powered if possible)
 " CTRL-]            Tag completion
 " CTRL-f            Filename completion
 " CTRL-d            Def/Macro completion
 " CTRL-l            Line completion
-" CTRL-o            Omni completion
 " CTRL-n            Keywords completion (keywords in current file)
 " CTRL-y / CTRL-e   Accept / Cancel completion
+"
 "
 " =======================
 " Visual mode keymappings
@@ -86,7 +112,7 @@ let mapleader=' '               " set space to leader key
 nnoremap <Esc>     :nohl \| cclose \| lclose \| helpclose<CR>
 nnoremap <leader>n :Lexplore<CR>
 nnoremap <leader>m :Lexplore %:p:h<CR>
-nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
+nnoremap <leader>c :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>b :ls<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -96,7 +122,7 @@ nnoremap <silent> <Tab> :cnext<CR>zz
 nnoremap <silent> <S-Tab> :cprev<CR>zz
 nnoremap <leader>y "+y
 nnoremap <leader>d "_d
-nnoremap <leader>S :%s/\<<C-r><C-w>\>/
+nnoremap <leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 if executable('fzf')
@@ -139,6 +165,28 @@ autocmd FileType netrw setl bufhidden=wipe
 " Only showing one cursorline for active window
 autocmd WinLeave * setl nocursorline
 autocmd WinEnter * setl cursorline
+
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+function! Smart_TabComplete()
+  let line = getline('.')
+
+  let substr = strpart(line, -1, col('.')+1)
+  let substr = matchstr(substr, "[^ \t]*$")
+
+  if (strlen(substr)==0)
+    return "\<tab>"
+  endif
+
+  let has_slash = match(substr, '\/') != -1
+
+  if (has_slash)
+    return "\<C-X>\<C-F>"
+  elseif (!empty(&omnifunc))
+    return "\<C-X>\<C-O>"
+  else
+    return "\<C-X>\<C-N>"
+  endif
+endfunction
 
 " The following allows you to CTRL-P on a filename and view a git diff split view of
 " it, with source commit of REVIEW_BASE environment variable. This is useful for

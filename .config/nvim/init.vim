@@ -7,31 +7,6 @@ au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, o
 
 lua << EOF
 ----------------------------------------------------------
--- nvim-specific keybindings (norm mode unless stated otherwise)
-----------------------------------------------------------
---
--- <CR>             Increase in scope the visual selection
--- <BS>             Decrease in scope the visual selection
--- <leader>e        Display popup diagnostic
--- [d               Jump to next diagnostic
--- ]d               Jump to prev diagnostic
--- <leader>q        Show all diagnostics in location list
--- CTRL-o           (ins mode) LSP-powered omni completion
--- gD               Jump to declaration (many servers dont implement)
--- gd               Jump to definition of symbol/type
--- K                Display popup of info on symbol under cursor
--- <leader>rn       Rename symbol
--- <leader>ca       Take suggested "code action" on diagnostic
--- <leader>f        Format buffer according to LSP
--- <leader>n        Toggle showing file tree
--- <leader>m        Toggle showing file tree for current file
--- <leader>gb       Show git blame for line
--- <leader>gd       Git diff current buffer with copy in main
--- ]c               Jump to next git change ("hunk")
--- [c               Jump to prev git change ("hunk")
-
-
-----------------------------------------------------------
 -- Treesitter config for syntax highlighting, indent, etc.
 ----------------------------------------------------------
 require'nvim-treesitter.configs'.setup {
@@ -54,7 +29,7 @@ require'nvim-treesitter.configs'.setup {
 
 ----------------------------------------------------------
 -- LSP stuff
--- Note: Additional keybindings can use type_definition, implementation, signature_help
+-- Note: Additional keybindings can use type_definition, implementation
 ----------------------------------------------------------
 -- Nicer border for LSP popup windows
 local func_copy = vim.lsp.util.open_floating_preview
@@ -72,19 +47,19 @@ vim.fn.sign_define("DiagnosticSignInfo", {text="", numhl="DiagnosticInfo"})
 vim.fn.sign_define("DiagnosticSignHint", {text="", numhl="DiagnosticHint"})
 
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>l', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<leader>i', vim.diagnostic.setqflist, opts)
 
 local on_attach = function(client, bufnr)
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, opts)
+  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
