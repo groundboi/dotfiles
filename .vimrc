@@ -188,65 +188,6 @@ function! Smart_TabComplete()
   endif
 endfunction
 
-" The following allows you to CTRL-P on a filename and view a git diff split view of
-" it, with source commit of REVIEW_BASE environment variable. This is useful for
-" code review. For example, you can use `git diff --name-only COMMIT | column | expand > diff.txt`
-" to generate the filename diff file, then REVIEW_BASE=COMMIT vim diff.txt, and CTRL-P
-" the filenames as desired.
-function! DiffMe()
-    " Get filename, cur line number, base commit
-    let fname = expand("<cWORD>")
-    let splitheight = 8
-    let branch_name = trim(system("git branch --show-current | tr '/' '_'"))
-    let review_name = ".review_".branch_name.".txt"
-
-    " This lets us toggle the view of the changed file window
-    if !filereadable(fname)
-        let winid = bufwinid(".review")
-        if winid == -1
-            " Buffer not loaded into window
-            execute "bot ".splitheight."split ".review_name
-        else
-            " Buffer IS loaded into window, close it
-            execute "bd .review"
-        endif
-
-        return
-    endif
-
-    let curline = line('.')
-    let rbase = $REVIEW_BASE
-
-    " Close all buffers but current (i.e. only diff file window is open)
-    execute "w"
-    execute "%bd! | e#"
-
-    " Make backup in case we accidentally forget to git resume-review
-    "execute "w " . review_name . ".bak"
-
-    " Jump back to stored line
-    execute curline
-
-    " Save a few lines for the filename file
-    let splitheight = winheight(0)-8
-
-    " Open fname in split, get it ready for diff
-    execute "above ".splitheight."split " . fname
-    execute "diffthis"
-    " Save off filetype for setting in in-memory git revision
-    let ft = &filetype
-
-    " Open new vertical split buffer with old version, set filetype
-    " TODO - first check if git show actually gives us anything. If not, it's
-    " a new file, and we only need to show the one on the review branch
-    execute "leftabove vnew | 0r ! git show ".rbase.":".fname
-    execute "set filetype=".ft
-    " Delete added newline at the end, get it ready for diff
-    execute "normal Gddgg"
-    execute "diffthis"
-endfunction
-nnoremap <C-P> :call DiffMe()<CR><C-W>l
-
 " evening is also good, and included in vim. Also solarized
 colorscheme onedark
 hi Pmenu        guifg=#ffffff guibg=#4d4d4d gui=NONE cterm=NONE
@@ -255,13 +196,6 @@ hi PmenuSel     guifg=#000000 guibg=#bebebe gui=NONE cterm=NONE
 hi PmenuThumb   guifg=NONE guibg=#ffffff gui=NONE cterm=NONE
 hi CursorLine   term=bold cterm=bold guibg=#383736
 hi Comment      cterm=italic gui=italic
-
-" Setting diff colors because they're terrible by default
-" Currently using the exact GitLab color scheme
-hi DiffAdd      cterm=bold ctermbg=17 guibg=#1f3623
-hi DiffDelete   cterm=bold ctermbg=17 guibg=#4a2324
-hi DiffChange   cterm=bold ctermbg=17 guibg=#1f3623
-hi DiffText     cterm=bold ctermbg=17 guibg=#235e26
 
 set statusline=%#MatchParen#%{get(b:,'gitsigns_head','')}%*
 set statusline+=\ %f\ %m\ %r

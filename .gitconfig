@@ -7,8 +7,7 @@
 	changed-files = !git diff --name-only $(git base) | column
 	changed-files-tree = !git diff --name-only $(git base) | tree --fromfile .
 	stat = !git diff --stat $(git base)
-	review = !git changed-files | column > .review_$(git branch --show-current | tr '/' '_').txt && REVIEW_BASE=$(git base) vim .review_$(git branch --show-current | tr '/' '_').txt
-	resume-review = !REVIEW_BASE=$(git base) vim .review_$(git branch --show-current | tr '/' '_').txt
+    review = !nvim -c "DiffviewOpen main..HEAD"
 	graph = !git log --oneline --graph --decorate --all
 [core]
-	editor = "vim"
+	editor = "nvim"
