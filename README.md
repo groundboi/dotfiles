@@ -97,13 +97,21 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
 
+## Neovim plugins currently in use
+
+* diffview
+    * plenary is a dependency
+* gitsigns
+* nightfox
+* nvim-autopairs
+* nvim-lspconfig
+* nvim-tree
+* nvim-treesitter
+* nvim-web-devicons
+* vim-illuminate
+
 ## Potential nvim plugins to use
 
-* `gitsigns`: Not only provides git signs in gutter (make sure to set numberwidth or whatever to 3), but also ways to add git branch to status line, and do a git blame on a line. This is really all I need for nvim/git integration, so I don't have a use for fugitive.
-* `diffview.nvim`?
-* `nvim-autopairs`?
-* `nvim-tree`? Though I really don't use this much...and I also still have netrw bindings that should be good enough?
-* `vim-illuminate`? Might be able to do this myself with a built-in, but it supports treesitter/lsp which is nice
 * `nvim-dap`? Or just `termdebug`
 * `octo.nvim`: Waiting on gitlab support!
 
