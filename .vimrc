@@ -170,7 +170,7 @@ inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 function! Smart_TabComplete()
   let line = getline('.')
 
-  let substr = strpart(line, -1, col('.')+1)
+  let substr = strpart(line, -1, col('.'))
   let substr = matchstr(substr, "[^ \t]*$")
 
   if (strlen(substr)==0)
