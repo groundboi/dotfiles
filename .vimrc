@@ -168,6 +168,10 @@ autocmd WinEnter * setl cursorline
 
 inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 function! Smart_TabComplete()
+  if (pumvisible())
+    return "\<C-N>"
+  endif
+  
   let line = getline('.')
 
   let substr = strpart(line, -1, col('.'))
