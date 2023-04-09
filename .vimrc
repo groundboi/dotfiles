@@ -84,6 +84,9 @@ let mapleader=' '               " set space to leader key
 " <leader>gb        Display git blame for line
 "
 " <leader>gd        Git diff current buffer with copy in main
+" <leader>ga        Git add ("stage") the current git hunk
+" <leader>gr        Git reset the current git hunk
+" <leader>gu        Git undo the last stage of a git hunk
 "
 " <leader>a         Take suggested "code action" on diagnostic
 " <leader>f         Format buffer according to LSP
