@@ -195,14 +195,9 @@ function! Smart_TabComplete()
   endif
 endfunction
 
-" evening is also good, and included in vim. Also solarized
-colorscheme onedark
-hi Pmenu        guifg=#ffffff guibg=#4d4d4d gui=NONE cterm=NONE
-hi PmenuSbar    guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi PmenuSel     guifg=#000000 guibg=#bebebe gui=NONE cterm=NONE
-hi PmenuThumb   guifg=NONE guibg=#ffffff gui=NONE cterm=NONE
-hi CursorLine   term=bold cterm=bold guibg=#383736
-hi Comment      cterm=italic gui=italic
+" nightfox handles popups, cursorline, comments, etc. as we want
+" see nvim config for more
+colorscheme nightfox
 
 set statusline=%#MatchParen#%{get(b:,'gitsigns_head','')}%*
 set statusline+=\ %f\ %m\ %r
