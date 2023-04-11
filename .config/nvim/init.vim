@@ -106,8 +106,8 @@ vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis main<CR>')
 vim.keymap.set({'n','v'}, '<leader>ga', ':Gitsigns stage_hunk<CR>')
 vim.keymap.set({'n','v'}, '<leader>gr', ':Gitsigns reset_hunk<CR>')
 vim.keymap.set('n', '<leader>gu', ':Gitsigns undo_stage_hunk<CR>')
-vim.keymap.set('n', ']c', function() if vim.wo.diff then return ']c' else return ":Gitsigns next_hunk<CR>" end)
-vim.keymap.set('n', '[c', function() if vim.wo.diff then return '[c' else return ":Gitsigns prev_hunk<CR>" end)
+vim.keymap.set('n', ']c', ":Gitsigns next_hunk<CR>")
+vim.keymap.set('n', '[c', ":Gitsigns prev_hunk<CR>")
 vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s"
 vim.opt.signcolumn = "yes:1"
 vim.opt.numberwidth = 2
