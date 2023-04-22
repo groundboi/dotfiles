@@ -96,7 +96,10 @@ vim.keymap.set('n', '<leader>m', ':NvimTreeFindFileToggle<CR>')
 
 -- nvim-illuminate and autopairs
 require('illuminate').configure()
-require('nvim-autopairs').setup({fast_wrap = {}})
+require('nvim-autopairs').setup({
+    fast_wrap = {},
+    ignored_next_char = "[%w%.]" -- will ignore alphanumeric and `.` symbol
+})
 
 -- gitsigns (needs nvim 0.9.0+ for statuscolumn feature)
 require('gitsigns').setup()
