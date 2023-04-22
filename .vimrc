@@ -20,7 +20,6 @@ set splitbelow                  " default horizontal split is below
 set splitright                  " default vertical split is right
 set hidden                      " allow hidden buffers
 set mouse=a                     " enable mouse support
-match Error /\s\+$/             " error-highlight trailing whitespace
 set encoding=utf-8
 set hlsearch                    " highlight search matches
 set ignorecase                  " ignore case
@@ -198,6 +197,14 @@ endfunction
 " nightfox handles popups, cursorline, comments, etc. as we want
 " see nvim config for more
 colorscheme nightfox
+
+" Error highlight trailing whitespace
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 set statusline=%#MatchParen#%{get(b:,'gitsigns_head','')}%*
 set statusline+=\ %f\ %m\ %r
