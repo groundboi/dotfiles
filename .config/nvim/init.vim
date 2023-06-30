@@ -116,6 +116,21 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.numberwidth = 2
 EOF
 
+require('eyeliner').setup({
+    highlight_on_key = true,
+    dim = true
+})
+
+-- Can also do bat_native
+-- TODO: Comment this out until better tested/understood/integrated. Regular fzf works well for now
+require('fzf-lua').setup({
+    winopts = {
+        preview = {
+            default = 'bat'
+        }
+    }
+})
+
 " Because we have additional_vim_regex_highlighting as false (default), 'syntax'
 " highlighting will NOT be used for vimscript, instead using treesitter syntax
 " highlighting. But, vims regex syntax highlighting actually looks better for
