@@ -1,4 +1,4 @@
-The spirit of these dotfiles is being able to quickly and efficiently work on different systems without getting too reliant on custom configs, tools, and plugins. Most dependencies and tools used or referenced in this repo are ones that can be obtained from the current `stable` Debian repo. Additionally, `vim` and `tmux` are kept minimal with no plugins, and not too many crazy key bindings. `nvim` relies just on treesitter and lspconfig, which appear to be "official" plugins that will hopefully be part of neovim core eventually.
+The spirit of these dotfiles is being able to quickly and efficiently work on different systems without getting _too_ reliant on custom configs, tools, and plugins. Most dependencies and tools used or referenced in this repo are ones that can be obtained from the current `stable` Debian repo. Additionally, `vim`/`nvim` and `tmux` are kept minimal with few or no plugins, and not too many crazy key bindings.
 
 Below are some various notes and tips for more efficiently working in bash and other tools.
 
@@ -45,14 +45,18 @@ Below are some various notes and tips for more efficiently working in bash and o
   * `Ctrl-W s` (and likewise for v) will split the window. Can do `:sf FILE` to split and find file, as well as put `:vert` in front of any splitting command to make it vertical split.
   * When using fzf - use `C-x` and `C-v` to open in splits
 
+### More vim resources
+
+* https://github.com/mhinz/vim-galore
+* https://github.com/ibhagwan/vim-cheatsheet
+* http://vimcasts.org/episodes/page/8/
+
 ## `tmux` tips
   * `tmux new -s MySessionName` will create a named session
   * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
   * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
 
 ## Other tools I typically use
-
-Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `universal-ctags`, `http` (package name `httpie`), `moreutils` (which contains `vidir`), `updatedb` and `locate`.
 
 ### `fzf`
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
@@ -85,7 +89,7 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
   * Commands of interest are: fin, watch, break, next, step, continue, print, bt, info, display, set, up/down, checkpoint/restart, where
 
 ### `Docker`
-  * Install via the `docker-ce` or `docker.io` package. You will also need to add yourself to the docker group, and then start the docker service.
+  * ~~Install via the `docker-ce` or `docker.io` package~~ Just install however it says on the docker website - this ecosystem changes too frequently. You will also need to add yourself to the docker group, and then start the docker service.
   * `docker images` and `docker ps` show images and running containers, respectively. Use `docker ps -a` to see all containers that have been run.
     * `docker stop CONTAINER_ID` and `docker rm CONTAINER_ID` will stop and rm containers.
     * `docker rmi IMAGE_ID` will remove images
@@ -96,6 +100,20 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
   * When you have a Dockerfile, you can build the image with `docker build -t image_name:optional_tag .`
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
+
+### Others
+
+  * `rg` (package name `ripgrep`)
+  * `tldr`
+  * `bat`
+  * `fd`
+  * `universal-ctags`
+  * `http` (package name `httpie`)
+  * `moreutils` (which contains `vidir`)
+  * `updatedb` and `locate`
+  * `run-one`
+  * `exa`
+  * `zoxide`
 
 ## Neovim plugins currently in use
 
@@ -109,8 +127,9 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 * nvim-treesitter
 * nvim-web-devicons
 * vim-illuminate
+* eyeliner
 
-## Potential nvim plugins to use
+### Potential nvim plugins to use
 
 * `nvim-dap`? Or just `termdebug`
 * `octo.nvim`: Waiting on gitlab support!
@@ -118,14 +137,4 @@ Definitely want to install `rg` (package name `ripgrep`), `tldr`, `bat`, `fd`, `
 ## TODO:
 
 * Improve treesitter settings. Maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
-* Vim filtering text to external commands, writing, reading, etc.
-* Examples of loops (for i...print $i...), conditionals, `seq`, xargs / GNU parallel, rsync
-* Check out `run-one`, looks neat
 * Try out `fzf-lua`: https://github.com/ibhagwan/fzf-lua (read wiki page too)
-* Figure out new MR review workflow. See https://www.reddit.com/r/neovim/comments/11ls23z/what_is_your_nvim_workflow_for_reviewing_prs/
-
-## More vim resources
-
-* https://github.com/mhinz/vim-galore
-* https://github.com/ibhagwan/vim-cheatsheet
-* http://vimcasts.org/episodes/page/8/
