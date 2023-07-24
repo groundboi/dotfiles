@@ -143,3 +143,4 @@ if command -v fzf &>/dev/null; then
 fi
 
 alias bb="git branch --sort=-committerdate | fzf --height=20% --preview-window=hidden | xargs git checkout"
+alias review='nvim -c "DiffviewOpen origin/HEAD...HEAD --imply-local"'
