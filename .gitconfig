@@ -7,7 +7,6 @@
 	changed-files = !git diff --name-only $(git base) | column
 	changed-files-tree = !git diff --name-only $(git base) | tree --fromfile .
 	stat = !git diff --stat $(git base)
-    review = !nvim -c "DiffviewOpen main..HEAD"
 	graph = !git log --oneline --graph --decorate --all
 [core]
 	editor = "nvim"
