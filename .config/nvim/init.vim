@@ -114,7 +114,6 @@ vim.keymap.set('n', '[c', ":Gitsigns prev_hunk<CR>")
 vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s"
 vim.opt.signcolumn = "yes:1"
 vim.opt.numberwidth = 2
-EOF
 
 require('eyeliner').setup({
     highlight_on_key = true,
@@ -130,6 +129,7 @@ require('fzf-lua').setup({
         }
     }
 })
+EOF
 
 " Because we have additional_vim_regex_highlighting as false (default), 'syntax'
 " highlighting will NOT be used for vimscript, instead using treesitter syntax
