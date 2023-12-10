@@ -51,9 +51,10 @@ let mapleader=' '               " set space to leader key
 " =======================
 " Esc / CAPS        Clear highlighting. Close quickfix, location list, help windows
 " CTRL-direction    Navigate between splits (with hjkl)
+" CTRL-x            Close current split
 " <CR>              Increase in scope the visual selection (treesitter)
 " <BS>              Decrease in scope the visual selection (treesitter)
-" <leader>y         Yank but for system clipboard 
+" <leader>y         Yank but for system clipboard
 " <leader>d         Delete into null register, so don't overwrite yanked text
 " <leader>b         List buffers
 " <leader><SPACE>   Open fzf search for files (if installed)
@@ -120,6 +121,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <C-X> :close<CR>
 nnoremap <silent> <Tab> :cnext<CR>zz
 nnoremap <silent> <S-Tab> :cprev<CR>zz
 nnoremap <leader>y "+y
@@ -173,7 +175,7 @@ function! Smart_TabComplete()
   if (pumvisible())
     return "\<C-N>"
   endif
-  
+
   let line = getline('.')
 
   let substr = strpart(line, -1, col('.'))
