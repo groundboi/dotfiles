@@ -84,21 +84,22 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CFl'
+if command -v eza &>/dev/null; then
+    alias ll='eza -alF --icons'
+    alias l='eza -lF --icons'
+else
+    alias ll='ls -alF'
+    alias l='ls -lF'
+fi
 alias ..='cd ..'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # Use like `pwd | clip`
-alias clip="xclip -in -selection clipboard"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias clip="xargs echo -n | pbcopy"
+else
+    alias clip="xclip -in -selection clipboard"
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -128,6 +129,10 @@ alias nv='nvim'
 # '.../'
 export PROMPT_DIRTRIM=6
 
+if command -v fzf &>/dev/null; then
+    eval "$(fzf --bash)"
+fi
+
 # Use rg instead of find within FZF. Add --hidden if desired
 if command -v rg &>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files'
@@ -135,11 +140,6 @@ if command -v rg &>/dev/null; then
     export FZF_DEFAULT_OPTS='--preview "bat --color=always {}"'
     export FZF_ALT_C_OPTS='--preview-window=hidden'
     export FZF_CTRL_R_OPTS='--preview-window=hidden'
-fi
-
-if command -v fzf &>/dev/null; then
-    source /usr/share/doc/fzf/examples/key-bindings.bash
-    source /usr/share/bash-completion/completions/fzf
 fi
 
 alias bb="git branch --sort=-committerdate | fzf --height=20% --preview-window=hidden | xargs git checkout"

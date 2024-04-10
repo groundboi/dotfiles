@@ -35,6 +35,8 @@ set scrolloff=5                 " display some context lines when scrolling
 set timeoutlen=1000             " remove esc delays
 set ttimeoutlen=50              " remove esc delays
 set backspace=indent,eol,start  " more powerful backspacing
+set list
+set listchars=trail:␣
 if has('termguicolors')
     set termguicolors           " more colors (only available when configured +termguicolors)
     if exists('$TMUX')
@@ -46,72 +48,6 @@ packadd! matchit                " nicer use of %
 
 let mapleader=' '               " set space to leader key
 
-" =======================
-" Normal mode keymappings
-" =======================
-" Esc / CAPS        Clear highlighting. Close quickfix, location list, help windows
-" CTRL-direction    Navigate between splits (with hjkl)
-" CTRL-x            Close current split
-" <CR>              Increase in scope the visual selection (treesitter)
-" <BS>              Decrease in scope the visual selection (treesitter)
-" <leader>y         Yank but for system clipboard
-" <leader>d         Delete into null register, so don't overwrite yanked text
-" <leader>b         List buffers
-" <leader><SPACE>   Open fzf search for files (if installed)
-"
-" <leader>n         Toggle file tree
-" <leader>m         Toggle file tree dir of current file
-" <leader>c         Toggle spell check
-"
-" S                 Grep current word on cursor project-wide, populate quickfix list
-" \                 Open project-wide search prompt, populate quickfix list
-" <leader>i         Show all LSP diagnostics (issues) in quickfix list
-" gr                Populate quickfix list w/ references to symbol
-" Tab / Shift-Tab   Cycle forward / back through quickfix list
-"
-" <leader>r         Rename symbol (via LSP)
-" <leader>s         Search/replace word under cursor for current buffer
-"
-" [d                Jump to next LSP diagnostic
-" ]d                Jump to prev LPS diagnostic
-" ]c                Jump to next git change ("hunk")
-" [c                Jump to prev git change ("hunk")
-" gd                Jump to definition of symbol/type
-"
-" K                 Display LSP "hover info"
-" <leader>l         Display LSP diagnostic
-" <leader>h         Display LSP signature help
-" <leader>gb        Display git blame for line
-"
-" <leader>gd        Git diff current buffer with copy in main
-" <leader>ga        Git add ("stage") the current git hunk
-" <leader>gr        Git reset the current git hunk
-" <leader>gu        Git undo the last stage of a git hunk
-"
-" <leader>a         Take suggested "code action" on diagnostic
-" <leader>f         Format buffer according to LSP
-"
-"
-" ======================================
-" Insert mode keymappings for completion
-" ======================================
-" Tab / CTRL-o      Omni completion (LSP-powered if possible)
-" CTRL-]            Tag completion
-" CTRL-f            Filename completion
-" CTRL-d            Def/Macro completion
-" CTRL-l            Line completion
-" CTRL-n            Keywords completion (keywords in current file)
-" CTRL-y / CTRL-e   Accept / Cancel completion
-"
-"
-" =======================
-" Visual mode keymappings
-" =======================
-" S                 Grep current selection project-wide, populate quickfix list with results
-" J / K             Move block up and down, auto-indenting along the way
-" <leader>y         Yank but for system clipboard
-" <leader>d         Delete into null register, so don't overwrite yanked text (technically X mode remap)
-"
 nnoremap <Esc>     :nohl \| cclose \| lclose \| helpclose<CR>
 nnoremap <leader>n :Lexplore<CR>
 nnoremap <leader>m :Lexplore %:p:h<CR>
@@ -130,7 +66,10 @@ nnoremap <leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 if executable('fzf')
-    source /home/user/software/fzf/fzf-0.35.1/plugin/fzf.vim
+    " Note - will need to fix the below up for your system
+    " Eventually, this will be done smarter
+    " source /home/user/software/fzf/fzf-0.35.1/plugin/fzf.vim
+    set rtp+=/opt/homebrew/opt/fzf
     nnoremap <leader><SPACE> :FZF<CR>
 endif
 if executable('rg')
@@ -196,17 +135,7 @@ function! Smart_TabComplete()
   endif
 endfunction
 
-" nightfox handles popups, cursorline, comments, etc. as we want
-" see nvim config for more
-colorscheme nightfox
-
-" Error highlight trailing whitespace
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+colorscheme evening
 
 set statusline=%#MatchParen#%{get(b:,'gitsigns_head','')}%*
 set statusline+=\ %f\ %m\ %r
