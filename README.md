@@ -112,29 +112,10 @@ Below are some various notes and tips for more efficiently working in bash and o
   * `moreutils` (which contains `vidir`)
   * `updatedb` and `locate`
   * `run-one`
-  * `exa`
+  * `eza`
   * `zoxide`
-
-## Neovim plugins currently in use
-
-* diffview
-    * plenary is a dependency
-* gitsigns
-* nightfox
-* nvim-autopairs
-* nvim-lspconfig
-* nvim-tree
-* nvim-treesitter
-* nvim-web-devicons
-* vim-illuminate
-* eyeliner
 
 ### Potential nvim plugins to use
 
 * `nvim-dap`? Or just `termdebug`
-* `octo.nvim`: Waiting on gitlab support!
-
-## TODO:
-
-* Improve treesitter settings. Maybe turn `indent` on. Also, there is more treesitter functionality available via https://github.com/nvim-treesitter/nvim-treesitter-textobjects. For example, moving to functions, visually selecting a parsed object and increasing/decreasing scope, etc.
-* Try out `fzf-lua`: https://github.com/ibhagwan/fzf-lua (read wiki page too)
+* `octo.nvim` or `gitlab.nvim`

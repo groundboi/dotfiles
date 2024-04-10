@@ -203,6 +203,11 @@ require("lazy").setup({
     opts = {winopts = {preview = {default = 'bat'}}}    -- can also use bat_native
 },
 {
+    "sindrets/diffview.nvim",
+    dependencies = {"nvim-tree/nvim-web-devicons"},     -- optional
+    config = true
+},
+{
     'jinh0/eyeliner.nvim',
     opts = {highlight_on_key = true, dim = true}
 },
