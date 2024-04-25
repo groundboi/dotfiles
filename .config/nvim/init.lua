@@ -46,7 +46,6 @@ vim.keymap.set('n', '<leader>d', '"_d')                                     -- d
 vim.keymap.set('n', '<leader>s', ':%s/<<C-r><C-w>>/')                       -- search/replace word under cursor for current buffer
 vim.keymap.set('n', '<C-d>', '<C-d>zz')                                     -- nicer move down in buffer
 vim.keymap.set('n', '<C-u>', '<C-u>zz')                                     -- nicer move up in buffer
-vim.keymap.set('n', '<leader><SPACE>', ':FZF<CR>')                          -- open fzf search for files to open
 
 ---------------------------
 -- Insert mode key mappings
@@ -200,7 +199,10 @@ require("lazy").setup({
 {
     "ibhagwan/fzf-lua",
     dependencies = {"nvim-tree/nvim-web-devicons"},     -- optional
-    opts = {winopts = {preview = {default = 'bat'}}}    -- can also use bat_native
+    opts = {winopts = {preview = {default = 'bat'}}},   -- can also use bat_native
+    keys = {
+        {'<leader><SPACE>', ':FzfLua files<CR>'}        -- open fzf search for files to open
+    }
 },
 {
     "sindrets/diffview.nvim",
@@ -224,11 +226,6 @@ require("lazy").setup({
         vim.cmd.colorscheme 'nightfox'
     end
 },
-},
-{
-    -- LazyVim takes over rtp, so we can't just specify it in the normal way
-    -- Note the fzf path will be different on non-apple systems
-    performance = {rtp = {paths = {"/opt/homebrew/opt/fzf"}}}
 })
 
 -------------------------------
