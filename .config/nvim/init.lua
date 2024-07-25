@@ -18,13 +18,14 @@ vim.opt.ignorecase = true                   -- ignore case in search results
 vim.opt.smartcase = true                    -- ...unless there is a capital in the search
 vim.opt.mouse = 'a'                         -- mouse support, nice for resizing splits
 vim.opt.scrolloff = 5                       -- have a few context lines when scrolling
-vim.opt.listchars = "trail:␣"               -- show trailing whitespace with this char
+vim.opt.listchars = {trail="-", tab="> "}   -- show trailing whitespace with this char
 vim.opt.list = true                         -- needed for the above setting
 vim.opt.undofile = true                     -- persistent undo
-vim.opt.undodir = '~/.config/nvim/undodir'  -- persistent undo dir. Note that this dir must exist already
+vim.opt.undodir = vim.fn.expand('~/.config/nvim/undodir') -- persistent undo dir. Note that this dir must exist already
 vim.opt.signcolumn = "yes:1"                -- with gitsigns, makes for nicer number/status column
 vim.opt.numberwidth = 2                     -- with gitsigns, makes for nicer number/status column
 vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s" -- same comment as above
+vim.opt.termguicolors = true                -- enable 24-bit RGB colors
 vim.g.mapleader = ' '                       -- set space to leader key
 vim.g.maplocalleader = ' '                  -- ...and local leader key, just in case for ft plugins
 
@@ -146,18 +147,21 @@ require("lazy").setup({
     'neovim/nvim-lspconfig',
     config = function()
         require("lspconfig")['clangd'].setup{
+            -- Note, may be able to make this generic for any LSP using
+            -- vim.api.nvim_create_autocmd("LspAttach" { blah }), introduced in 0.10.0
             on_attach = function(client, bufnr)
                   local bufopts = {noremap = true, silent = true, buffer = bufnr}
                   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)            -- go to definition
+                  -- Note, CTRL-] also goes to definition by default!
                   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)            -- populate qflist with references
-                  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)                  -- popup hover information on symbol
+                  -- As of nvim 0.10.0, 'K' by default maps to vim.lsp.buf.hover        -- popup hover information on symbol
                   vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, bufopts) -- signature help on function args
+                  -- Note, in ins mode, CTRL-S does signature help by default!
                   vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)         -- rename symbol
                   vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)    -- view/take possible code actions
                   vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)  -- view diagnostic for line
                   vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, bufopts)   -- populate qflist with all diagnostic issues
-                  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)          -- go to previous diagnostic in buffer
-                  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)          -- go to next diagnostic in buffer
+                  -- As of nvim 0.10.0, '[d' and ']d' go to diagnostics by default!     -- go to previous/next diagnostic in buffer
                   vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
                   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
             end
@@ -251,6 +255,25 @@ function smart_tab_complete()
         return "<C-X><C-N>" -- do built-in buffer-based word completion
     end
 end
+
+-----------------------------------
+-- Highlighting trailing whitespace
+-----------------------------------
+vim.cmd([[match TrailingWhitespace /\s\+$/]])
+vim.api.nvim_set_hl(0, "TrailingWhitespace", { link = "Error" })
+
+-- The below autocmds are so we don't highlight in insert mode
+vim.api.nvim_create_autocmd("InsertEnter", {
+    callback = function()
+        vim.api.nvim_set_hl(0, "TrailingWhitespace", { link = "Whitespace" })
+    end
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+    callback = function()
+        vim.api.nvim_set_hl(0, "TrailingWhitespace", { link = "Error" })
+    end
+})
 
 -------------
 -- Statusline
