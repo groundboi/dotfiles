@@ -146,26 +146,19 @@ require("lazy").setup({
 {
     'neovim/nvim-lspconfig',
     config = function()
-        require("lspconfig")['clangd'].setup{
-            -- Note, may be able to make this generic for any LSP using
-            -- vim.api.nvim_create_autocmd("LspAttach" { blah }), introduced in 0.10.0
-            on_attach = function(client, bufnr)
-                  local bufopts = {noremap = true, silent = true, buffer = bufnr}
-                  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)            -- go to definition
-                  -- Note, CTRL-] also goes to definition by default!
-                  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)            -- populate qflist with references
-                  -- As of nvim 0.10.0, 'K' by default maps to vim.lsp.buf.hover        -- popup hover information on symbol
-                  vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, bufopts) -- signature help on function args
-                  -- Note, in ins mode, CTRL-S does signature help by default!
-                  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)         -- rename symbol
-                  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)    -- view/take possible code actions
-                  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)  -- view diagnostic for line
-                  vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, bufopts)   -- populate qflist with all diagnostic issues
-                  -- As of nvim 0.10.0, '[d' and ']d' go to diagnostics by default!     -- go to previous/next diagnostic in buffer
-                  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-                  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-            end
+        require("lspconfig")['gopls'].setup{
+            settings = {
+                gopls = {
+                    analyses = {
+                        unusedparams = true,
+                    },
+                    staticcheck = true,
+                    completeUnimported = true,
+                }
+            }
         }
+        require("lspconfig")['clangd'].setup{}
+
         vim.diagnostic.config{signs = true, underline = true, virtual_text = true, float = {border = "rounded"}}
         vim.fn.sign_define("DiagnosticSignError", {text="", numhl="DiagnosticError"})
         vim.fn.sign_define("DiagnosticSignWarn", {text="", numhl="DiagnosticWarn"})
@@ -232,6 +225,28 @@ require("lazy").setup({
 },
 })
 
+--------------------------
+-- Generic LSP keymappings
+--------------------------
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local bufopts = {noremap = true, silent = true, buffer = args.buf}
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)            -- go to definition
+        -- Note, CTRL-] also goes to definition by default!
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)            -- populate qflist with references
+        -- As of nvim 0.10.0, 'K' by default maps to vim.lsp.buf.hover        -- popup hover information on symbol
+        vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, bufopts) -- signature help on function args
+        -- Note, in ins mode, CTRL-S does signature help by default!
+        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)         -- rename symbol
+        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)    -- view/take possible code actions
+        vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)  -- view diagnostic for line
+        vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, bufopts)   -- populate qflist with all diagnostic issues
+        -- As of nvim 0.10.0, '[d' and ']d' go to diagnostics by default!     -- go to previous/next diagnostic in buffer
+        vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+        vim.api.nvim_buf_set_option(args.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    end,
+})
+
 -------------------------------
 -- Our own basic tab-completion
 -- Used by a keymap above
@@ -273,6 +288,16 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
         vim.api.nvim_set_hl(0, "TrailingWhitespace", { link = "Error" })
     end
+})
+
+-----------------------------------
+-- Use tabs for Go, not spaces
+-----------------------------------
+vim.api.nvim_create_autocmd({"FileType"}, {
+    pattern = {"go"},
+    callback = function()
+        vim.opt_local.expandtab = false
+    end,
 })
 
 -------------
