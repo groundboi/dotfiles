@@ -35,10 +35,6 @@ vim.g.maplocalleader = ' '                  -- ...and local leader key, just in 
 vim.keymap.set('n', '<Esc>', ':nohl | cclose | lclose | helpclose<CR>')     -- clear highlighting, quickfix, loclist, help
 vim.keymap.set('n', '<leader>c', ':setlocal spell! spelllang=en_us<CR>')    -- spell check
 vim.keymap.set('n', '<leader>b', ':ls<CR>')                                 -- list buffers
-vim.keymap.set('n', '<C-J>', '<C-W><C-J>')                                  -- easy move split down
-vim.keymap.set('n', '<C-K>', '<C-W><C-K>')                                  -- easy move split up
-vim.keymap.set('n', '<C-L>', '<C-W><C-L>')                                  -- easy move split right
-vim.keymap.set('n', '<C-H>', '<C-W><C-H>')                                  -- easy move split left
 vim.keymap.set('n', '<C-X>', ':close<CR>')                                  -- close current split
 vim.keymap.set('n', '<Tab>', ':cnext<CR>zz', { silent = true })             -- cycle forward in qfix list
 vim.keymap.set('n', '<S-Tab>', ':cprev<CR>zz', { silent = true })           -- cycle backwards in qfix list
@@ -176,6 +172,7 @@ require("lazy").setup({
 {
     'lewis6991/gitsigns.nvim',
     config = true,
+    lazy = false,
     keys = {
         -- Note, would be nicer to use `git merge-base --fork-point main` instead of `main`
         {'<leader>gd', ':Gitsigns diffthis main<CR>'},  -- diff current buffer with counterpart in main
@@ -217,11 +214,27 @@ require("lazy").setup({
 },
 {
     'EdenEast/nightfox.nvim',
+    lazy = false, -- load at startup
     priority = 1000, -- load colorscheme before all other plugins, otherwise things get screwy
     opts = {options = {styles = {comments = "italic", keywords = "bold", functions = "bold"}}},
     init = function()
         vim.cmd.colorscheme 'nightfox'
     end
+},
+{
+  "christoomey/vim-tmux-navigator",
+  cmd = {
+    "TmuxNavigateLeft",
+    "TmuxNavigateDown",
+    "TmuxNavigateUp",
+    "TmuxNavigateRight",
+  },
+  keys = {
+    { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+    { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+    { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+    { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+  },
 },
 })
 
