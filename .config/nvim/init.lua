@@ -10,7 +10,7 @@ vim.opt.relativenumber = true               -- use relative line numbers for eas
 vim.opt.cursorline = true                   -- highlight current line
 vim.opt.wildmenu = true                     -- autocomplete menu for commands
 vim.opt.wildmode = 'longest:full'           -- don't auto-fill the first match when tab completing in commands
-vim.opt.completeopt = 'menu,longest'        -- similar as above, but for ins-mode completion
+vim.opt.completeopt = 'menu,longest,menuone,popup' -- similar as above, but for ins-mode completion
 vim.opt.wildoptions = 'pum'                 -- use popup menu for completion
 vim.opt.splitbelow = true                   -- horizontal splits are added below
 vim.opt.splitright = true                   -- vertical splits are added to right
@@ -34,7 +34,6 @@ vim.g.maplocalleader = ' '                  -- ...and local leader key, just in 
 ---------------------------
 vim.keymap.set('n', '<Esc>', ':nohl | cclose | lclose | helpclose<CR>')     -- clear highlighting, quickfix, loclist, help
 vim.keymap.set('n', '<leader>c', ':setlocal spell! spelllang=en_us<CR>')    -- spell check
-vim.keymap.set('n', '<leader>b', ':ls<CR>')                                 -- list buffers
 vim.keymap.set('n', '<C-X>', ':close<CR>')                                  -- close current split
 vim.keymap.set('n', '<Tab>', ':cnext<CR>zz', { silent = true })             -- cycle forward in qfix list
 vim.keymap.set('n', '<S-Tab>', ':cprev<CR>zz', { silent = true })           -- cycle backwards in qfix list
@@ -61,17 +60,6 @@ vim.keymap.set({'i','s'}, '<Tab>', 'v:lua.smart_tab_complete()', {  -- nicer use
 ---------------------------
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")    -- move block down, auto-indenting along the way
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")    -- move block up, auto-indenting along the way
-
--------------------------------
--- Ripgrep keymaps and settings
--------------------------------
-if vim.fn.executable('rg') then
-    vim.opt.grepprg = 'rg --vimgrep'                            -- set rg to be the default grep
-    vim.keymap.set('n', '\\', ':Rg<SPACE>')                     -- recursive rg for provided query
-    vim.keymap.set('n', 'S', ':Rg -w -s <C-R><C-W><CR>:cw<CR>') -- recursive rg for word under cursor
-    vim.keymap.set('v', 'S', 'y:Rg -w <C-R>"<CR>:cw<CR>')       -- recursive rg for visual selection
-    vim.api.nvim_create_user_command("Rg", "silent! grep! <args>|cwindow|redraw!", {bar=true, complete='file', nargs='+'})
-end
 
 ----------------------------------------------------
 -- A few useful autocommands for minor visual things
@@ -192,10 +180,18 @@ require("lazy").setup({
 } ,
 {
     "ibhagwan/fzf-lua",
+    lazy = false,
     dependencies = {"nvim-tree/nvim-web-devicons"},     -- optional
-    opts = {winopts = {preview = {default = 'bat'}}},   -- can also use bat_native
+    opts = {keymap = {
+        fzf = {["ctrl-q"] = "select-all+accept"}},      -- ctrl-q sends all fzf results to qf list
+        winopts = {preview = {default = 'bat'}}         -- can also use bat_native
+    },
     keys = {
-        {'<leader><SPACE>', ':FzfLua files<CR>'}        -- open fzf search for files to open
+        {'<leader><SPACE>', ':FzfLua files<CR>'},       -- open fzf search for files to open
+        {'\\', ':FzfLua live_grep_native<CR>'},         -- live grep over current project
+        {'S', ':FzfLua grep_cword<CR>'},                -- grep word under cursor
+        {'S', ':FzfLua grep_visual<CR>', mode = 'v'},   -- grep visual selection
+        {'<leader>b', ':FzfLua buffers<CR>'}            -- list buffers
     }
 },
 {
