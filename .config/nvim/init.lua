@@ -33,13 +33,13 @@ vim.g.maplocalleader = ' '                  -- ...and local leader key, just in 
 -- Normal mode key mappings
 ---------------------------
 vim.keymap.set('n', '<Esc>', ':nohl | cclose | lclose | helpclose<CR>')     -- clear highlighting, quickfix, loclist, help
-vim.keymap.set('n', '<leader>c', ':setlocal spell! spelllang=en_us<CR>')    -- spell check
+vim.keymap.set('n', '<leader>s', ':setlocal spell! spelllang=en_us<CR>')    -- spell check
 vim.keymap.set('n', '<C-X>', ':close<CR>')                                  -- close current split
 vim.keymap.set('n', '<Tab>', ':cnext<CR>zz', { silent = true })             -- cycle forward in qfix list
 vim.keymap.set('n', '<S-Tab>', ':cprev<CR>zz', { silent = true })           -- cycle backwards in qfix list
 vim.keymap.set('n', '<leader>y', '"+y')                                     -- yank to system clipboard
 vim.keymap.set('n', '<leader>d', '"_d')                                     -- delete into null register
-vim.keymap.set('n', '<leader>s', ':%s/<<C-r><C-w>>/')                       -- search/replace word under cursor for current buffer
+vim.keymap.set('n', '<leader>r', ':%s/<<C-r><C-w>>/')                       -- search/replace word under cursor for current buffer
 vim.keymap.set('n', '<C-d>', '<C-d>zz')                                     -- nicer move down in buffer
 vim.keymap.set('n', '<C-u>', '<C-u>zz')                                     -- nicer move up in buffer
 
@@ -244,14 +244,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Note, CTRL-] also goes to definition by default!
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)            -- populate qflist with references
         -- As of nvim 0.10.0, 'K' by default maps to vim.lsp.buf.hover        -- popup hover information on symbol
-        vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, bufopts) -- signature help on function args
-        -- Note, in ins mode, CTRL-S does signature help by default!
-        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)         -- rename symbol
-        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)    -- view/take possible code actions
-        vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)  -- view diagnostic for line
-        vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, bufopts)   -- populate qflist with all diagnostic issues
+        vim.keymap.set('n', 'gK', vim.lsp.buf.signature_help, bufopts)        -- signature help on function args
+        vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)     -- ins-mode signature help on function args
+        vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts)        -- rename symbol
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)   -- view/take possible code actions
+        vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, bufopts) -- view diagnostic for line
+        vim.keymap.set('n', '<leader>cq', vim.diagnostic.setqflist, bufopts)  -- populate qflist with all diagnostic issues
         -- As of nvim 0.10.0, '[d' and ']d' go to diagnostics by default!     -- go to previous/next diagnostic in buffer
-        vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+        vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts)
         vim.api.nvim_buf_set_option(args.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     end,
 })
