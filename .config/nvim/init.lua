@@ -265,14 +265,11 @@ function smart_tab_complete()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     local linetext = vim.api.nvim_get_current_line()
     local should_tab = col == 0 or string.match(linetext:sub(col, col), '%s') ~= nil
-    local should_file_complete = string.match(linetext:sub(col, col), '/') ~= nil
 
     if vim.fn.pumvisible() == 1 then
         return "<C-N>"      -- advance to next option in popup menu
     elseif should_tab then
         return "<Tab>"      -- do an actual tab
-    elseif should_file_complete then
-        return "<C-X><C-F>" -- do file path completion
     elseif omnifunc ~= nil and omnifunc ~= '' then
         return "<C-X><C-O>" -- do omni-completion, likely via LSP
     else
