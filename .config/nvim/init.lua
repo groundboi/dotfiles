@@ -51,9 +51,6 @@ vim.keymap.set('i', '<C-F>', '<C-X><C-F>')                          -- filename 
 vim.keymap.set('i', '<C-D>', '<C-X><C-D>')                          -- def/macro completion
 vim.keymap.set('i', '<C-L>', '<C-X><C-L>')                          -- line completion
 vim.keymap.set('i', '<C-O>', '<C-X><C-O>')                          -- omni-completion, likely via LSP
-vim.keymap.set({'i','s'}, '<Tab>', 'v:lua.smart_tab_complete()', {  -- nicer use of tab in several scenarios
-    expr=true, noremap=false
-})
 
 ---------------------------
 -- Visual mode key mappings
@@ -226,6 +223,15 @@ require("lazy").setup({
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = true
 },
+{
+    'saghen/blink.cmp',
+    lazy = false,
+    version = 'v0.*',
+    opts = {
+        keymap = { preset = "super-tab"},
+        signature = { enabled = true }
+    }
+},
 })
 
 --------------------------
@@ -249,27 +255,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.api.nvim_buf_set_option(args.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     end,
 })
-
--------------------------------
--- Our own basic tab-completion
--- Used by a keymap above
--------------------------------
-function smart_tab_complete()
-    local omnifunc = vim.api.nvim_buf_get_option(0, 'omnifunc')
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local linetext = vim.api.nvim_get_current_line()
-    local should_tab = col == 0 or string.match(linetext:sub(col, col), '%s') ~= nil
-
-    if vim.fn.pumvisible() == 1 then
-        return "<C-N>"      -- advance to next option in popup menu
-    elseif should_tab then
-        return "<Tab>"      -- do an actual tab
-    elseif omnifunc ~= nil and omnifunc ~= '' then
-        return "<C-X><C-O>" -- do omni-completion, likely via LSP
-    else
-        return "<C-X><C-N>" -- do built-in buffer-based word completion
-    end
-end
 
 -----------------------------------
 -- Highlighting trailing whitespace
