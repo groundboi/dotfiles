@@ -152,10 +152,7 @@ require("lazy").setup({
 },
 {
     'RRethy/vim-illuminate',
-    -- We have to do this because plugin annoyingly calls this "configure" rather than "setup"
-    config = function()
-        require('illuminate').configure({})
-    end
+    -- Note this gives us <alt-n> and <alt-p> to go to next/previous matches
 },
 {
     'lewis6991/gitsigns.nvim',
