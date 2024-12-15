@@ -62,21 +62,13 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")    -- move block down, auto-indenti
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")    -- move block up, auto-indenting along the way
 
 ----------------------------------------------------
--- A few useful autocommands for minor visual things
+-- Brief highlighting of what we just yanked
 ----------------------------------------------------
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('highlight-yank', {clear = true}),
     callback = function()
         vim.highlight.on_yank()
     end
-})
-vim.api.nvim_create_autocmd("WinEnter", {
-    group = vim.api.nvim_create_augroup('enter-cursor', {clear = true}),
-    command = "setl cursorline"
-})
-vim.api.nvim_create_autocmd("WinLeave", {
-    group = vim.api.nvim_create_augroup('leave-nocursor', {clear = true}),
-    command = "setl nocursorline"
 })
 
 ------------------------------------------------
@@ -229,6 +221,11 @@ require("lazy").setup({
     { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
   },
 },
+{
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = true
+},
 })
 
 --------------------------
@@ -302,16 +299,3 @@ vim.api.nvim_create_autocmd({"FileType"}, {
         vim.opt_local.expandtab = false
     end,
 })
-
--------------
--- Statusline
--------------
-vim.opt.statusline = string.format(
-    "%s %s%s%s%s%s",
-    "%#MatchParen#%{get(b:,'gitsigns_head','')}%*",
-    "%f %m %r",
-    "%=",
-    " %y",
-    " %{&fileencoding?&fileencoding:&encoding}",
-    " %l/%L %p%% "
-)
