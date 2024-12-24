@@ -37,8 +37,7 @@ vim.keymap.set('n', '<leader>s', ':setlocal spell! spelllang=en_us<CR>')    -- s
 vim.keymap.set('n', '<C-X>', ':close<CR>')                                  -- close current split
 vim.keymap.set('n', '<Tab>', ':cnext<CR>zz', { silent = true })             -- cycle forward in qfix list
 vim.keymap.set('n', '<S-Tab>', ':cprev<CR>zz', { silent = true })           -- cycle backwards in qfix list
-vim.keymap.set('n', '<leader>y', '"+y')                                     -- yank to system clipboard
-vim.keymap.set('n', '<leader>d', '"_d')                                     -- delete into null register
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y')                                     -- yank to system clipboard
 vim.keymap.set('n', '<leader>r', ':%s/<<C-r><C-w>>/')                       -- search/replace word under cursor for current buffer
 vim.keymap.set('n', '<C-d>', '<C-d>zz')                                     -- nicer move down in buffer
 vim.keymap.set('n', '<C-u>', '<C-u>zz')                                     -- nicer move up in buffer
@@ -57,16 +56,6 @@ vim.keymap.set('i', '<C-O>', '<C-X><C-O>')                          -- omni-comp
 ---------------------------
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")    -- move block down, auto-indenting along the way
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")    -- move block up, auto-indenting along the way
-
-----------------------------------------------------
--- Brief highlighting of what we just yanked
-----------------------------------------------------
-vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight-yank', {clear = true}),
-    callback = function()
-        vim.highlight.on_yank()
-    end
-})
 
 ------------------------------------------------
 -- Bootstrapping lazy.nvim for plugin management
@@ -230,6 +219,17 @@ require("lazy").setup({
     opts = {
         keymap = { preset = "super-tab"},
         signature = { enabled = true }
+    }
+},
+{
+    "gbprod/yanky.nvim",
+    lazy = false,
+    opts = { highlight = { timer = 250 } },
+    keys = {
+        {"p", mode = {"n", "x"}, "<Plug>(YankyPutAfter)"},
+        {"P", mode = {"n", "x"}, "<Plug>(YankyPutBefore)"},
+        {"<c-n>", "<Plug>(YankyNextEntry)"},
+        {"<c-p>", "<Plug>(YankyPreviousEntry)"},
     }
 },
 })
