@@ -224,7 +224,11 @@ require("lazy").setup({
         lazy = false,
         version = "v0.*",
         opts = {
-            keymap = { preset = "super-tab" },
+            keymap = {
+                preset = "enter",
+                ["<Tab>"] = { "select_next", "fallback" },
+                ["<S-Tab>"] = { "select_prev", "fallback" }
+            },
             signature = { enabled = true },
         },
     },
