@@ -222,14 +222,28 @@ require("lazy").setup({
     {
         "saghen/blink.cmp",
         lazy = false,
-        version = "v0.*",
+        version = "*",
         opts = {
-            keymap = {
-                preset = "enter",
-                ["<Tab>"] = { "select_next", "fallback" },
-                ["<S-Tab>"] = { "select_prev", "fallback" }
+            completion = {
+                ghost_text = { enabled = true },
+                menu = {
+                    border = "rounded",
+                    auto_show = function(ctx)
+                        return ctx.mode == "cmdline" or ctx.mode == "path"
+                    end,
+                },
+                documentation = { auto_show = true, window = { border = "rounded" } }
             },
-            signature = { enabled = true },
+            keymap = {
+                preset = "super-tab",
+                ["<C-n>"] = { "show", "select_next", "fallback" },
+                cmdline = {
+                    preset = "default",
+                    ["<C-n>"] = { "show", "select_next", "fallback" },
+                    ["<Tab>"] = { "select_and_accept", "fallback" }
+                },
+            },
+            signature = { enabled = true, window = { border = "rounded" } },
         },
     },
     {
