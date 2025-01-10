@@ -191,13 +191,13 @@ require("lazy").setup({
         config = true,
     },
     {
-        "EdenEast/nightfox.nvim",
-        lazy = false, -- load at startup
-        priority = 1000, -- load colorscheme before all other plugins, otherwise things get screwy
-        opts = { options = { styles = { comments = "italic", keywords = "bold", functions = "bold" } } },
-        init = function()
-            vim.cmd.colorscheme("nightfox")
-        end,
+      'sainnhe/everforest',
+      lazy = false,
+      priority = 1000,
+      config = function()
+        vim.g.everforest_enable_italic = true
+        vim.cmd.colorscheme('everforest')
+      end
     },
     {
         "christoomey/vim-tmux-navigator",
