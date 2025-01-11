@@ -191,13 +191,13 @@ require("lazy").setup({
         config = true,
     },
     {
-      'sainnhe/everforest',
-      lazy = false,
-      priority = 1000,
-      config = function()
-        vim.g.everforest_enable_italic = true
-        vim.cmd.colorscheme('everforest')
-      end
+        "sainnhe/everforest",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.g.everforest_enable_italic = true
+            vim.cmd.colorscheme("everforest")
+        end,
     },
     {
         "christoomey/vim-tmux-navigator",
@@ -232,7 +232,7 @@ require("lazy").setup({
                         return ctx.mode == "cmdline" or ctx.mode == "path"
                     end,
                 },
-                documentation = { auto_show = true, window = { border = "rounded" } }
+                documentation = { auto_show = true, window = { border = "rounded" } },
             },
             keymap = {
                 preset = "super-tab",
@@ -240,7 +240,7 @@ require("lazy").setup({
                 cmdline = {
                     preset = "default",
                     ["<C-n>"] = { "show", "select_next", "fallback" },
-                    ["<Tab>"] = { "select_and_accept", "fallback" }
+                    ["<Tab>"] = { "select_and_accept", "fallback" },
                 },
             },
             signature = { enabled = true, window = { border = "rounded" } },
@@ -255,6 +255,27 @@ require("lazy").setup({
             { "P", mode = { "n", "x" }, "<Plug>(YankyPutBefore)" },
             { "<c-n>", "<Plug>(YankyNextEntry)" },
             { "<c-p>", "<Plug>(YankyPreviousEntry)" },
+        },
+    },
+    {
+        "stevearc/conform.nvim",
+        keys = {
+            {
+                "<leader>f",
+                function()
+                    require("conform").format({ async = true })
+                end,
+            },
+        },
+        opts = {
+            formatters_by_ft = {
+                lua = { "stylua" },
+                python = { "black" },
+                go = { "goimports", "gofmt" },
+                shell = { "shfmt" },
+            },
+            default_format_opts = { lsp_format = "fallback" },
+            formatters = { stylua = { prepend_args = { "--indent-type", "spaces" } } },
         },
     },
 })
@@ -275,9 +296,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<leader>do", vim.diagnostic.open_float, bufopts) -- view diagnostic for line
         vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, bufopts) -- populate qflist with all diagnostic issues
         -- As of nvim 0.10.0, '[d' and ']d' go to diagnostics by default!     -- go to previous/next diagnostic in buffer
-        vim.keymap.set("n", "<leader>f", function()
-            vim.lsp.buf.format({ async = true })
-        end, bufopts)
         vim.api.nvim_buf_set_option(args.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
     end,
 })
