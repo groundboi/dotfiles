@@ -123,6 +123,7 @@ fi
 
 export EDITOR=nvim
 alias nv='nvim'
+export MANPAGER='nvim +Man!'
 
 # In bash 4+, this environment variable controls the maximum number
 # of dirs in a path displayed in a prompt before prefixing with

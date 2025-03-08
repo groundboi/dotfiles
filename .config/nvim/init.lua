@@ -228,16 +228,21 @@ require("lazy").setup({
                 ghost_text = { enabled = true },
                 menu = {
                     border = "rounded",
-                    auto_show = function(ctx)
-                        return ctx.mode == "cmdline" or ctx.mode == "path"
-                    end,
+                    auto_show = false,
                 },
                 documentation = { auto_show = true, window = { border = "rounded" } },
             },
             keymap = {
                 preset = "super-tab",
                 ["<C-n>"] = { "show", "select_next", "fallback" },
-                cmdline = {
+            },
+            cmdline = {
+                completion = {
+                    menu = {
+                        auto_show = true,
+                    },
+                },
+                keymap = {
                     preset = "default",
                     ["<C-n>"] = { "show", "select_next", "fallback" },
                     ["<Tab>"] = { "select_and_accept", "fallback" },
