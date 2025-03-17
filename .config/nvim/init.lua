@@ -121,6 +121,15 @@ require("lazy").setup({
             })
             require("lspconfig")["clangd"].setup({})
             require("lspconfig")["pyright"].setup({})
+            require("lspconfig")["lua_ls"].setup({
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
+                    },
+                },
+            })
 
             vim.diagnostic.config({
                 signs = true,
@@ -276,7 +285,7 @@ require("lazy").setup({
         opts = {
             formatters_by_ft = {
                 lua = { "stylua" },
-                python = { "black" },
+                python = { "ruff_format" },
                 go = { "goimports", "gofmt" },
                 shell = { "shfmt" },
             },
