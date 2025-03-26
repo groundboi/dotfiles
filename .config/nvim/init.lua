@@ -253,9 +253,7 @@ require("lazy").setup({
                     },
                 },
                 keymap = {
-                    preset = "default",
-                    ["<C-n>"] = { "show", "select_next", "fallback" },
-                    ["<Tab>"] = { "select_and_accept", "fallback" },
+                    preset = "inherit",
                 },
             },
             signature = { enabled = true, window = { border = "rounded" } },
