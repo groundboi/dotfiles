@@ -1,5 +1,3 @@
-The spirit of these dotfiles is being able to quickly and efficiently work on different systems without getting _too_ reliant on custom configs, tools, and plugins. Most dependencies and tools used or referenced in this repo are ones that can be obtained from the current `stable` Debian repo. Additionally, `vim`/`nvim` and `tmux` are kept minimal with few or no plugins, and not too many crazy key bindings.
-
 Below are some various notes and tips for more efficiently working in bash and other tools.
 
 ## bash/command tips
@@ -43,22 +41,13 @@ Below are some various notes and tips for more efficiently working in bash and o
   * When cursor is on a word that might be from an #included file, use `[I` to open its def. `[i` does something similar
   * When quickfix window is open (say after using my binding `S` to search word), `CTRL-W <enter>` will open match in new split.
   * `Ctrl-W s` (and likewise for v) will split the window. Can do `:sf FILE` to split and find file, as well as put `:vert` in front of any splitting command to make it vertical split.
-  * When using fzf - use `C-x` and `C-v` to open in splits
-
-### More vim resources
-
-* https://github.com/mhinz/vim-galore
-* https://github.com/ibhagwan/vim-cheatsheet
-* http://vimcasts.org/episodes/page/8/
 
 ## `tmux` tips
   * `tmux new -s MySessionName` will create a named session
   * `tmux attach -t MySessionName` will attach to the session. If no name or number provided, defaults to most recently used session
   * Use `-t` for grouped sessions, which is useful for multi monitor setups. For example, if a session `MySess` exists and you want another "view" into it in your other monitor that can independently view windows, start a new session with `tmux new -s OtherSess -t MySess`. This actually creates a new group `MySess` based on the session `MySess`.
 
-## Other tools I typically use
-
-### `fzf`
+## `fzf`
   * By default, outputs selected matches to stdout. You can do `fzf | xargs ls -l` for example, and use tab/shift-tab to select multiple matches
   * `ctrl-j` and `ctrl-k` move cursor up and down
   * Quick `cd` by doing `cd **<TAB>` if autocomplete enabled. Or, if just keybindings enabled, simply do `alt-c`.
@@ -71,7 +60,7 @@ Below are some various notes and tips for more efficiently working in bash and o
   * Use `^` and `$` for beginning/end, such as `readme .md$`
   * There is a way to add a preview-window keybinding as well
 
-### `tcpdump`
+## `tcpdump`
   * `-D` lists available network interfaces, and then use `-i` to capture on one
   * Can do `tcpdump src 192.168.10.5 and dst some.hostname.com and dst port 5421` as a filter example (can also use 'not' keyword). Also can use `less 1024`, `greater 1024`, `<= 1024`, etc. to filter by packet size
   * Use `-w file.pcap` to write out to a pcap file, and `-r file.pcap` to read that back in for display
@@ -80,7 +69,7 @@ Below are some various notes and tips for more efficiently working in bash and o
   * Use single quotes for complex queries that may use parentheses. Can also use things like `'tcp[13] & 16 != 0'` to filter by specific values in tcp headers.
   * Can use `-l` for line-readable output, useful for piping to grep if `-A` is also used
 
-### `gdb`
+## `gdb`
   * To build GDB 11.X for remote cross-arch debugging, extract the GDB source and then alongside the src dir, create `gdb-multitarget-host` and (say) `gdbserver-armv7l` directories. Make sure you have the cross compiler toolchain (i.e. `apt install binutils-arm-linux-gnueabi`). Then run the following two builds:
     * In `gdb-multitarget-host` do: `../gdb-src/configure --srcdir=../gdb-src --enable-targets=all && make`
     * In `gdbserver-armv7l` do: `../gdb-src/configure --srcdir=../gdb-src --host=arm-linux-gnueabi && make all-gdbserver`
@@ -88,7 +77,7 @@ Below are some various notes and tips for more efficiently working in bash and o
   * GEF is awesome! Use it with the `tmux-setup` command
   * Commands of interest are: fin, watch, break, next, step, continue, print, bt, info, display, set, up/down, checkpoint/restart, where
 
-### `Docker`
+## `Docker`
   * ~~Install via the `docker-ce` or `docker.io` package~~ Just install however it says on the docker website - this ecosystem changes too frequently. You will also need to add yourself to the docker group, and then start the docker service.
   * `docker images` and `docker ps` show images and running containers, respectively. Use `docker ps -a` to see all containers that have been run.
     * `docker stop CONTAINER_ID` and `docker rm CONTAINER_ID` will stop and rm containers.
@@ -101,21 +90,16 @@ Below are some various notes and tips for more efficiently working in bash and o
     * Note, when building an image with a Dockerfile, you always need to do a `RUN apt update` before you can `RUN apt -y -q install some_package`.
     * Additional directives that are useful/needed in Dockerfiles are `FROM`, `WORKDIR` to set your apps working dir, `COPY . .` to copy everything in current dir to the image/containers WORKDIR, `EXPOSE` to note any exposed ports by the app, and `CMD` to finally say what command will be run when a container from this image is run.
 
-### Others
+## Other Great Tools
 
   * `rg` (package name `ripgrep`)
   * `tldr`
   * `bat`
   * `fd`
-  * `universal-ctags`
   * `http` (package name `httpie`)
   * `moreutils` (which contains `vidir`)
   * `updatedb` and `locate`
   * `run-one`
   * `eza`
   * `zoxide`
-
-### Potential nvim plugins to use
-
-* `nvim-dap`? Or just `termdebug`
-* `octo.nvim` or `gitlab.nvim`
+  * `Obsidian` (for note taking)
