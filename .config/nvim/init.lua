@@ -132,15 +132,18 @@ require("lazy").setup({
             })
 
             vim.diagnostic.config({
-                signs = true,
+                signs = {
+                    numhl = {
+                        [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+                        [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                        [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+                        [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+                    },
+                },
                 underline = true,
                 virtual_text = true,
                 float = { border = "rounded" },
             })
-            vim.fn.sign_define("DiagnosticSignError", { text = "", numhl = "DiagnosticError" })
-            vim.fn.sign_define("DiagnosticSignWarn", { text = "", numhl = "DiagnosticWarn" })
-            vim.fn.sign_define("DiagnosticSignInfo", { text = "", numhl = "DiagnosticInfo" })
-            vim.fn.sign_define("DiagnosticSignHint", { text = "", numhl = "DiagnosticHint" })
         end,
     },
     {
@@ -299,12 +302,16 @@ require("lazy").setup({
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local bufopts = { noremap = true, silent = true, buffer = args.buf }
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts) -- go to definition
         -- Note, CTRL-] also goes to definition by default!
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts) -- go to definition
+        -- As of nvim 0.11.0, the below is also mapped to grr by default
         vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts) -- populate qflist with references
         -- As of nvim 0.10.0, 'K' by default maps to vim.lsp.buf.hover        -- popup hover information on symbol
+        -- As of nvim 0.11.0, the below is also mapped to CTRL-S in insert mode by default
         vim.keymap.set({ "n", "i" }, "<c-s>", vim.lsp.buf.signature_help, bufopts) -- signature help on function args
+        -- As of nvim 0.11.0, the below is also mapped to grn by default
         vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts) -- rename symbol
+        -- As of nvim 0.11.0, the below is also mapped to gra by default
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts) -- view/take possible code actions
         vim.keymap.set("n", "<leader>do", vim.diagnostic.open_float, bufopts) -- view diagnostic for line
         vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, bufopts) -- populate qflist with all diagnostic issues
