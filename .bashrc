@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -93,6 +93,8 @@ else
     alias l='ls -lF'
 fi
 alias ..='cd ..'
+alias ...='cd ...'
+alias ....='cd ....'
 
 # Use like `pwd | clip`
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -123,7 +125,8 @@ fi
 
 export EDITOR=nvim
 alias nv='nvim'
-export MANPAGER='nvim +Man!'
+eval "$(batman --export-env)"
+alias kubectl=kubecolor
 
 # In bash 4+, this environment variable controls the maximum number
 # of dirs in a path displayed in a prompt before prefixing with
@@ -145,3 +148,6 @@ fi
 
 alias bb="git branch --sort=-committerdate | fzf --height=20% --preview-window=hidden | xargs git checkout"
 alias review='nvim -c "DiffviewOpen origin/HEAD...HEAD --imply-local"'
+alias activate="source .venv/bin/activate"
+
+#eval "$(zoxide init bash)"

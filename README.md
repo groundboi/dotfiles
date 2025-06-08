@@ -92,9 +92,10 @@ Below are some various notes and tips for more efficiently working in bash and o
 
 ## Other Great Tools
 
+  * `ghostty` (current preferred terminal)
   * `rg` (package name `ripgrep`)
   * `tldr`
-  * `bat`
+  * `bat` and `bat-extras`
   * `fd`
   * `http` (package name `httpie`)
   * `moreutils` (which contains `vidir`)
@@ -102,4 +103,4 @@ Below are some various notes and tips for more efficiently working in bash and o
   * `run-one`
   * `eza`
   * `zoxide`
-  * `Obsidian` (for note taking)
+  * `Obsidian` or `Bear` (for note taking)

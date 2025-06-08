@@ -41,6 +41,10 @@ vim.keymap.set({ "n", "v" }, "<leader>y", '"+y') -- yank to system clipboard
 vim.keymap.set("n", "<leader>r", ":%s/<<C-r><C-w>>/") -- search/replace word under cursor for current buffer
 vim.keymap.set("n", "<C-d>", "<C-d>zz") -- nicer move down in buffer
 vim.keymap.set("n", "<C-u>", "<C-u>zz") -- nicer move up in buffer
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>')
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>')
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>')
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>')
 
 ---------------------------
 -- Insert mode key mappings
@@ -209,23 +213,17 @@ require("lazy").setup({
         priority = 1000,
         config = function()
             vim.g.everforest_enable_italic = true
+            vim.g.everforest_dim_inactive_windows = true
             vim.cmd.colorscheme("everforest")
         end,
     },
     {
         "christoomey/vim-tmux-navigator",
-        cmd = {
-            "TmuxNavigateLeft",
-            "TmuxNavigateDown",
-            "TmuxNavigateUp",
-            "TmuxNavigateRight",
-        },
-        keys = {
-            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-        },
+        event = "VeryLazy",
+        cond = function()
+            local term = os.getenv("TERM")
+            return term and string.find(term, "tmux")
+        end,
     },
     {
         "nvim-lualine/lualine.nvim",
@@ -289,9 +287,21 @@ require("lazy").setup({
                 python = { "ruff_format" },
                 go = { "goimports", "gofmt" },
                 shell = { "shfmt" },
+                javascript = { "prettier" },
+                typescript = { "prettier" },
             },
             default_format_opts = { lsp_format = "fallback" },
             formatters = { stylua = { prepend_args = { "--indent-type", "spaces" } } },
+        },
+    },
+    {
+        "towolf/vim-helm",
+        ft = "helm"
+    },
+    {
+        "brianhuster/live-preview.nvim",
+        dependencies = {
+            "ibhagwan/fzf-lua",
         },
     },
 })
