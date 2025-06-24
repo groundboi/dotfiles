@@ -6,35 +6,9 @@
 
 command = /opt/homebrew/bin/bash
 
-# Optional...but it's nice to get the latest pre-release features
-auto-update-channel = tip
-
 font-family = JetBrains Mono
 font-size = 12
 theme = nord-wave
 mouse-hide-while-typing = true
 
-# TODO - do I want no-title?
-shell-integration-features = sudo,no-title
-
 auto-update = check
-
-keybind = cmd+r=reload_config
-
-keybind = cmd+e=equalize_splits
-keybind = cmd+z=toggle_split_zoom
-
-keybind = ctrl+a>s=new_split:down
-keybind = ctrl+a>v=new_split:right
-keybind = cmd+h=goto_split:left
-keybind = cmd+j=goto_split:bottom
-keybind = cmd+k=goto_split:top
-keybind = cmd+l=goto_split:right
-
-keybind = cmd+p=previous_tab
-keybind = cmd+n=next_tab
-
-# Apparently already default...
-# keybind = cmd+down=jump_to_prompt:1
-# keybind = cmd+up=jump_to_prompt:-1
-
