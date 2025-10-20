@@ -112,7 +112,7 @@ require("lazy").setup({
     {
         "neovim/nvim-lspconfig",
         config = function()
-            require("lspconfig")["gopls"].setup({
+            vim.lsp.config("gopls", {
                 settings = {
                     gopls = {
                         analyses = {
@@ -123,9 +123,9 @@ require("lazy").setup({
                     },
                 },
             })
-            require("lspconfig")["clangd"].setup({})
-            require("lspconfig")["pyright"].setup({})
-            require("lspconfig")["lua_ls"].setup({
+            vim.lsp.config("clangd", {})
+            vim.lsp.config("pyright", {})
+            vim.lsp.config("lua_ls", {
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -134,6 +134,8 @@ require("lazy").setup({
                     },
                 },
             })
+
+            vim.lsp.enable({"pyright", "clangd", "gopls", "lua_ls"})
 
             vim.diagnostic.config({
                 signs = {
@@ -304,6 +306,39 @@ require("lazy").setup({
             "ibhagwan/fzf-lua",
         },
     },
+    {
+        'stevearc/quicker.nvim',
+        event = "FileType qf",
+        config = function()
+            require("quicker").setup({
+                keys = {
+                    {
+                        ">",
+                        function()
+                            require("quicker").expand({ before = 2, after = 2, add_to_existing = true })
+                        end,
+                        desc = "Expand quickfix context",
+                    },
+                    {
+                        "<",
+                        function()
+                            require("quicker").collapse()
+                        end,
+                        desc = "Collapse quickfix context",
+                    },
+                }
+            })
+        end,
+        keys = {
+            {
+                "<leader>q",
+                function()
+                    require("quicker").toggle()
+                end,
+                desc = "Toggle quickfix window",
+            },
+        }
+    }
 })
 
 --------------------------
@@ -358,3 +393,5 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         vim.opt_local.expandtab = false
     end,
 })
+
+vim.cmd.colorscheme("everforest")
