@@ -10,3 +10,8 @@
 	graph = !git log --oneline --graph --decorate --all
 [core]
 	editor = "nvim"
+    pager = less -F -X
+[push]
+    autoSetupRemote = true
+[init]
+    defaultBranch = main
