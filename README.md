@@ -104,3 +104,5 @@ Below are some various notes and tips for more efficiently working in bash and o
   * `eza`
   * `zoxide`
   * `Obsidian` or `Bear` (for note taking)
+  * `snitch`
+  * `gh-dash`
