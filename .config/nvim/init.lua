@@ -86,7 +86,7 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         opts = {
-            ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+            ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc", "rust" },
             auto_install = true,
             highlight = {
                 enable = true,
@@ -123,8 +123,6 @@ require("lazy").setup({
                     },
                 },
             })
-            vim.lsp.config("clangd", {})
-            vim.lsp.config("pyright", {})
             vim.lsp.config("lua_ls", {
                 settings = {
                     Lua = {
@@ -135,7 +133,7 @@ require("lazy").setup({
                 },
             })
 
-            vim.lsp.enable({"pyright", "clangd", "gopls", "lua_ls"})
+            vim.lsp.enable({"rust_analyzer", "ty", "clangd", "gopls", "lua_ls", "dockerls", "docker_compose_language_service"})
 
             vim.diagnostic.config({
                 signs = {
@@ -147,7 +145,8 @@ require("lazy").setup({
                     },
                 },
                 underline = true,
-                virtual_text = true,
+                -- Commenting out for tiny-inline-diagnostic
+                --virtual_text = true,
                 float = { border = "rounded" },
             })
         end,
@@ -195,10 +194,20 @@ require("lazy").setup({
             { "<leader>b", ":FzfLua buffers<CR>" }, -- list buffers
         },
     },
+    -- NOTE - Should comment out below and use esmuellert/codediff.nvim instead, with view_mode = tree
     {
         "sindrets/diffview.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional
         config = true,
+    },
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy",
+        priority = 1000,
+        config = function()
+            require("tiny-inline-diagnostic").setup()
+            vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+        end,
     },
     {
         "jinh0/eyeliner.nvim",
@@ -296,16 +305,16 @@ require("lazy").setup({
             formatters = { stylua = { prepend_args = { "--indent-type", "spaces" } } },
         },
     },
-    {
-        "towolf/vim-helm",
-        ft = "helm"
-    },
-    {
-        "brianhuster/live-preview.nvim",
-        dependencies = {
-            "ibhagwan/fzf-lua",
-        },
-    },
+    --{
+    --    "towolf/vim-helm",
+    --    ft = "helm"
+    --},
+    --{
+    --    "brianhuster/live-preview.nvim",
+    --    dependencies = {
+    --        "ibhagwan/fzf-lua",
+    --    },
+    --},
     {
         'stevearc/quicker.nvim',
         event = "FileType qf",
