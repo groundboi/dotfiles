@@ -83,3 +83,6 @@ PROMPT="%(?:%{$fg_bold[green]%}%1{❯%}:%{$fg_bold[red]%}%1{❯%}) %{$fg[cyan]%}
 
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
+
+# Load any machine-specific configuration
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
