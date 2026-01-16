@@ -23,6 +23,7 @@ if [ "$system_type" = "Darwin" ]; then
   uv tool install ruff@latest
   uv tool install ty@latest
   gh extension install dlvhdr/gh-dash
+  curl -fsSL https://opencode.ai/install | bash
 fi
 
 if [ "$system_type" = "Linux" ]; then

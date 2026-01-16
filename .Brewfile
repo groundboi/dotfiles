@@ -32,6 +32,7 @@ brew "zoxide"
 brew "oven-sh/bun/bun"
 
 cask "docker"
+cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"
 cask "obsidian"
-cask "font-jetbrains-mono-nerd-font"
+cask "raycast"
