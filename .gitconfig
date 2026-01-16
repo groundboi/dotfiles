@@ -1,15 +1,15 @@
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [difftool]
-	prompt = false
+    prompt = false
 [alias]
-	base = !git merge-base HEAD main
-	changed-files = !git diff --name-only $(git base) | column
-	changed-files-tree = !git diff --name-only $(git base) | tree --fromfile .
-	stat = !git diff --stat $(git base)
-	graph = !git log --oneline --graph --decorate --all
+    base = !git merge-base HEAD main
+    changed-files = !git diff --name-only $(git base) | column
+    changed-files-tree = !git diff --name-only $(git base) | tree --fromfile .
+    stat = !git diff --stat $(git base)
+    graph = !git log --oneline --graph --decorate --all
 [core]
-	editor = "nvim"
+    editor = "nvim"
     pager = less -F -X
 [push]
     autoSetupRemote = true
