@@ -1,0 +1,27 @@
+#!/bin/sh
+set -euo pipefail
+
+system_type=$(uname -s)
+
+if [ "$system_type" = "Darwin" ]; then
+  # install homebrew if it's missing
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "[+] Installing homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
+  if [ -f "$HOME/.Brewfile" ]; then
+    echo "[+] Updating homebrew bundle"
+    brew bundle --global
+  fi
+
+  echo "[+] Installing more dev tooling"
+  uv tool install ruff@latest
+  uv tool install ty@latest
+  gh extension install dlvhdr/gh-dash
+fi
+
+if [ "$system_type" = "Linux" ]; then
+    # TODO - make this more complete
+    apt install run-one
+fi
