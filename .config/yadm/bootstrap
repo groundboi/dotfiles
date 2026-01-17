@@ -4,7 +4,6 @@ system_type=$(uname -s)
 echo "[*] Detected system type: $system_type"
 
 if [ "$system_type" = "Darwin" ]; then
-  # install homebrew if it's missing
   if ! command -v brew >/dev/null 2>&1; then
     echo "[+] Installing homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -18,40 +17,45 @@ if [ "$system_type" = "Darwin" ]; then
     echo "[+] Installing homebrew packages"
     brew bundle --global || echo "[-] Warning: Some brew packages failed to install"
   fi
-
-  echo "[+] Installing more dev tooling"
-
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || echo "[-] Warning: Failed to install ohmyzsh"
-  git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode || echo "[-] Warning: Failed to install zsh-vi-mode"
-  curl -fsSL https://opencode.ai/install | bash || echo "[-] Warning: Failed to install opencode"
-
-  if command -v uv >/dev/null 2>&1; then
-    uv tool update-shell
-    uv tool install ruff@latest || echo "[-] Warning: Failed to install ruff"
-    uv tool install ty@latest || echo "[-] Warning: Failed to install ty"
-  else
-    echo "[-] Warning: uv not found, skipping tool installations"
-  fi
-
-  if command -v gh >/dev/null 2>&1; then
-    gh extension install dlvhdr/gh-dash || echo "[-] Warning: Failed to install gh-dash"
-  else
-    echo "[-] Warning: gh not found, skipping extension installation"
-  fi
-
-  echo "[+] Installing tmux plugins with tpm"
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || echo "[-] Warning: Failed to install tpm"
-  ~/.tmux/plugins/tpm/bin/install_plugins || echo "[-] Warning: Installing tmux plugins failed"
-
 fi
 
 # Only supports debian-based distros
 if [ "$system_type" = "Linux" ]; then
-    # TODO - make this more complete!
-    sudo apt-get update || echo "[-] Warning: Failed to update package list"
+  sudo apt-get update || echo "[-] Warning: Failed to update package list"
 
-    echo "[+] Installing packages"
-    sudo apt-get install run-one
+  echo "[+] Installing packages"
+  sudo apt-get install -y $(cat ~/.linux_packages.txt) || echo "[-] Warning: Failed to install some packages"
+
+  # Need to manually install things that Mac has brew packages for.
+  # Note that kubecolor, bruno, jetbrains-mono-nerd-font, ghostty, and obsidian are missing
+  curl -LsSf https://astral.sh/uv/install.sh | sh || echo "[-] Warning: Failed to install uv"
+  curl -fsSL https://bun.com/install | bash || echo "[-] Warning: Failed to install bun"
+  curl -fsSL https://get.docker.com | sudo sh || echo "[-] Warning: Failed to install docker"
 fi
+
+# Common to Darwin and Linux
+echo "[+] Installing more dev tooling"
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || echo "[-] Warning: Failed to install ohmyzsh"
+git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode || echo "[-] Warning: Failed to install zsh-vi-mode"
+curl -fsSL https://opencode.ai/install | bash || echo "[-] Warning: Failed to install opencode"
+
+if command -v uv >/dev/null 2>&1; then
+  uv tool update-shell
+  uv tool install ruff@latest || echo "[-] Warning: Failed to install ruff"
+  uv tool install ty@latest || echo "[-] Warning: Failed to install ty"
+else
+  echo "[-] Warning: uv not found, skipping tool installations"
+fi
+
+if command -v gh >/dev/null 2>&1; then
+  gh extension install dlvhdr/gh-dash || echo "[-] Warning: Failed to install gh-dash"
+else
+  echo "[-] Warning: gh not found, skipping extension installation"
+fi
+
+echo "[+] Installing tmux plugins with tpm"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || echo "[-] Warning: Failed to install tpm"
+~/.tmux/plugins/tpm/bin/install_plugins || echo "[-] Warning: Installing tmux plugins failed"
 
 echo "[+] Bootstrap complete!"
