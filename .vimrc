@@ -28,8 +28,15 @@ set smartcase                   " case-incensitive searching, unless there is a 
 if !has('nvim')
     set ttymouse=sgr            " useful for using mouse to change window size, etc. when in tmux
 endif
+
+" Persistent undo: ensure undodir exists
 set undofile                    " persistent undo history
+let s:undodir = expand('~/.vim/undodir')
+if !isdirectory(s:undodir)
+  silent! call mkdir(s:undodir, 'p', 0700)
+endif
 set undodir=~/.vim/undodir      " don't clog working dir with undo history file (undodir must exist)
+
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=5                 " display some context lines when scrolling
 set timeoutlen=1000             " remove esc delays
@@ -59,17 +66,19 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-X> :close<CR>
 nnoremap <silent> <Tab> :cnext<CR>zz
-nnoremap <silent> <S-Tab> :cprev<CR>zz
-nnoremap <leader>y "+y
-nnoremap <leader>d "_d
-nnoremap <leader>s :%s/\<<C-r><C-w>\>/
+nnnoremap <silent> <S-Tab> :cprev<CR>zz
+nnnoremap <leader>y "+y
+nnnoremap <leader>d "_d
+nnnoremap <leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
+nnnoremap <C-u> <C-u>zz
 if executable('fzf')
     " Note - will need to fix the below up for your system
     " Eventually, this will be done smarter
     " source /home/user/software/fzf/fzf-0.35.1/plugin/fzf.vim
-    set rtp+=/opt/homebrew/opt/fzf
+    if isdirectory('/opt/homebrew/opt/fzf')
+        set rtp+=/opt/homebrew/opt/fzf
+    endif
     nnoremap <leader><SPACE> :FZF<CR>
 endif
 if executable('rg')
@@ -77,11 +86,11 @@ if executable('rg')
     nnoremap S :Rg -w -s <C-R><C-W><CR>:cw<CR>
     command! -nargs=+ -complete=file -bar Rg silent! grep! <args>|cwindow|redraw!
     nnoremap \ :Rg<SPACE>
-    vnoremap S y:Rg -w \"<C-R>"\"<CR>:cw<CR>
+    vnoremap S y:Rg -w \"<C-R>\"\<CR>:cw<CR>
 else
     nnoremap S :grep! -RI --exclude=tags <C-R><C-W> .<CR>:cw<CR>
     nnoremap \ :grep!<SPACE>
-    vnoremap S y:grep! -RI --exclude=tags \"<C-R>"\"<CR>:cw<CR>
+    vnoremap S y:grep! -RI --exclude=tags \"<C-R>\"\<CR>:cw<CR>
 endif
 
 inoremap <C-]> <C-X><C-]>
@@ -115,7 +124,7 @@ function! Smart_TabComplete()
     return "\<C-N>"
   endif
 
-  let line = getline('.')
+  let line = getline('.');
 
   let substr = strpart(line, -1, col('.'))
   let substr = matchstr(substr, "[^ \t]*$")
@@ -124,14 +133,14 @@ function! Smart_TabComplete()
     return "\<tab>"
   endif
 
-  let has_slash = match(substr, '\/') != -1
+  let has_slash = match(substr, '\/') != -1;
 
   if (has_slash)
-    return "\<C-X>\<C-F>"
+    return "\<C-X>\<C-F>";
   elseif (!empty(&omnifunc))
-    return "\<C-X>\<C-O>"
+    return "\<C-X>\<C-O>";
   else
-    return "\<C-X>\<C-N>"
+    return "\<C-X>\<C-N>";
   endif
 endfunction
 
@@ -142,4 +151,4 @@ set statusline+=\ %f\ %m\ %r
 set statusline+=%=
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\ %l/%L\ %p%%\ 
+set statusline+=\ %l/%L\ %p%%\  
