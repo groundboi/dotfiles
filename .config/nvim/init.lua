@@ -21,7 +21,14 @@ vim.opt.scrolloff = 5 -- have a few context lines when scrolling
 vim.opt.listchars = { trail = "-", tab = "> " } -- show trailing whitespace with this char
 vim.opt.list = true -- needed for the above setting
 vim.opt.undofile = true -- persistent undo
-vim.opt.undodir = vim.fn.expand("~/.config/nvim/undodir") -- persistent undo dir. Note that this dir must exist already
+
+-- Create undo directory if it doesn't exist
+local undodir = vim.fn.expand("~/.config/nvim/undodir")
+if vim.fn.isdirectory(undodir) == 0 then
+    vim.fn.mkdir(undodir, "p")
+end
+vim.opt.undodir = undodir -- persistent undo dir
+
 vim.opt.signcolumn = "yes:1" -- with gitsigns, makes for nicer number/status column
 vim.opt.numberwidth = 2 -- with gitsigns, makes for nicer number/status column
 vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum?v:relnum:v:lnum) : ''}%s" -- same comment as above

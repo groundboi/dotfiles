@@ -29,7 +29,13 @@ if !has('nvim')
     set ttymouse=sgr            " useful for using mouse to change window size, etc. when in tmux
 endif
 set undofile                    " persistent undo history
-set undodir=~/.vim/undodir      " don't clog working dir with undo history file (undodir must exist)
+
+" Create undo directory if it doesn't exist
+if !isdirectory(expand('~/.vim/undodir'))
+    call mkdir(expand('~/.vim/undodir'), 'p')
+endif
+set undodir=~/.vim/undodir      " don't clog working dir with undo history file
+
 set wildignore+=tags            " ignore tags file when vimgrep'ing over **/*
 set scrolloff=5                 " display some context lines when scrolling
 set timeoutlen=1000             " remove esc delays

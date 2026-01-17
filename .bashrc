@@ -100,8 +100,8 @@ else
     alias l='ls -lF'
 fi
 alias ..='cd ..'
-alias ...='cd ...'
-alias ....='cd ....'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 # Use like `pwd | clip`
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -132,8 +132,14 @@ fi
 
 export EDITOR=nvim
 alias nv='nvim'
-eval "$(batman --export-env)"
-alias kubectl=kubecolor
+
+if command -v batman &>/dev/null; then
+    eval "$(batman --export-env)"
+fi
+
+if command -v kubecolor &>/dev/null; then
+    alias kubectl=kubecolor
+fi
 
 # In bash 4+, this environment variable controls the maximum number
 # of dirs in a path displayed in a prompt before prefixing with
@@ -142,12 +148,11 @@ export PROMPT_DIRTRIM=6
 
 if command -v fzf &>/dev/null; then
     eval "$(fzf --bash)"
-fi
-
-# Use rg instead of find within FZF. Add --hidden if desired
-if command -v rg &>/dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    # Use rg instead of find within FZF. Add --hidden if desired
+    if command -v rg &>/dev/null; then
+        export FZF_DEFAULT_COMMAND='rg --files'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    fi
     export FZF_DEFAULT_OPTS='--preview "bat --color=always {}"'
     export FZF_ALT_C_OPTS='--preview-window=hidden'
     export FZF_CTRL_R_OPTS='--preview-window=hidden'
@@ -157,4 +162,10 @@ alias bb="git branch --sort=-committerdate | fzf --height=20% --preview-window=h
 alias review='nvim -c "DiffviewOpen origin/HEAD...HEAD --imply-local"'
 alias activate="source .venv/bin/activate"
 
-#eval "$(zoxide init bash)"
+# Initialize zoxide if available
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+# Load any machine-specific configuration
+[[ -f ~/.bashrc.local ]] && source ~/.bashrc.local

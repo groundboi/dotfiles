@@ -1,6 +1,7 @@
 #!/bin/sh
 
 system_type=$(uname -s)
+echo "[*] Detected system type: $system_type"
 
 if [ "$system_type" = "Darwin" ]; then
   # install homebrew if it's missing
@@ -10,22 +11,41 @@ if [ "$system_type" = "Darwin" ]; then
   fi
 
   echo "[+] Upgrading homebrew and existing packages"
-  brew update
-  brew upgrade
+  brew update || echo "[-] Warning: brew update failed"
+  brew upgrade || echo "[-] Warning: brew upgrade failed"
 
   if [ -f "$HOME/.Brewfile" ]; then
     echo "[+] Installing homebrew packages"
-    brew bundle --global
+    brew bundle --global || echo "[-] Warning: Some brew packages failed to install"
   fi
 
   echo "[+] Installing more dev tooling"
-  uv tool install ruff@latest
-  uv tool install ty@latest
-  gh extension install dlvhdr/gh-dash
-  curl -fsSL https://opencode.ai/install | bash
+  if command -v uv >/dev/null 2>&1; then
+    uv tool install ruff@latest || echo "[-] Warning: Failed to install ruff"
+    uv tool install ty@latest || echo "[-] Warning: Failed to install ty"
+  else
+    echo "[-] Warning: uv not found, skipping tool installations"
+  fi
+  if command -v gh >/dev/null 2>&1; then
+    gh extension install dlvhdr/gh-dash || echo "[-] Warning: Failed to install gh-dash"
+  else
+    echo "[-] Warning: gh not found, skipping extension installation"
+  fi
+  curl -fsSL https://opencode.ai/install | bash || echo "[-] Warning: Failed to install opencode"
+
+  echo "[+] Installing tmux plugins with tpm"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || echo "[-] Warning: Failed to install tpm"
+  ~/.tmux/plugins/tpm/bin/install_plugins || echo "[-] Warning: Installing tmux plugins failed"
+
 fi
 
+# Only supports debian-based distros
 if [ "$system_type" = "Linux" ]; then
-    # TODO - make this more complete
-    apt install run-one
+    # TODO - make this more complete!
+    sudo apt-get update || echo "[-] Warning: Failed to update package list"
+
+    echo "[+] Installing packages"
+    sudo apt-get install run-one
 fi
+
+echo "[+] Bootstrap complete!"

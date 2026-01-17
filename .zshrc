@@ -14,7 +14,7 @@ zstyle ':omz:update' frequency 13
 
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm zsh-vi-mode aws docker gh helm httpie zoxide)
+plugins=(git zsh-vi-mode docker gh httpie zoxide)
 SHOW_AWS_PROMPT=false
 ZVM_INIT_MODE=sourcing
 
@@ -60,16 +60,24 @@ else
 fi
 
 alias nv='nvim'
-eval "$(batman --export-env)"
-alias kubectl=kubecolor
-alias k=kubecolor
 
-source <(fzf --zsh)
-export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--preview "bat --color=always {}"'
-export FZF_ALT_C_OPTS='--preview-window=hidden'
-export FZF_CTRL_R_OPTS='--preview-window=hidden'
+if command -v batman &>/dev/null; then
+    eval "$(batman --export-env)"
+fi
+
+if command -v kubecolor &>/dev/null; then
+    alias kubectl=kubecolor
+    alias k=kubecolor
+fi
+
+if command -v fzf &>/dev/null; then
+    source <(fzf --zsh)
+    export FZF_DEFAULT_COMMAND='rg --files'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_DEFAULT_OPTS='--preview "bat --color=always {}"'
+    export FZF_ALT_C_OPTS='--preview-window=hidden'
+    export FZF_CTRL_R_OPTS='--preview-window=hidden'
+fi
 
 alias bb="git branch --sort=-committerdate | fzf --height=20% --preview-window=hidden | xargs git checkout"
 alias review='nvim -c "DiffviewOpen origin/HEAD...HEAD --imply-local"'
@@ -79,10 +87,14 @@ alias activate="source .venv/bin/activate"
 # Copy the Robby Russell theme source if you want to include git info
 PROMPT="%(?:%{$fg_bold[green]%}%1{❯%}:%{$fg_bold[red]%}%1{❯%}) %{$fg[cyan]%}%(5~|…/%4~|%~)%{$reset_color%} "
 
-. "$HOME/.local/bin/env"
+# Initialize uv completion if available
+if command -v uv &>/dev/null; then
+    eval "$(uv generate-shell-completion zsh)"
+    eval "$(uvx --generate-shell-completion zsh)"
+fi
 
-eval "$(uv generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
+# Load any machine-specific environment
+[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
 # Load any machine-specific configuration
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
