@@ -20,18 +20,24 @@ if [ "$system_type" = "Darwin" ]; then
   fi
 
   echo "[+] Installing more dev tooling"
+
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || echo "[-] Warning: Failed to install ohmyzsh"
+  git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode || echo "[-] Warning: Failed to install zsh-vi-mode"
+  curl -fsSL https://opencode.ai/install | bash || echo "[-] Warning: Failed to install opencode"
+
   if command -v uv >/dev/null 2>&1; then
+    uv tool update-shell
     uv tool install ruff@latest || echo "[-] Warning: Failed to install ruff"
     uv tool install ty@latest || echo "[-] Warning: Failed to install ty"
   else
     echo "[-] Warning: uv not found, skipping tool installations"
   fi
+
   if command -v gh >/dev/null 2>&1; then
     gh extension install dlvhdr/gh-dash || echo "[-] Warning: Failed to install gh-dash"
   else
     echo "[-] Warning: gh not found, skipping extension installation"
   fi
-  curl -fsSL https://opencode.ai/install | bash || echo "[-] Warning: Failed to install opencode"
 
   echo "[+] Installing tmux plugins with tpm"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || echo "[-] Warning: Failed to install tpm"
