@@ -100,8 +100,8 @@ else
     alias l='ls -lF'
 fi
 alias ..='cd ..'
-alias ...='cd ...'
-alias ....='cd ....'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 # Use like `pwd | clip`
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -132,14 +132,23 @@ fi
 
 export EDITOR=nvim
 alias nv='nvim'
-eval "$(batman --export-env)"
-alias kubectl=kubecolor
+
+# batman: only export env if batman exists
+if command -v batman &>/dev/null; then
+    eval "$(batman --export-env)"
+fi
+
+# kubecolor alias only if kubecolor present
+if command -v kubecolor &>/dev/null; then
+    alias kubectl=kubecolor
+fi
 
 # In bash 4+, this environment variable controls the maximum number
 # of dirs in a path displayed in a prompt before prefixing with
 # '.../'
 export PROMPT_DIRTRIM=6
 
+# fzf: only eval when installed
 if command -v fzf &>/dev/null; then
     eval "$(fzf --bash)"
 fi
