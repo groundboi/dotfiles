@@ -1,17 +1,17 @@
 # Run `ghostty +show-config --default --docs` to view a list of
 # all available config options and their default values.
-#
-# Additionally, each config option is also explained in detail
-# on Ghostty's website, at https://ghostty.org/docs/config.
 
-#command = /opt/homebrew/bin/bash
-#command = /opt/homebrew/bin/zsh
+# Set this to whatever shell is to be used
 command = /bin/zsh
+auto-update = download
 
+# Use ghostty +list-themes to explore more
+theme = Nord Wave
+
+# Note we are disabling general ligatures
 font-family = JetBrains Mono
 font-size = 12
-#theme = nord-wave
-theme = Nord Wave
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
 mouse-hide-while-typing = true
-
-auto-update = check
