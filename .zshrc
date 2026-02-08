@@ -93,6 +93,8 @@ if command -v uv &>/dev/null; then
     eval "$(uvx --generate-shell-completion zsh)"
 fi
 
+export DOCKER_CLI_HINTS=false
+
 # Load any machine-specific environment
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
