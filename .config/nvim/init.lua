@@ -48,10 +48,10 @@ vim.keymap.set({ "n", "v" }, "<leader>y", '"+y') -- yank to system clipboard
 vim.keymap.set("n", "<leader>r", ":%s/<<C-r><C-w>>/") -- search/replace word under cursor for current buffer
 vim.keymap.set("n", "<C-d>", "<C-d>zz") -- nicer move down in buffer
 vim.keymap.set("n", "<C-u>", "<C-u>zz") -- nicer move up in buffer
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>')
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>')
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>')
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>')
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
 
 ---------------------------
 -- Insert mode key mappings
@@ -140,7 +140,15 @@ require("lazy").setup({
                 },
             })
 
-            vim.lsp.enable({"rust_analyzer", "ty", "clangd", "gopls", "lua_ls", "dockerls", "docker_compose_language_service"})
+            vim.lsp.enable({
+                "rust_analyzer",
+                "ty",
+                "clangd",
+                "gopls",
+                "lua_ls",
+                "dockerls",
+                "docker_compose_language_service",
+            })
 
             vim.diagnostic.config({
                 signs = {
@@ -201,11 +209,10 @@ require("lazy").setup({
             { "<leader>b", ":FzfLua buffers<CR>" }, -- list buffers
         },
     },
-    -- NOTE - Should comment out below and use esmuellert/codediff.nvim instead, with view_mode = tree
     {
-        "sindrets/diffview.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional
-        config = true,
+        "esmuellert/codediff.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        cmd = "CodeDiff",
     },
     {
         "rachartier/tiny-inline-diagnostic.nvim",
@@ -323,7 +330,7 @@ require("lazy").setup({
     --    },
     --},
     {
-        'stevearc/quicker.nvim',
+        "stevearc/quicker.nvim",
         event = "FileType qf",
         config = function()
             require("quicker").setup({
@@ -342,7 +349,7 @@ require("lazy").setup({
                         end,
                         desc = "Collapse quickfix context",
                     },
-                }
+                },
             })
         end,
         keys = {
@@ -353,8 +360,8 @@ require("lazy").setup({
                 end,
                 desc = "Toggle quickfix window",
             },
-        }
-    }
+        },
+    },
 })
 
 --------------------------
