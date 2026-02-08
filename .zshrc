@@ -1,8 +1,6 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-#ZSH_THEME="robbyrussell"
-
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
 
@@ -14,7 +12,7 @@ zstyle ':omz:update' frequency 13
 
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-vi-mode docker gh httpie zoxide)
+plugins=(git zsh-vi-mode docker gh httpie zoxide zsh-syntax-highlighting zsh-autosuggestions)
 SHOW_AWS_PROMPT=false
 ZVM_INIT_MODE=sourcing
 
