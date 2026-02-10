@@ -15,3 +15,6 @@
     autoSetupRemote = true
 [init]
     defaultBranch = main
+[user]
+    name = groundboi
+    email = 10442128+groundboi@users.noreply.github.com
