@@ -314,6 +314,7 @@ require("lazy").setup({
                 shell = { "shfmt" },
                 javascript = { "prettier" },
                 typescript = { "prettier" },
+                json = { "prettier" },
             },
             default_format_opts = { lsp_format = "fallback" },
             formatters = { stylua = { prepend_args = { "--indent-type", "spaces" } } },

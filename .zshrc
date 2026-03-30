@@ -98,3 +98,5 @@ export DOCKER_CLI_HINTS=false
 
 # Load any machine-specific configuration
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

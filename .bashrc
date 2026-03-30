@@ -169,3 +169,5 @@ fi
 
 # Load any machine-specific configuration
 [[ -f ~/.bashrc.local ]] && source ~/.bashrc.local
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi
