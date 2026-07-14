@@ -80,6 +80,7 @@ fi
 alias bb="git branch --sort=-committerdate | fzf --height=20% --preview-window=hidden | xargs git checkout"
 alias review='nvim -c "DiffviewOpen origin/HEAD...HEAD --imply-local"'
 alias activate="source .venv/bin/activate"
+alias wts="wt switch"
 
 # See https://unix.stackexchange.com/questions/273529/shorten-path-in-zsh-prompt
 # Copy the Robby Russell theme source if you want to include git info
@@ -100,3 +101,10 @@ export DOCKER_CLI_HINTS=false
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# Mole shell completion
+if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
+
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+    source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+fi

@@ -48,10 +48,6 @@ vim.keymap.set({ "n", "v" }, "<leader>y", '"+y') -- yank to system clipboard
 vim.keymap.set("n", "<leader>r", ":%s/<<C-r><C-w>>/") -- search/replace word under cursor for current buffer
 vim.keymap.set("n", "<C-d>", "<C-d>zz") -- nicer move down in buffer
 vim.keymap.set("n", "<C-u>", "<C-u>zz") -- nicer move up in buffer
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
 
 ---------------------------
 -- Insert mode key mappings
@@ -240,14 +236,6 @@ require("lazy").setup({
             vim.g.everforest_enable_italic = true
             vim.g.everforest_dim_inactive_windows = true
             vim.cmd.colorscheme("everforest")
-        end,
-    },
-    {
-        "christoomey/vim-tmux-navigator",
-        event = "VeryLazy",
-        cond = function()
-            local term = os.getenv("TERM")
-            return term and string.find(term, "tmux")
         end,
     },
     {

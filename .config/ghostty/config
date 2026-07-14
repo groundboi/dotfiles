@@ -1,8 +1,6 @@
 # Run `ghostty +show-config --default --docs` to view a list of
 # all available config options and their default values.
 
-# Set this to whatever shell is to be used
-command = /bin/zsh
 auto-update = download
 
 # Use ghostty +list-themes to explore more
@@ -15,3 +13,31 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 mouse-hide-while-typing = true
+copy-on-select = clipboard
+window-save-state = always
+macos-titlebar-style = tabs
+
+# Keybinds for split creation and navigation
+keybind = ctrl+s>v=new_split:right
+keybind = ctrl+s>h=new_split:down
+
+# performable: only switch when a split exists that way; otherwise the key
+# falls through to the shell/neovim (so ctrl+l still clears at a lone prompt).
+keybind = performable:ctrl+h=goto_split:left
+keybind = performable:ctrl+j=goto_split:down
+keybind = performable:ctrl+k=goto_split:up
+keybind = performable:ctrl+l=goto_split:right
+
+keybind = cmd+n=next_tab
+keybind = cmd+p=previous_tab
+keybind = cmd+r=prompt_tab_title
+
+# Already defaults:
+#   cmd+shift+enter         zoom
+#   cmd+ctrl+=              equalize
+#   cmd+ctrl+arrows         resize
+#   cmd+f                   search
+#   cmd+g / cmd+shift+g     next/previous match
+#   cmd+up                  jump to previous prompt
+#   cmd+down                jump to next prompt
+#   cmd+shift+p             command palette
